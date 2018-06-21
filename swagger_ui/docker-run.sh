@@ -68,4 +68,9 @@ if [[ -n "${PORT}" ]]; then
     sed -i "s|8080|${PORT}|g" /etc/nginx/nginx.conf
 fi
 
+# replace the host and scheme in spec file
+sed -i "s|host_url|${HOST}|g" /usr/share/nginx/html/iptmnet_spec.json
+sed -i "s|http_scheme|${SCHEME}|g" /usr/share/nginx/html/iptmnet_spec.json
+sed -i "s|base_path|${BASE_PATH}|g" /usr/share/nginx/html/iptmnet_spec.json
+
 exec nginx -g 'daemon off;'

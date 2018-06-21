@@ -12,9 +12,9 @@
       "url" : "https://creativecommons.org/licenses/by-nc-nd/4.0/"
     }
   },
-  "host" : "annotation.dbi.udel.edu",
-  "basePath" : "/iptmnet/api",
-  "schemes" : [ "https" ],
+  "host" : "host_url",
+  "basePath" : "base_path",
+  "schemes" : [ "http_scheme" ],
   "paths" : {
     "/search" : {
       "get" : {
@@ -98,7 +98,7 @@
         }
       }
     },
-    "/{id}/msa/" : {
+    "/{id}/msa" : {
       "get" : {
         "summary" : "Retrieve the annotated MSA for the iPTMNet Entry",
         "operationId" : "msaById",
@@ -117,7 +117,7 @@
         }
       }
     },
-    "/{id}/substrate/" : {
+    "/{id}/substrate" : {
       "get" : {
         "summary" : "Retrieve the list of PTM sites with the given substrate",
         "operationId" : "asSubById",
@@ -173,7 +173,7 @@
         }
       }
     },
-    "/{id}/proteoforms/" : {
+    "/{id}/proteoforms" : {
       "get" : {
         "summary" : "Retrieve the list of proteoforms for the iPTMNet Entry",
         "operationId" : "proteoformById",
@@ -198,7 +198,7 @@
         }
       }
     },
-    "/{id}/ptmppi/" : {
+    "/{id}/ptmppi" : {
       "get" : {
         "summary" : "Retrieve the list of PTM dependent ppi for the iPTMNet Entry",
         "operationId" : "ptmPpiById",
@@ -223,7 +223,7 @@
         }
       }
     },
-    "/{id}/proteoformppi/" : {
+    "/{id}/proteoformppi" : {
       "get" : {
         "summary" : "Retrieve the list of PPI among the proteoforms for the iPTMNet Entry",
         "operationId" : "proteoformPpiById",
