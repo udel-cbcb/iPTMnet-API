@@ -1,5 +1,5 @@
-# RESTful API for iPTMnet: A resource for protein post-translational modification network discovery.
-Welcome to the documentation for iPTMNet API
+# RESTful API for iPTMnet.
+## A resource for protein post-translational modification network discovery
 
 * [Overview](doc/overview.md)
 * [Setup](doc/setup.md)
