@@ -1,0 +1,112 @@
+[
+  {
+    "iptm_id": "O70436",
+    "uniprot_ac": "SMAD2_RAT",
+    "protein_name": "Mothers against decapentaplegic homolog 2;",
+    "gene_name": "Smad2",
+    "synonyms": [
+      "Madh2"
+    ],
+    "organism": {
+      "taxon_code": "10116",
+      "species": "Rattus norvegicus",
+      "common_name": "Rat"
+    },
+    "substrate_role": true,
+    "substrate_num": 0,
+    "enzyme_role": false,
+    "enzyme_num": 0,
+    "ptm_dependent_ppi_role": false,
+    "ptm_dependent_ppi_num": 0,
+    "sites": 6,
+    "isoforms": 0
+  },
+  {
+    "iptm_id": "Q1W668",
+    "uniprot_ac": "SMAD2_BOVIN",
+    "protein_name": "Mothers against decapentaplegic homolog 2;",
+    "gene_name": "SMAD2",
+    "synonyms": [],
+    "organism": {
+      "taxon_code": "9913",
+      "species": "Bos taurus",
+      "common_name": "Bovine"
+    },
+    "substrate_role": true,
+    "substrate_num": 0,
+    "enzyme_role": false,
+    "enzyme_num": 0,
+    "ptm_dependent_ppi_role": false,
+    "ptm_dependent_ppi_num": 0,
+    "sites": 4,
+    "isoforms": 0
+  },
+  {
+    "iptm_id": "Q9I9P9",
+    "uniprot_ac": "SMAD2_DANRE",
+    "protein_name": "Mothers against decapentaplegic homolog 2;",
+    "gene_name": "smad2",
+    "synonyms": [
+      "madh2"
+    ],
+    "organism": {
+      "taxon_code": "7955",
+      "species": "Danio rerio",
+      "common_name": "Zebrafish"
+    },
+    "substrate_role": true,
+    "substrate_num": 0,
+    "enzyme_role": false,
+    "enzyme_num": 0,
+    "ptm_dependent_ppi_role": false,
+    "ptm_dependent_ppi_num": 0,
+    "sites": 1,
+    "isoforms": 0
+  },
+  {
+    "iptm_id": "Q62432",
+    "uniprot_ac": "SMAD2_MOUSE",
+    "protein_name": "Mothers against decapentaplegic homolog 2;",
+    "gene_name": "Smad2",
+    "synonyms": [
+      "Madh2",
+      "Madr2"
+    ],
+    "organism": {
+      "taxon_code": "10090",
+      "species": "Mus musculus",
+      "common_name": "Mouse"
+    },
+    "substrate_role": true,
+    "substrate_num": 0,
+    "enzyme_role": false,
+    "enzyme_num": 1,
+    "ptm_dependent_ppi_role": false,
+    "ptm_dependent_ppi_num": 0,
+    "sites": 12,
+    "isoforms": 2
+  },
+  {
+    "iptm_id": "Q15796",
+    "uniprot_ac": "SMAD2_HUMAN",
+    "protein_name": "Mothers against decapentaplegic homolog 2;",
+    "gene_name": "SMAD2",
+    "synonyms": [
+      "MADH2",
+      "MADR2"
+    ],
+    "organism": {
+      "taxon_code": "9606",
+      "species": "Homo sapiens",
+      "common_name": "Human"
+    },
+    "substrate_role": true,
+    "substrate_num": 0,
+    "enzyme_role": false,
+    "enzyme_num": 16,
+    "ptm_dependent_ppi_role": true,
+    "ptm_dependent_ppi_num": 2,
+    "sites": 36,
+    "isoforms": 2
+  }
+]

@@ -1,0 +1,97 @@
+[
+  {
+    "ptm_type": "Phosphorylation",
+    "substrate": {
+      "uniprot_id": "P49841",
+      "name": "GSK3B"
+    },
+    "site": "S9",
+    "interactant": {
+      "uniprot_id": "Q15796",
+      "name": "SMAD2"
+    },
+    "association_type": "increased_association",
+    "source": {
+      "name": "eFIP",
+      "label": "efip",
+      "url": "http://research.bioinformatics.udel.edu/eFIPonline/index.php"
+    },
+    "pmid": "21996745"
+  },
+  {
+    "ptm_type": "Phosphorylation",
+    "substrate": {
+      "uniprot_id": "Q15796",
+      "name": "SMAD2"
+    },
+    "site": "S465",
+    "interactant": {
+      "uniprot_id": "Q13485",
+      "name": "SMAD4"
+    },
+    "association_type": "association",
+    "source": {
+      "name": "eFIP",
+      "label": "efip",
+      "url": "http://research.bioinformatics.udel.edu/eFIPonline/index.php"
+    },
+    "pmid": "9346908"
+  },
+  {
+    "ptm_type": "Phosphorylation",
+    "substrate": {
+      "uniprot_id": "Q15796",
+      "name": "SMAD2"
+    },
+    "site": "S467",
+    "interactant": {
+      "uniprot_id": "Q13485",
+      "name": "SMAD4"
+    },
+    "association_type": "association",
+    "source": {
+      "name": "eFIP",
+      "label": "efip",
+      "url": "http://research.bioinformatics.udel.edu/eFIPonline/index.php"
+    },
+    "pmid": "9346908"
+  },
+  {
+    "ptm_type": "Phosphorylation",
+    "substrate": {
+      "uniprot_id": "Q15796",
+      "name": "SMAD2"
+    },
+    "site": "S465",
+    "interactant": {
+      "uniprot_id": "Q13485",
+      "name": "SMAD4"
+    },
+    "association_type": "association",
+    "source": {
+      "name": "eFIP",
+      "label": "efip",
+      "url": "http://research.bioinformatics.udel.edu/eFIPonline/index.php"
+    },
+    "pmid": "9346966"
+  },
+  {
+    "ptm_type": "Phosphorylation",
+    "substrate": {
+      "uniprot_id": "Q15796",
+      "name": "SMAD2"
+    },
+    "site": "S467",
+    "interactant": {
+      "uniprot_id": "Q13485",
+      "name": "SMAD4"
+    },
+    "association_type": "association",
+    "source": {
+      "name": "eFIP",
+      "label": "efip",
+      "url": "http://research.bioinformatics.udel.edu/eFIPonline/index.php"
+    },
+    "pmid": "9346966"
+  }
+]

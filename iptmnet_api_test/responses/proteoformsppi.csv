@@ -1,0 +1,5 @@
+protein_1_pro_id,protein_1_label,relation,protein_2_pro_id,protein_2_label,source,pmids
+PR:000025934,hSMAD2/iso:1/Phos:1,Interaction,PR:Q13485,hSMAD4,PRO,9311995
+PR:000025935,hSMAD2/iso:1/Phos:2,Interaction,PR:Q13485,hSMAD4,PRO,12193595
+PR:000025936,hSMAD2/iso:1/Phos:3,Interaction,PR:Q13485,hSMAD4,PRO,11027280
+PR:000045371,hSMAD2/iso:1/UnPhos:1,Interaction,,,PRO,8980228

@@ -1,0 +1,3 @@
+iptm_id,protein_name,gene_name,synonyms,organism_taxon_code,organism_species,organism_common_name,substrate_role,substrate_num,enzyme_role,enzyme_num,ptm_dependent_ppi_role,ptm_dependent_ppi_num,sites,isoforms
+Q62432,Mothers against decapentaplegic homolog 2;,Smad2,"Madh2,Madr2",10090,Mus musculus,Mouse,true,0,false,1,false,0,12,2
+Q15796,Mothers against decapentaplegic homolog 2;,SMAD2,"MADH2,MADR2",9606,Homo sapiens,Human,true,0,false,16,true,2,36,2

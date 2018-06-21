@@ -1,0 +1,1064 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "This is an API for iPTMNet providing information about post-translational modifications (PTMs) combined from multiple sources and tools.",
+    "version" : "1.0.0",
+    "title" : "iPTMNet API",
+    "contact" : {
+      "email" : "jcowart@udel.edu"
+    },
+    "license" : {
+      "name" : "CC BY-NC-ND 4.0",
+      "url" : "https://creativecommons.org/licenses/by-nc-nd/4.0/"
+    }
+  },
+  "host" : "annotation.dbi.udel.edu",
+  "basePath" : "/iptmnet/api",
+  "schemes" : [ "https" ],
+  "paths" : {
+    "/search" : {
+      "get" : {
+        "summary" : "Search for proteins in the iPTMnet database",
+        "operationId" : "searchProteins",
+        "description" : "Search for proteins in the iPTMnet database that are relevant to the given search term.",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "search_term",
+          "type" : "string",
+          "required" : true,
+          "description" : "The term you would like to search"
+        }, {
+          "in" : "query",
+          "name" : "term_type",
+          "type" : "string",
+          "required" : true,
+          "enum" : [ "All", "UniprotID", "Protein/Gene Name", "PMID" ],
+          "description" : "The type of search term"
+        }, {
+          "in" : "query",
+          "name" : "ptm_type",
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          },
+          "required" : false,
+          "description" : "The type of PTM to search for. Possible values are Acetylation, C-Glycosylation, Myristoylation, Ubiquitination, N-Glycosylation, S-Glycosylation, Phosphorylation, S-Nitrosylation, O-Glycosylation, Methylation, Sumoylation"
+        }, {
+          "in" : "query",
+          "name" : "role",
+          "type" : "string",
+          "required" : true,
+          "enum" : [ "Enzyme or Substrate", "Enzyme", "Substrate", "Enzyme and Substrate" ]
+        }, {
+          "in" : "query",
+          "name" : "organism",
+          "type" : "array",
+          "items" : {
+            "type" : "integer"
+          },
+          "required" : false,
+          "description" : "The type of organism to search. The organism is represented by it's taxon ID."
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "A list of result items.",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/search_result_item"
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      }
+    },
+    "/{id}/info" : {
+      "get" : {
+        "summary" : "Retrieve top level info about a iPTMNet entry.",
+        "operationId" : "infoById",
+        "description" : "By passing a IPTMNet identifier, you can retrieve top level info obout that protein entry in iPTMNet.",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "$ref" : "#/parameters/iptmnet_id"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "an info object.",
+            "schema" : {
+              "$ref" : "#/definitions/protein_info"
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      }
+    },
+    "/{id}/msa/" : {
+      "get" : {
+        "summary" : "Retrieve the annotated MSA for the iPTMNet Entry",
+        "operationId" : "msaById",
+        "description" : "By passing a IPTMNet identifier, you can retrieve the default annotated Multiple Sequence Alignment for the entry",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "$ref" : "#/parameters/iptmnet_id"
+        } ],
+        "responses" : {
+          "400" : {
+            "description" : "bad input parameter"
+          },
+          "501" : {
+            "description" : "Not yet implemented. Need to find format."
+          }
+        }
+      }
+    },
+    "/{id}/substrate/" : {
+      "get" : {
+        "summary" : "Retrieve the list of PTM sites with the given substrate",
+        "operationId" : "asSubById",
+        "description" : "By passing a IPTMNet identifier, you can retrieve the list of PTM sites and annotations with that given substrate",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "$ref" : "#/parameters/iptmnet_id"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Set of tables for the PTM sites for each proteoformof the given protein",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "object",
+                "properties" : {
+                  "form" : {
+                    "type" : "string",
+                    "example" : "Q15796"
+                  },
+                  "table" : {
+                    "$ref" : "#/definitions/substrate_table"
+                  }
+                }
+              },
+              "example" : [ {
+                "form" : "Q15796",
+                "table" : {
+                  "$ref" : "#/definitions/substrate_table/example"
+                }
+              }, {
+                "form" : "Q15796-1",
+                "table" : [ {
+                  "site" : "T8",
+                  "type" : "Phosphorylation",
+                  "enzyme" : {
+                    "id" : "PR:000026189",
+                    "type" : "pro_id",
+                    "name" : "hMAPK3/iso:1/Phos:1"
+                  },
+                  "score" : 2,
+                  "sources" : {
+                    "PRO" : "http://purl.obolibrary.org/obo/PR_Q15796"
+                  },
+                  "PMIDs" : [ 12193595 ]
+                } ]
+              } ]
+            }
+          },
+          "501" : {
+            "description" : "Not yet implemented. Need to find format."
+          }
+        }
+      }
+    },
+    "/{id}/proteoforms/" : {
+      "get" : {
+        "summary" : "Retrieve the list of proteoforms for the iPTMNet Entry",
+        "operationId" : "proteoformById",
+        "description" : "By passing a IPTMNet identifier, you can retrieve the list of proteoforms for this entry",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "$ref" : "#/parameters/iptmnet_id"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "A list of proteoforms",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/proteoform"
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      }
+    },
+    "/{id}/ptmppi/" : {
+      "get" : {
+        "summary" : "Retrieve the list of PTM dependent ppi for the iPTMNet Entry",
+        "operationId" : "ptmPpiById",
+        "description" : "By passing an IPTMNet identifier, you can retrieve the list of PTM dependent ppi for the iPTMNet Entry",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "$ref" : "#/parameters/iptmnet_id"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "A list of post translational modification dependent protein protein interactions",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/ptm_ppi"
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      }
+    },
+    "/{id}/proteoformppi/" : {
+      "get" : {
+        "summary" : "Retrieve the list of PPI among the proteoforms for the iPTMNet Entry",
+        "operationId" : "proteoformPpiById",
+        "description" : "By passing a IPTMNet identifier, you can retrieve the list of PPI among the proteoforms for the iPTMNet Entry",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "$ref" : "#/parameters/iptmnet_id"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "A list of proteoform protein protein interactions",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/proteoform_ppi"
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      }
+    },
+    "/batch_ptm_enzymes" : {
+      "post" : {
+        "summary" : "Retrive PTM enzymes information for a given list items",
+        "operationId" : "batchPtmEnzymes",
+        "description" : "Retrive PTM enzymes information for a given list items",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "items",
+          "description" : "The list of items for which to retrieve information.",
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/batch_param"
+            }
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "A list of result items.",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/batch_result_ptm_enzymes"
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      }
+    },
+    "/batch_ptm_ppi" : {
+      "post" : {
+        "summary" : "Retrive PTM dependent PPI information for a given list items",
+        "operationId" : "batchPtmPPI",
+        "description" : "Retrive PTM dependent PPI information for a given list items ",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "items",
+          "description" : "The list of items for which to retrieve information.",
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/batch_param"
+            }
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "A list of result items.",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/batch_result_ptm_ppi"
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      }
+    },
+    "/stats" : {
+      "get" : {
+        "summary" : "Retrieve the statistics for the database",
+        "operationId" : "stats",
+        "description" : "Retrieve the statistics for the database",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "A list of result items.",
+            "schema" : {
+              "type" : "object",
+              "properties" : {
+                "general_info" : {
+                  "$ref" : "#/definitions/general_stats"
+                },
+                "event_type" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/definitions/event_stats"
+                  }
+                },
+                "top_organisms" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/definitions/organism_stats"
+                  }
+                },
+                "source" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/definitions/source_stats"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      }
+    }
+  },
+  "parameters" : {
+    "iptmnet_id" : {
+      "in" : "path",
+      "name" : "id",
+      "required" : true,
+      "type" : "string",
+      "format" : "^[\\w\\s:-]+)$",
+      "description" : "The iPTMNet ID. Usually reuse UniProt Accession numbers."
+    }
+  },
+  "definitions" : {
+    "protein_info" : {
+      "type" : "object",
+      "properties" : {
+        "uniprot_ac" : {
+          "type" : "string",
+          "example" : "Q15796"
+        },
+        "uniprot_id" : {
+          "type" : "string",
+          "example" : "SMAD2_HUMAN"
+        },
+        "protein_name" : {
+          "type" : "string",
+          "example" : "Mothers against decapentaplegic homolog 2;"
+        },
+        "gene_name" : {
+          "type" : "string",
+          "example" : "SMAD2"
+        },
+        "synonyms" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          },
+          "example" : [ "MADH2", "MADR2" ]
+        },
+        "organism" : {
+          "$ref" : "#/definitions/organism"
+        },
+        "pro" : {
+          "$ref" : "#/definitions/pro_info"
+        }
+      }
+    },
+    "pro_info" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "example" : "PR:Q15796"
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "mothers against decapentaplegic homolog 2 (human)"
+        },
+        "definition" : {
+          "type" : "string",
+          "example" : "A smad2 that is encoded in the genome of human."
+        },
+        "short_label" : {
+          "type" : "string",
+          "example" : "hSMAD2"
+        },
+        "category" : {
+          "type" : "string",
+          "enum" : [ "external", "family", "gene", "sequence", "modification", "complex", "organism-family", "organism-gene", "organism-sequence", "organism-modification", "organism-complex", "union", "organism-seqgroup" ],
+          "example" : "organism-gene"
+        }
+      }
+    },
+    "substrate_table" : {
+      "type" : "array",
+      "items" : {
+        "type" : "object",
+        "required" : [ "PTM type", "score", "sources" ],
+        "properties" : {
+          "site" : {
+            "type" : "string",
+            "pattern" : "[A-Z]/d+",
+            "example" : "S2"
+          },
+          "PTM type" : {
+            "type" : "string",
+            "example" : "Phosphorylation"
+          },
+          "enzyme" : {
+            "type" : "object",
+            "properties" : {
+              "id" : {
+                "type" : "string",
+                "example" : "P27361"
+              },
+              "type" : {
+                "type" : "string",
+                "enum" : [ "pro_id", "uniprot_ac" ]
+              },
+              "name" : {
+                "type" : "string",
+                "example" : "MAPK3"
+              }
+            }
+          },
+          "score" : {
+            "type" : "integer",
+            "maximum" : 4,
+            "minimum" : 0
+          },
+          "sources" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string",
+              "format" : "URL",
+              "example" : "http://www.uniprot.org/uniprot/Q15796"
+            }
+          },
+          "PMIDs" : {
+            "type" : "array",
+            "items" : {
+              "type" : "integer"
+            }
+          }
+        }
+      },
+      "example" : [ {
+        "site" : "S2",
+        "type" : "Acetylation",
+        "score" : 1,
+        "sources" : {
+          "PRO" : "http://www.uniprot.org/uniprot/Q15796"
+        },
+        "PMIDs" : [ 19413330, 22814378, 22223895, 20068231 ]
+      }, {
+        "site" : "S2",
+        "type" : "Phosphorylation",
+        "score" : 1,
+        "sources" : {
+          "PhosphoSitePlus" : "http://www.phosphosite.org/uniprotAccAction?id=Q15796"
+        }
+      }, {
+        "site" : "T8",
+        "type" : "Phosphorylation",
+        "enzyme" : {
+          "id" : "P24941",
+          "type" : "uniprot_ac",
+          "name" : "CDK2"
+        },
+        "score" : 3,
+        "sources" : {
+          "neXtProt" : "https://www.nextprot.org/entry/NX_Q15796/"
+        },
+        "PMIDs" : [ 15241418, 19201832 ]
+      }, {
+        "site" : "T8",
+        "type" : "Phosphorylation",
+        "enzyme" : {
+          "id" : "P27361",
+          "type" : "uniprot_ac",
+          "name" : "MAPK3"
+        },
+        "score" : 4,
+        "PMIDs" : [ 12193595, 19115199, 18691976 ],
+        "sources" : {
+          "neXtProt" : "https://www.nextprot.org/entry/NX_Q15796/",
+          "phospho.ELM" : "http://phospho.elm.eu.org/byAccession/Q15796.html",
+          "PhosphoSitePlus" : "http://www.phosphosite.org/uniprotAccAction?id=Q15796",
+          "Signor" : "http://signor.uniroma2.it/relation_result.php?id=Q15796",
+          "UniProt" : "http://www.uniprot.org/uniprot/Q15796"
+        }
+      } ]
+    },
+    "proteoform" : {
+      "type" : "object",
+      "properties" : {
+        "pro_id" : {
+          "type" : "string",
+          "example" : "PR:000049282"
+        },
+        "label" : {
+          "type" : "string",
+          "example" : "hSMAD2/InitMet-/Phos:1"
+        },
+        "sites" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          },
+          "example" : [ "pS465", "pS467" ]
+        },
+        "ptm_enzyme" : {
+          "type" : "object",
+          "properties" : {
+            "pro_id" : {
+              "type" : "string",
+              "example" : "PR:000025963"
+            },
+            "label" : {
+              "type" : "string",
+              "example" : "Transforming growth factor beta type II receptor"
+            }
+          }
+        },
+        "source" : {
+          "$ref" : "#/definitions/source"
+        }
+      }
+    },
+    "ptm_ppi" : {
+      "type" : "object",
+      "properties" : {
+        "ptm_type" : {
+          "type" : "string",
+          "example" : "Phosphorylation"
+        },
+        "substrate" : {
+          "type" : "object",
+          "properties" : {
+            "uniprot_id" : {
+              "type" : "string",
+              "example" : "P49841"
+            },
+            "name" : {
+              "type" : "string",
+              "example" : "GSK3B"
+            }
+          }
+        },
+        "site" : {
+          "type" : "string",
+          "example" : "S9"
+        },
+        "interactant" : {
+          "type" : "object",
+          "properties" : {
+            "uniprot_id" : {
+              "type" : "string",
+              "example" : "P49841"
+            },
+            "name" : {
+              "type" : "string",
+              "example" : "GSK3B"
+            }
+          }
+        },
+        "association_type" : {
+          "type" : "string",
+          "example" : "increased_association"
+        },
+        "source" : {
+          "$ref" : "#/definitions/source"
+        },
+        "pmid" : {
+          "type" : "integer",
+          "example" : 21996745
+        }
+      }
+    },
+    "proteoform_ppi" : {
+      "type" : "object",
+      "properties" : {
+        "protein_1" : {
+          "type" : "object",
+          "properties" : {
+            "pro_id" : {
+              "type" : "string",
+              "example" : "PR:000025934"
+            },
+            "label" : {
+              "type" : "string",
+              "example" : "hSMAD2/iso:1/Phos:1"
+            }
+          }
+        },
+        "relation" : {
+          "type" : "string",
+          "example" : "interaction"
+        },
+        "protein_2" : {
+          "type" : "object",
+          "properties" : {
+            "pro_id" : {
+              "type" : "string",
+              "example" : "PR:Q13485"
+            },
+            "label" : {
+              "type" : "string",
+              "example" : "hSMAD4"
+            }
+          }
+        },
+        "source" : {
+          "$ref" : "#/definitions/source"
+        },
+        "pmid" : {
+          "type" : "integer",
+          "example" : 21996745
+        }
+      }
+    },
+    "source" : {
+      "type" : "object",
+      "properties" : {
+        "name" : {
+          "type" : "string",
+          "example" : "PRO"
+        },
+        "url" : {
+          "type" : "string",
+          "example" : "www.example.com"
+        }
+      }
+    },
+    "search_result_item" : {
+      "type" : "object",
+      "properties" : {
+        "iptm_id" : {
+          "type" : "string",
+          "example" : "O76024"
+        },
+        "protein_name" : {
+          "type" : "string",
+          "example" : "Wolframin"
+        },
+        "gene_name" : {
+          "type" : "string",
+          "example" : "WFS1"
+        },
+        "synonyms" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "organism" : {
+          "$ref" : "#/definitions/organism"
+        },
+        "substrate_role" : {
+          "type" : "boolean",
+          "example" : true
+        },
+        "substrate_num" : {
+          "type" : "integer",
+          "example" : 16
+        },
+        "enzyme_role" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "enzyme_num" : {
+          "type" : "integer",
+          "example" : 0
+        },
+        "ptm_dependent_ppi_role" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "ptm_dependent_ppi_num" : {
+          "type" : "integer",
+          "example" : 2
+        },
+        "sites" : {
+          "type" : "integer",
+          "example" : 36
+        },
+        "isoforms" : {
+          "type" : "integer",
+          "example" : 2
+        }
+      }
+    },
+    "batch_param" : {
+      "type" : "object",
+      "properties" : {
+        "substrate_ac" : {
+          "type" : "string",
+          "example" : "Q15796"
+        },
+        "site_residue" : {
+          "type" : "string",
+          "example" : "S"
+        },
+        "site_position" : {
+          "type" : "string",
+          "example" : 465
+        }
+      }
+    },
+    "batch_result_ptm_enzymes" : {
+      "type" : "object",
+      "properties" : {
+        "ptm_type" : {
+          "type" : "string",
+          "example" : "Phosphorylation"
+        },
+        "substrate" : {
+          "type" : "object",
+          "properties" : {
+            "uniprot_id" : {
+              "type" : "string",
+              "example" : "Q15796"
+            },
+            "name" : {
+              "type" : "string",
+              "example" : "SMAD2"
+            }
+          }
+        },
+        "site" : {
+          "type" : "string",
+          "example" : "S465"
+        },
+        "site_position" : {
+          "type" : "string",
+          "example" : 465
+        },
+        "ptm_enzyme" : {
+          "type" : "object",
+          "properties" : {
+            "uniprot_id" : {
+              "type" : "string",
+              "example" : "O00238"
+            },
+            "name" : {
+              "type" : "string",
+              "example" : "BMPR1B"
+            }
+          }
+        },
+        "score" : {
+          "type" : "integer",
+          "example" : 3
+        },
+        "source" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/source"
+          }
+        },
+        "pmids" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "example" : [ 3452376, 3457235 ]
+          }
+        }
+      }
+    },
+    "batch_result_ptm_ppi" : {
+      "type" : "object",
+      "properties" : {
+        "ptm_type" : {
+          "type" : "string",
+          "example" : "Phosphorylation"
+        },
+        "substrate" : {
+          "type" : "object",
+          "properties" : {
+            "uniprot_id" : {
+              "type" : "string",
+              "example" : "Q15796"
+            },
+            "name" : {
+              "type" : "string",
+              "example" : "SMAD2"
+            }
+          }
+        },
+        "site" : {
+          "type" : "string",
+          "example" : "S465"
+        },
+        "site_position" : {
+          "type" : "string",
+          "example" : 465
+        },
+        "interactant" : {
+          "type" : "object",
+          "properties" : {
+            "uniprot_id" : {
+              "type" : "string",
+              "example" : "O00238"
+            },
+            "name" : {
+              "type" : "string",
+              "example" : "BMPR1B"
+            }
+          }
+        },
+        "association_type" : {
+          "type" : "string",
+          "example" : "unknown"
+        },
+        "source" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/source"
+          }
+        },
+        "pmid" : {
+          "type" : "integer",
+          "example" : 9136927
+        }
+      }
+    },
+    "general_stats" : {
+      "type" : "object",
+      "properties" : {
+        "substrates_protein" : {
+          "type" : "integer",
+          "example" : 62129
+        },
+        "substrates_proteoforms" : {
+          "type" : "integer",
+          "example" : 11882
+        },
+        "sites" : {
+          "type" : "integer",
+          "example" : 654574
+        },
+        "enzymes" : {
+          "type" : "integer",
+          "example" : 1217
+        },
+        "enzyme_substrate_pairs" : {
+          "type" : "integer",
+          "example" : 12687
+        },
+        "enzyme_substrate_sites" : {
+          "type" : "integer",
+          "example" : 24326
+        },
+        "ptm_dependent_ppi" : {
+          "type" : "integer",
+          "example" : 1474
+        },
+        "pmids" : {
+          "type" : "integer",
+          "example" : 30547
+        }
+      }
+    },
+    "event_stats" : {
+      "type" : "object",
+      "properties" : {
+        "event_name" : {
+          "type" : "string",
+          "example" : "Phosphorylation"
+        },
+        "substrates_protein" : {
+          "type" : "integer",
+          "example" : 62129
+        },
+        "substrates_proteoforms" : {
+          "type" : "integer",
+          "example" : 11882
+        },
+        "sites" : {
+          "type" : "integer",
+          "example" : 654574
+        },
+        "enzymes" : {
+          "type" : "integer",
+          "example" : 1217
+        },
+        "enzyme_substrate_pairs" : {
+          "type" : "integer",
+          "example" : 12687
+        },
+        "enzyme_substrate_sites" : {
+          "type" : "integer",
+          "example" : 24326
+        },
+        "ptm_dependent_ppi" : {
+          "type" : "integer",
+          "example" : 1474
+        },
+        "pmids" : {
+          "type" : "integer",
+          "example" : 30547
+        }
+      }
+    },
+    "organism_stats" : {
+      "type" : "object",
+      "properties" : {
+        "organism" : {
+          "type" : "object",
+          "properties" : {
+            "taxon_id" : {
+              "type" : "integer",
+              "example" : 546849
+            },
+            "taxon_name" : {
+              "type" : "string",
+              "example" : "Homo Sapiens"
+            },
+            "common_name" : {
+              "type" : "string",
+              "example" : "Humans"
+            }
+          }
+        },
+        "substrates_protein" : {
+          "type" : "integer",
+          "example" : 62129
+        },
+        "substrates_proteoforms" : {
+          "type" : "integer",
+          "example" : 11882
+        },
+        "sites" : {
+          "type" : "integer",
+          "example" : 654574
+        },
+        "enzymes" : {
+          "type" : "integer",
+          "example" : 1217
+        },
+        "enzyme_substrate_pairs" : {
+          "type" : "integer",
+          "example" : 12687
+        },
+        "enzyme_substrate_sites" : {
+          "type" : "integer",
+          "example" : 24326
+        },
+        "ptm_dependent_ppi" : {
+          "type" : "integer",
+          "example" : 1474
+        },
+        "pmids" : {
+          "type" : "integer",
+          "example" : 30547
+        }
+      }
+    },
+    "source_stats" : {
+      "type" : "object",
+      "properties" : {
+        "source" : {
+          "type" : "object",
+          "properties" : {
+            "name" : {
+              "type" : "string",
+              "example" : "PRO"
+            },
+            "url" : {
+              "type" : "string",
+              "example" : "www.example.com"
+            }
+          }
+        },
+        "substrates_protein" : {
+          "type" : "integer",
+          "example" : 62129
+        },
+        "substrates_proteoforms" : {
+          "type" : "integer",
+          "example" : 11882
+        },
+        "sites" : {
+          "type" : "integer",
+          "example" : 654574
+        },
+        "enzymes" : {
+          "type" : "integer",
+          "example" : 1217
+        },
+        "enzyme_substrate_pairs" : {
+          "type" : "integer",
+          "example" : 12687
+        },
+        "enzyme_substrate_sites" : {
+          "type" : "integer",
+          "example" : 24326
+        },
+        "ptm_dependent_ppi" : {
+          "type" : "integer",
+          "example" : 1474
+        },
+        "pmids" : {
+          "type" : "integer",
+          "example" : 30547
+        }
+      }
+    },
+    "organism" : {
+      "type" : "object",
+      "properties" : {
+        "taxon_code" : {
+          "type" : "integer",
+          "example" : 9606
+        },
+        "species" : {
+          "type" : "string",
+          "example" : "Homo sapiens"
+        },
+        "common_name" : {
+          "type" : "string",
+          "example" : "Human"
+        }
+      }
+    }
+  }
+}

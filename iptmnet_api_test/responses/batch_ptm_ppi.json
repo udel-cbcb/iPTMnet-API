@@ -1,0 +1,134 @@
+[
+  {
+    "ptm_type": "Phosphorylation",
+    "site": "S392",
+    "site_position": 392,
+    "association_type": "association",
+    "interactant": {
+      "uniprot_id": "O94992",
+      "name": "HEXIM1"
+    },
+    "substrate": {
+      "uniprot_id": "P04637",
+      "name": "TP53"
+    },
+    "source": {
+      "name": "RLIMS-P",
+      "label": "rlimsp",
+      "url": "http://research.bioinformatics.udel.edu/rlimsp/"
+    },
+    "pmids": [
+      "24202322"
+    ]
+  },
+  {
+    "ptm_type": "Phosphorylation",
+    "site": "S392",
+    "site_position": 392,
+    "association_type": "association",
+    "interactant": {
+      "uniprot_id": "Q14676",
+      "name": "MDC1"
+    },
+    "substrate": {
+      "uniprot_id": "P04637",
+      "name": "TP53"
+    },
+    "source": {
+      "name": "RLIMS-P",
+      "label": "rlimsp",
+      "url": "http://research.bioinformatics.udel.edu/rlimsp/"
+    },
+    "pmids": [
+      "24194938"
+    ]
+  },
+  {
+    "ptm_type": "Phosphorylation",
+    "site": "S392",
+    "site_position": 392,
+    "association_type": "increased_association",
+    "interactant": {
+      "uniprot_id": "Q14676",
+      "name": "MDC1"
+    },
+    "substrate": {
+      "uniprot_id": "P04637",
+      "name": "TP53"
+    },
+    "source": {
+      "name": "RLIMS-P",
+      "label": "rlimsp",
+      "url": "http://research.bioinformatics.udel.edu/rlimsp/"
+    },
+    "pmids": [
+      "24194938"
+    ]
+  },
+  {
+    "ptm_type": "Phosphorylation",
+    "site": "S378",
+    "site_position": 378,
+    "association_type": "association",
+    "interactant": {
+      "uniprot_id": "Q92540",
+      "name": "SMG7"
+    },
+    "substrate": {
+      "uniprot_id": "P04637",
+      "name": "TP53"
+    },
+    "source": {
+      "name": "RLIMS-P",
+      "label": "rlimsp",
+      "url": "http://research.bioinformatics.udel.edu/rlimsp/"
+    },
+    "pmids": [
+      "27462439"
+    ]
+  },
+  {
+    "ptm_type": "Phosphorylation",
+    "site": "S378",
+    "site_position": 378,
+    "association_type": "association",
+    "interactant": {
+      "uniprot_id": "P08047",
+      "name": "SP1"
+    },
+    "substrate": {
+      "uniprot_id": "P04637",
+      "name": "TP53"
+    },
+    "source": {
+      "name": "RLIMS-P",
+      "label": "rlimsp",
+      "url": "http://research.bioinformatics.udel.edu/rlimsp/"
+    },
+    "pmids": [
+      "22911849"
+    ]
+  },
+  {
+    "ptm_type": "Phosphorylation",
+    "site": "S378",
+    "site_position": 378,
+    "association_type": "increased_association",
+    "interactant": {
+      "uniprot_id": "P08047",
+      "name": "SP1"
+    },
+    "substrate": {
+      "uniprot_id": "P04637",
+      "name": "TP53"
+    },
+    "source": {
+      "name": "RLIMS-P",
+      "label": "rlimsp",
+      "url": "http://research.bioinformatics.udel.edu/rlimsp/"
+    },
+    "pmids": [
+      "22911849"
+    ]
+  }
+]

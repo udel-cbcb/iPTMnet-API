@@ -1,0 +1,6 @@
+ptm_type,substrate_uniprot_id,substrate_name,site,interactant_uniprot_id,interactant_name,association_type,source,pmid
+Phosphorylation,P49841,GSK3B,S9,Q15796,SMAD2,increased_association,eFIP,21996745
+Phosphorylation,Q15796,SMAD2,S465,Q13485,SMAD4,association,eFIP,9346908
+Phosphorylation,Q15796,SMAD2,S467,Q13485,SMAD4,association,eFIP,9346908
+Phosphorylation,Q15796,SMAD2,S465,Q13485,SMAD4,association,eFIP,9346966
+Phosphorylation,Q15796,SMAD2,S467,Q13485,SMAD4,association,eFIP,9346966

@@ -1,0 +1,687 @@
+[
+  {
+    "enzyme": {
+      "uniprot_id": "O14757",
+      "name": "CHEK1"
+    },
+    "substrate": {
+      "uniprot_id": "P04637",
+      "name": "TP53"
+    },
+    "ptm_type": "Phosphorylation",
+    "site": "S378",
+    "site_position": 378,
+    "score": 3,
+    "source": [
+      {
+        "name": "PSP",
+        "label": "psp",
+        "url": "http://www.phosphosite.org/"
+      },
+      {
+        "name": "Signor",
+        "label": "sign",
+        "url": "signor.uniroma2.it"
+      }
+    ],
+    "pmids": [
+      "15659650"
+    ]
+  },
+  {
+    "enzyme": {
+      "uniprot_id": "O60285",
+      "name": "NUAK1"
+    },
+    "substrate": {
+      "uniprot_id": "P04637",
+      "name": "TP53"
+    },
+    "ptm_type": "Phosphorylation",
+    "site": "S392",
+    "site_position": 392,
+    "score": 4,
+    "source": [
+      {
+        "name": "neXtProt",
+        "label": "npro",
+        "url": "www.nextprot.org"
+      },
+      {
+        "name": "PSP",
+        "label": "psp",
+        "url": "http://www.phosphosite.org/"
+      },
+      {
+        "name": "Signor",
+        "label": "sign",
+        "url": "signor.uniroma2.it"
+      },
+      {
+        "name": "UniProt",
+        "label": "uniprot",
+        "url": "http://www.uniprot.org/"
+      }
+    ],
+    "pmids": [
+      "21317932",
+      "10884347"
+    ]
+  },
+  {
+    "enzyme": {
+      "uniprot_id": "O96017",
+      "name": "CHEK2"
+    },
+    "substrate": {
+      "uniprot_id": "P04637",
+      "name": "TP53"
+    },
+    "ptm_type": "Phosphorylation",
+    "site": "S378",
+    "site_position": 378,
+    "score": 4,
+    "source": [
+      {
+        "name": "PSP",
+        "label": "psp",
+        "url": "http://www.phosphosite.org/"
+      },
+      {
+        "name": "Signor",
+        "label": "sign",
+        "url": "signor.uniroma2.it"
+      }
+    ],
+    "pmids": [
+      "15659650",
+      "17339337",
+      "10710310"
+    ]
+  },
+  {
+    "enzyme": {
+      "uniprot_id": "P17252",
+      "name": "PRKCA"
+    },
+    "substrate": {
+      "uniprot_id": "P04637",
+      "name": "TP53"
+    },
+    "ptm_type": "Phosphorylation",
+    "site": "S378",
+    "site_position": 378,
+    "score": 4,
+    "source": [
+      {
+        "name": "HPRD",
+        "label": "hprd",
+        "url": "http://www.hprd.org/"
+      },
+      {
+        "name": "PSP",
+        "label": "psp",
+        "url": "http://www.phosphosite.org/"
+      }
+    ],
+    "pmids": [
+      "1454855",
+      "12080066",
+      "9571186",
+      "14640983"
+    ]
+  },
+  {
+    "enzyme": {
+      "uniprot_id": "P17612",
+      "name": "PRKACA"
+    },
+    "substrate": {
+      "uniprot_id": "P04637",
+      "name": "TP53"
+    },
+    "ptm_type": "Phosphorylation",
+    "site": "S378",
+    "site_position": 378,
+    "score": 2,
+    "source": [
+      {
+        "name": "PSP",
+        "label": "psp",
+        "url": "http://www.phosphosite.org/"
+      }
+    ],
+    "pmids": [
+      "9620776"
+    ]
+  },
+  {
+    "enzyme": {
+      "uniprot_id": "P19525",
+      "name": "EIF2AK2"
+    },
+    "substrate": {
+      "uniprot_id": "P04637",
+      "name": "TP53"
+    },
+    "ptm_type": "Phosphorylation",
+    "site": "S392",
+    "site_position": 392,
+    "score": 4,
+    "source": [
+      {
+        "name": "HPRD",
+        "label": "hprd",
+        "url": "http://www.hprd.org/"
+      },
+      {
+        "name": "PSP",
+        "label": "psp",
+        "url": "http://www.phosphosite.org/"
+      },
+      {
+        "name": "Signor",
+        "label": "sign",
+        "url": "signor.uniroma2.it"
+      }
+    ],
+    "pmids": [
+      "19413330",
+      "10747897",
+      "10348343",
+      "10884347"
+    ]
+  },
+  {
+    "enzyme": {
+      "uniprot_id": "P24941",
+      "name": "CDK2"
+    },
+    "substrate": {
+      "uniprot_id": "P04637",
+      "name": "TP53"
+    },
+    "ptm_type": "Phosphorylation",
+    "site": "S392",
+    "site_position": 392,
+    "score": 4,
+    "source": [
+      {
+        "name": "HPRD",
+        "label": "hprd",
+        "url": "http://www.hprd.org/"
+      },
+      {
+        "name": "UniProt",
+        "label": "uniprot",
+        "url": "http://www.uniprot.org/"
+      }
+    ],
+    "pmids": [
+      "19413330",
+      "10747897",
+      "10348343",
+      "10884347"
+    ]
+  },
+  {
+    "enzyme": {
+      "uniprot_id": "P24941",
+      "name": "CDK2"
+    },
+    "substrate": {
+      "uniprot_id": "Q15796",
+      "name": "SMAD2"
+    },
+    "ptm_type": "Phosphorylation",
+    "site": "T8",
+    "site_position": 8,
+    "score": 3,
+    "source": [
+      {
+        "name": "neXtProt",
+        "label": "npro",
+        "url": "www.nextprot.org"
+      }
+    ],
+    "pmids": [
+      "15241418",
+      "19201832"
+    ]
+  },
+  {
+    "enzyme": {
+      "uniprot_id": "P27361",
+      "name": "MAPK3"
+    },
+    "substrate": {
+      "uniprot_id": "P04637",
+      "name": "TP53"
+    },
+    "ptm_type": "Phosphorylation",
+    "site": "S392",
+    "site_position": 392,
+    "score": 2,
+    "source": [
+      {
+        "name": "PSP",
+        "label": "psp",
+        "url": "http://www.phosphosite.org/"
+      }
+    ],
+    "pmids": [
+      "25767119"
+    ]
+  },
+  {
+    "enzyme": {
+      "uniprot_id": "P27361",
+      "name": "MAPK3"
+    },
+    "substrate": {
+      "uniprot_id": "Q15796",
+      "name": "SMAD2"
+    },
+    "ptm_type": "Phosphorylation",
+    "site": "T8",
+    "site_position": 8,
+    "score": 4,
+    "source": [
+      {
+        "name": "HPRD",
+        "label": "hprd",
+        "url": "http://www.hprd.org/"
+      },
+      {
+        "name": "neXtProt",
+        "label": "npro",
+        "url": "www.nextprot.org"
+      },
+      {
+        "name": "phospho.ELM",
+        "label": "pelm",
+        "url": "http://phospho.elm.eu.org/"
+      },
+      {
+        "name": "PSP",
+        "label": "psp",
+        "url": "http://www.phosphosite.org/"
+      },
+      {
+        "name": "Signor",
+        "label": "sign",
+        "url": "signor.uniroma2.it"
+      },
+      {
+        "name": "UniProt",
+        "label": "uniprot",
+        "url": "http://www.uniprot.org/"
+      }
+    ],
+    "pmids": [
+      "19413330",
+      "12193595",
+      "18491316",
+      "18691976",
+      "19651622",
+      "20068231",
+      "11027280",
+      "19115199"
+    ]
+  },
+  {
+    "enzyme": {
+      "uniprot_id": "P50613",
+      "name": "CDK7"
+    },
+    "substrate": {
+      "uniprot_id": "P04637",
+      "name": "TP53"
+    },
+    "ptm_type": "Phosphorylation",
+    "site": "S378",
+    "site_position": 378,
+    "score": 3,
+    "source": [
+      {
+        "name": "phospho.ELM",
+        "label": "pelm",
+        "url": "http://phospho.elm.eu.org/"
+      },
+      {
+        "name": "PSP",
+        "label": "psp",
+        "url": "http://www.phosphosite.org/"
+      },
+      {
+        "name": "Signor",
+        "label": "sign",
+        "url": "signor.uniroma2.it"
+      }
+    ],
+    "pmids": [
+      "9315650"
+    ]
+  },
+  {
+    "enzyme": {
+      "uniprot_id": "P50613",
+      "name": "CDK7"
+    },
+    "substrate": {
+      "uniprot_id": "P04637",
+      "name": "TP53"
+    },
+    "ptm_type": "Phosphorylation",
+    "site": "S392",
+    "site_position": 392,
+    "score": 3,
+    "source": [
+      {
+        "name": "phospho.ELM",
+        "label": "pelm",
+        "url": "http://phospho.elm.eu.org/"
+      },
+      {
+        "name": "PSP",
+        "label": "psp",
+        "url": "http://www.phosphosite.org/"
+      },
+      {
+        "name": "Signor",
+        "label": "sign",
+        "url": "signor.uniroma2.it"
+      }
+    ],
+    "pmids": [
+      "9315650"
+    ]
+  },
+  {
+    "enzyme": {
+      "uniprot_id": "P50750",
+      "name": "CDK9"
+    },
+    "substrate": {
+      "uniprot_id": "P04637",
+      "name": "TP53"
+    },
+    "ptm_type": "Phosphorylation",
+    "site": "S392",
+    "site_position": 392,
+    "score": 4,
+    "source": [
+      {
+        "name": "HPRD",
+        "label": "hprd",
+        "url": "http://www.hprd.org/"
+      },
+      {
+        "name": "PSP",
+        "label": "psp",
+        "url": "http://www.phosphosite.org/"
+      },
+      {
+        "name": "Signor",
+        "label": "sign",
+        "url": "signor.uniroma2.it"
+      }
+    ],
+    "pmids": [
+      "19413330",
+      "10747897",
+      "10348343",
+      "10884347",
+      "16552184",
+      "23603988"
+    ]
+  },
+  {
+    "enzyme": {
+      "uniprot_id": "P68400",
+      "name": "CSNK2A1"
+    },
+    "substrate": {
+      "uniprot_id": "P04637",
+      "name": "TP53"
+    },
+    "ptm_type": "Phosphorylation",
+    "site": "S149",
+    "site_position": 149,
+    "score": 2,
+    "source": [
+      {
+        "name": "PSP",
+        "label": "psp",
+        "url": "http://www.phosphosite.org/"
+      }
+    ],
+    "pmids": [
+      "11285227"
+    ]
+  },
+  {
+    "enzyme": {
+      "uniprot_id": "P68400",
+      "name": "CSNK2A1"
+    },
+    "substrate": {
+      "uniprot_id": "P04637",
+      "name": "TP53"
+    },
+    "ptm_type": "Phosphorylation",
+    "site": "S392",
+    "site_position": 392,
+    "score": 4,
+    "source": [
+      {
+        "name": "HPRD",
+        "label": "hprd",
+        "url": "http://www.hprd.org/"
+      },
+      {
+        "name": "PSP",
+        "label": "psp",
+        "url": "http://www.phosphosite.org/"
+      },
+      {
+        "name": "Signor",
+        "label": "sign",
+        "url": "signor.uniroma2.it"
+      }
+    ],
+    "pmids": [
+      "19413330",
+      "10747897",
+      "10348343",
+      "10884347",
+      "11239457",
+      "9467949",
+      "12393879",
+      "10656682",
+      "14640983"
+    ]
+  },
+  {
+    "enzyme": {
+      "uniprot_id": "PR:000026189",
+      "name": "hMAPK3/iso:1/Phos:1"
+    },
+    "substrate": {
+      "uniprot_id": "Q15796",
+      "name": "SMAD2"
+    },
+    "ptm_type": "Phosphorylation",
+    "site": "T8",
+    "site_position": 8,
+    "score": 2,
+    "source": [
+      {
+        "name": "PRO",
+        "label": "pro",
+        "url": "http://pir.georgetown.edu/pro/pro.shtml"
+      }
+    ],
+    "pmids": [
+      "12193595"
+    ]
+  },
+  {
+    "enzyme": {
+      "uniprot_id": "PR:O60285",
+      "name": "hNUAK1"
+    },
+    "substrate": {
+      "uniprot_id": "P04637",
+      "name": "TP53"
+    },
+    "ptm_type": "Phosphorylation",
+    "site": "S392",
+    "site_position": 392,
+    "score": 2,
+    "source": [
+      {
+        "name": "PRO",
+        "label": "pro",
+        "url": "http://pir.georgetown.edu/pro/pro.shtml"
+      }
+    ],
+    "pmids": [
+      "21317932"
+    ]
+  },
+  {
+    "enzyme": {
+      "uniprot_id": "PR:P50750",
+      "name": "hCDK9"
+    },
+    "substrate": {
+      "uniprot_id": "P04637",
+      "name": "TP53"
+    },
+    "ptm_type": "Phosphorylation",
+    "site": "S392",
+    "site_position": 392,
+    "score": 2,
+    "source": [
+      {
+        "name": "PRO",
+        "label": "pro",
+        "url": "http://pir.georgetown.edu/pro/pro.shtml"
+      }
+    ],
+    "pmids": [
+      "16552184"
+    ]
+  },
+  {
+    "enzyme": {
+      "uniprot_id": "PR:Q9H7Z6",
+      "name": "hKAT8"
+    },
+    "substrate": {
+      "uniprot_id": "P04637",
+      "name": "TP53"
+    },
+    "ptm_type": "Acetylation",
+    "site": "K120",
+    "site_position": 120,
+    "score": 2,
+    "source": [
+      {
+        "name": "PRO",
+        "label": "pro",
+        "url": "http://pir.georgetown.edu/pro/pro.shtml"
+      }
+    ],
+    "pmids": [
+      "17189187"
+    ]
+  },
+  {
+    "enzyme": {
+      "uniprot_id": "Q15831",
+      "name": "STK11"
+    },
+    "substrate": {
+      "uniprot_id": "P04637",
+      "name": "TP53"
+    },
+    "ptm_type": "Phosphorylation",
+    "site": "S392",
+    "site_position": 392,
+    "score": 4,
+    "source": [
+      {
+        "name": "neXtProt",
+        "label": "npro",
+        "url": "www.nextprot.org"
+      },
+      {
+        "name": "PSP",
+        "label": "psp",
+        "url": "http://www.phosphosite.org/"
+      },
+      {
+        "name": "Signor",
+        "label": "sign",
+        "url": "signor.uniroma2.it"
+      }
+    ],
+    "pmids": [
+      "17108107",
+      "11430832"
+    ]
+  },
+  {
+    "enzyme": {
+      "uniprot_id": "Q16539",
+      "name": "MAPK14"
+    },
+    "substrate": {
+      "uniprot_id": "P04637",
+      "name": "TP53"
+    },
+    "ptm_type": "Phosphorylation",
+    "site": "S392",
+    "site_position": 392,
+    "score": 2,
+    "source": [
+      {
+        "name": "HPRD",
+        "label": "hprd",
+        "url": "http://www.hprd.org/"
+      }
+    ],
+    "pmids": [
+      "19413330",
+      "10747897",
+      "10348343",
+      "10884347"
+    ]
+  },
+  {
+    "enzyme": {
+      "uniprot_id": "Q92794",
+      "name": "KAT6A"
+    },
+    "substrate": {
+      "uniprot_id": "P04637",
+      "name": "TP53"
+    },
+    "ptm_type": "Acetylation",
+    "site": "K120",
+    "site_position": 120,
+    "score": 2,
+    "source": [
+      {
+        "name": "UniProt",
+        "label": "uniprot",
+        "url": "http://www.uniprot.org/"
+      }
+    ],
+    "pmids": [
+      "23431171"
+    ]
+  }
+]

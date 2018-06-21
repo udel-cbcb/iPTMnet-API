@@ -1,0 +1,22 @@
+{
+  "uniprot_ac": "Q15796",
+  "uniprot_id": "SMAD2_HUMAN",
+  "protein_name": "Mothers against decapentaplegic homolog 2;",
+  "gene_name": "SMAD2",
+  "synonyms": [
+    "MADH2",
+    "MADR2"
+  ],
+  "organism": {
+    "taxon_code": "9606",
+    "species": "Homo sapiens",
+    "common_name": "Human"
+  },
+  "pro": {
+    "id": "PR:Q15796",
+    "name": "mothers against decapentaplegic homolog 2 (human)",
+    "definition": "A smad2 that is encoded in the genome of human.",
+    "short_label": "hSMAD2",
+    "category": "organism-gene"
+  }
+}

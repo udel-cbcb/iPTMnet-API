@@ -1,0 +1,7 @@
+ptm_type,site,site_position,association_type,interactant_id,interactant_name,substrate_id,substrate_name,source,pmids
+Phosphorylation,S392,392,association,O94992,HEXIM1,P04637,TP53,RLIMS-P,24202322
+Phosphorylation,S392,392,association,Q14676,MDC1,P04637,TP53,RLIMS-P,24194938
+Phosphorylation,S392,392,increased_association,Q14676,MDC1,P04637,TP53,RLIMS-P,24194938
+Phosphorylation,S378,378,association,Q92540,SMG7,P04637,TP53,RLIMS-P,27462439
+Phosphorylation,S378,378,association,P08047,SP1,P04637,TP53,RLIMS-P,22911849
+Phosphorylation,S378,378,increased_association,P08047,SP1,P04637,TP53,RLIMS-P,22911849

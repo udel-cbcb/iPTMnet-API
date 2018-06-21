@@ -1,0 +1,78 @@
+[
+  {
+    "protein_1": {
+      "pro_id": "PR:000025934",
+      "label": "hSMAD2/iso:1/Phos:1"
+    },
+    "relation": "Interaction",
+    "protein_2": {
+      "pro_id": "PR:Q13485",
+      "label": "hSMAD4"
+    },
+    "source": {
+      "name": "PRO",
+      "label": "pro",
+      "url": "http://pir.georgetown.edu/pro/pro.shtml"
+    },
+    "pmids": [
+      "9311995"
+    ]
+  },
+  {
+    "protein_1": {
+      "pro_id": "PR:000025935",
+      "label": "hSMAD2/iso:1/Phos:2"
+    },
+    "relation": "Interaction",
+    "protein_2": {
+      "pro_id": "PR:Q13485",
+      "label": "hSMAD4"
+    },
+    "source": {
+      "name": "PRO",
+      "label": "pro",
+      "url": "http://pir.georgetown.edu/pro/pro.shtml"
+    },
+    "pmids": [
+      "12193595"
+    ]
+  },
+  {
+    "protein_1": {
+      "pro_id": "PR:000025936",
+      "label": "hSMAD2/iso:1/Phos:3"
+    },
+    "relation": "Interaction",
+    "protein_2": {
+      "pro_id": "PR:Q13485",
+      "label": "hSMAD4"
+    },
+    "source": {
+      "name": "PRO",
+      "label": "pro",
+      "url": "http://pir.georgetown.edu/pro/pro.shtml"
+    },
+    "pmids": [
+      "11027280"
+    ]
+  },
+  {
+    "protein_1": {
+      "pro_id": "PR:000045371",
+      "label": "hSMAD2/iso:1/UnPhos:1"
+    },
+    "relation": "Interaction",
+    "protein_2": {
+      "pro_id": "",
+      "label": ""
+    },
+    "source": {
+      "name": "PRO",
+      "label": "pro",
+      "url": "http://pir.georgetown.edu/pro/pro.shtml"
+    },
+    "pmids": [
+      "8980228"
+    ]
+  }
+]

@@ -1,0 +1,277 @@
+[
+  {
+    "pro_id": "PR:000025934",
+    "label": "hSMAD2/iso:1/Phos:1",
+    "sites": [
+      "pS465",
+      "pS467"
+    ],
+    "ptm_enzyme": {
+      "pro_id": "PR:000025963",
+      "label": "transforming growth factor beta type II receptor homodimeric complex phosphorylated form (human)"
+    },
+    "source": {
+      "name": "PRO",
+      "label": "pro",
+      "url": "http://pir.georgetown.edu/pro/pro.shtml"
+    },
+    "pmids": [
+      "8980228",
+      "9346966"
+    ]
+  },
+  {
+    "pro_id": "PR:000025935",
+    "label": "hSMAD2/iso:1/Phos:2",
+    "sites": [
+      "pS465",
+      "pS467"
+    ],
+    "ptm_enzyme": {
+      "pro_id": "PR:000025963",
+      "label": "transforming growth factor beta type II receptor homodimeric complex phosphorylated form (human)"
+    },
+    "source": {
+      "name": "PRO",
+      "label": "pro",
+      "url": "http://pir.georgetown.edu/pro/pro.shtml"
+    },
+    "pmids": [
+      "12193595"
+    ]
+  },
+  {
+    "pro_id": "PR:000025935",
+    "label": "hSMAD2/iso:1/Phos:2",
+    "sites": [
+      "pT8",
+      "pT220",
+      "pS245",
+      "pS250",
+      "pS255"
+    ],
+    "ptm_enzyme": {
+      "pro_id": "PR:000026189",
+      "label": "hMAPK3/iso:1/Phos:1"
+    },
+    "source": {
+      "name": "PRO",
+      "label": "pro",
+      "url": "http://pir.georgetown.edu/pro/pro.shtml"
+    },
+    "pmids": [
+      "12193595"
+    ]
+  },
+  {
+    "pro_id": "PR:000025936",
+    "label": "hSMAD2/iso:1/Phos:3",
+    "sites": [
+      "pS240"
+    ],
+    "ptm_enzyme": {
+      "pro_id": "PR:000003197",
+      "label": "calcium/calmodulin-dependent protein kinase type II chain"
+    },
+    "source": {
+      "name": "PRO",
+      "label": "pro",
+      "url": "http://pir.georgetown.edu/pro/pro.shtml"
+    },
+    "pmids": [
+      "11027280"
+    ]
+  },
+  {
+    "pro_id": "PR:000025936",
+    "label": "hSMAD2/iso:1/Phos:3",
+    "sites": [
+      "pS465",
+      "pS467"
+    ],
+    "ptm_enzyme": {
+      "pro_id": "PR:000025963",
+      "label": "transforming growth factor beta type II receptor homodimeric complex phosphorylated form (human)"
+    },
+    "source": {
+      "name": "PRO",
+      "label": "pro",
+      "url": "http://pir.georgetown.edu/pro/pro.shtml"
+    },
+    "pmids": [
+      "11027280"
+    ]
+  },
+  {
+    "pro_id": "PR:000025937",
+    "label": "hSMAD2/iso:1/Phos:4",
+    "sites": [
+      "pT220",
+      "pS245",
+      "pS250",
+      "pS255"
+    ],
+    "ptm_enzyme": {
+      "pro_id": "PR:000026196",
+      "label": "MAP2K1/iso:1/Phos:1"
+    },
+    "source": {
+      "name": "PRO",
+      "label": "pro",
+      "url": "http://pir.georgetown.edu/pro/pro.shtml"
+    },
+    "pmids": [
+      "10197981"
+    ]
+  },
+  {
+    "pro_id": "PR:000025938",
+    "label": "hSMAD2/iso:2/Phos:1",
+    "sites": [
+      "pS435",
+      "pS437"
+    ],
+    "ptm_enzyme": {
+      "pro_id": "PR:000025963",
+      "label": "transforming growth factor beta type II receptor homodimeric complex phosphorylated form (human)"
+    },
+    "source": {
+      "name": "PRO",
+      "label": "pro",
+      "url": "http://pir.georgetown.edu/pro/pro.shtml"
+    },
+    "pmids": []
+  },
+  {
+    "pro_id": "PR:000036554",
+    "label": "hSMAD2/iso:1/AcPhos:1",
+    "sites": [
+      "acK19"
+    ],
+    "ptm_enzyme": {
+      "pro_id": "",
+      "label": ""
+    },
+    "source": {
+      "name": "PRO",
+      "label": "pro",
+      "url": "http://pir.georgetown.edu/pro/pro.shtml"
+    },
+    "pmids": [
+      "17074756"
+    ]
+  },
+  {
+    "pro_id": "PR:000036554",
+    "label": "hSMAD2/iso:1/AcPhos:1",
+    "sites": [
+      "pS465",
+      "pS467"
+    ],
+    "ptm_enzyme": {
+      "pro_id": "",
+      "label": ""
+    },
+    "source": {
+      "name": "PRO",
+      "label": "pro",
+      "url": "http://pir.georgetown.edu/pro/pro.shtml"
+    },
+    "pmids": [
+      "17074756"
+    ]
+  },
+  {
+    "pro_id": "PR:000036556",
+    "label": "hSMAD2/iso:2/AcPhos:1",
+    "sites": [
+      "acK19"
+    ],
+    "ptm_enzyme": {
+      "pro_id": "",
+      "label": ""
+    },
+    "source": {
+      "name": "PRO",
+      "label": "pro",
+      "url": "http://pir.georgetown.edu/pro/pro.shtml"
+    },
+    "pmids": [
+      "17074756"
+    ]
+  },
+  {
+    "pro_id": "PR:000036556",
+    "label": "hSMAD2/iso:2/AcPhos:1",
+    "sites": [
+      "pS435",
+      "pS437"
+    ],
+    "ptm_enzyme": {
+      "pro_id": "",
+      "label": ""
+    },
+    "source": {
+      "name": "PRO",
+      "label": "pro",
+      "url": "http://pir.georgetown.edu/pro/pro.shtml"
+    },
+    "pmids": [
+      "17074756"
+    ]
+  },
+  {
+    "pro_id": "PR:000049282",
+    "label": "hSMAD2/InitMet-/Phos:1",
+    "sites": [
+      "pS465",
+      "pS467"
+    ],
+    "ptm_enzyme": {
+      "pro_id": "",
+      "label": ""
+    },
+    "source": {
+      "name": "PRO",
+      "label": "pro",
+      "url": "http://pir.georgetown.edu/pro/pro.shtml"
+    },
+    "pmids": []
+  },
+  {
+    "pro_id": "PR:000049283",
+    "label": "hSMAD2/InitMet-/Phos:5",
+    "sites": [
+      "pT220",
+      "pS465",
+      "pS467"
+    ],
+    "ptm_enzyme": {
+      "pro_id": "",
+      "label": ""
+    },
+    "source": {
+      "name": "PRO",
+      "label": "pro",
+      "url": "http://pir.georgetown.edu/pro/pro.shtml"
+    },
+    "pmids": []
+  },
+  {
+    "pro_id": "PR:000049284",
+    "label": "hSMAD2/InitMet-/UbiqLys+",
+    "sites": [
+      "ub"
+    ],
+    "ptm_enzyme": {
+      "pro_id": "",
+      "label": ""
+    },
+    "source": {
+      "name": "PRO",
+      "label": "pro",
+      "url": "http://pir.georgetown.edu/pro/pro.shtml"
+    },
+    "pmids": []
+  }
+]

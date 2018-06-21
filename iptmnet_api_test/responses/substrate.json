@@ -1,0 +1,1567 @@
+{
+  "Q15796": [
+    {
+      "residue": "K",
+      "site": "K13",
+      "ptm_type": "Ubiquitination",
+      "score": 1,
+      "sources": [
+        {
+          "name": "PSP",
+          "label": "psp",
+          "url": "http://www.phosphosite.org/"
+        }
+      ],
+      "enzymes": [],
+      "pmids": []
+    },
+    {
+      "residue": "K",
+      "site": "K19",
+      "ptm_type": "Acetylation",
+      "score": 3,
+      "sources": [
+        {
+          "name": "PSP",
+          "label": "psp",
+          "url": "http://www.phosphosite.org/"
+        },
+        {
+          "name": "UniProt",
+          "label": "uniprot",
+          "url": "http://www.uniprot.org/"
+        }
+      ],
+      "enzymes": [],
+      "pmids": [
+        "17074756"
+      ]
+    },
+    {
+      "residue": "K",
+      "site": "K20",
+      "ptm_type": "Acetylation",
+      "score": 1,
+      "sources": [
+        {
+          "name": "PSP",
+          "label": "psp",
+          "url": "http://www.phosphosite.org/"
+        }
+      ],
+      "enzymes": [],
+      "pmids": []
+    },
+    {
+      "residue": "K",
+      "site": "K39",
+      "ptm_type": "Acetylation",
+      "score": 1,
+      "sources": [
+        {
+          "name": "PSP",
+          "label": "psp",
+          "url": "http://www.phosphosite.org/"
+        }
+      ],
+      "enzymes": [],
+      "pmids": []
+    },
+    {
+      "residue": "K",
+      "site": "K46",
+      "ptm_type": "Sumoylation",
+      "score": 1,
+      "sources": [
+        {
+          "name": "PSP",
+          "label": "psp",
+          "url": "http://www.phosphosite.org/"
+        }
+      ],
+      "enzymes": [],
+      "pmids": []
+    },
+    {
+      "residue": "K",
+      "site": "K121",
+      "ptm_type": "Ubiquitination",
+      "score": 1,
+      "sources": [
+        {
+          "name": "PSP",
+          "label": "psp",
+          "url": "http://www.phosphosite.org/"
+        }
+      ],
+      "enzymes": [],
+      "pmids": []
+    },
+    {
+      "residue": "K",
+      "site": "K156",
+      "ptm_type": "Sumoylation",
+      "score": 1,
+      "sources": [
+        {
+          "name": "PSP",
+          "label": "psp",
+          "url": "http://www.phosphosite.org/"
+        }
+      ],
+      "enzymes": [],
+      "pmids": []
+    },
+    {
+      "residue": "K",
+      "site": "K157",
+      "ptm_type": "Ubiquitination",
+      "score": 1,
+      "sources": [
+        {
+          "name": "PSP",
+          "label": "psp",
+          "url": "http://www.phosphosite.org/"
+        }
+      ],
+      "enzymes": [],
+      "pmids": []
+    },
+    {
+      "residue": "K",
+      "site": "K420",
+      "ptm_type": "Acetylation",
+      "score": 1,
+      "sources": [
+        {
+          "name": "PSP",
+          "label": "psp",
+          "url": "http://www.phosphosite.org/"
+        }
+      ],
+      "enzymes": [],
+      "pmids": []
+    },
+    {
+      "residue": "S",
+      "site": "S2",
+      "ptm_type": "Acetylation",
+      "score": 1,
+      "sources": [
+        {
+          "name": "UniProt",
+          "label": "uniprot",
+          "url": "http://www.uniprot.org/"
+        }
+      ],
+      "enzymes": [],
+      "pmids": [
+        "19413330,22814378,22223895,20068231"
+      ]
+    },
+    {
+      "residue": "S",
+      "site": "S2",
+      "ptm_type": "Phosphorylation",
+      "score": 1,
+      "sources": [
+        {
+          "name": "PSP",
+          "label": "psp",
+          "url": "http://www.phosphosite.org/"
+        }
+      ],
+      "enzymes": [],
+      "pmids": []
+    },
+    {
+      "residue": "S",
+      "site": "S21",
+      "ptm_type": "Phosphorylation",
+      "score": 1,
+      "sources": [
+        {
+          "name": "PSP",
+          "label": "psp",
+          "url": "http://www.phosphosite.org/"
+        }
+      ],
+      "enzymes": [],
+      "pmids": []
+    },
+    {
+      "residue": "S",
+      "site": "S47",
+      "ptm_type": "Phosphorylation",
+      "score": 1,
+      "sources": [
+        {
+          "name": "PSP",
+          "label": "psp",
+          "url": "http://www.phosphosite.org/"
+        }
+      ],
+      "enzymes": [],
+      "pmids": []
+    },
+    {
+      "residue": "S",
+      "site": "S110",
+      "ptm_type": "Phosphorylation",
+      "score": 4,
+      "sources": [
+        {
+          "name": "PSP",
+          "label": "psp",
+          "url": "http://www.phosphosite.org/"
+        },
+        {
+          "name": "Signor",
+          "label": "sign",
+          "url": "signor.uniroma2.it"
+        },
+        {
+          "name": "neXtProt",
+          "label": "npro",
+          "url": "www.nextprot.org"
+        }
+      ],
+      "enzymes": [
+        {
+          "id": "Q9UQM7",
+          "enz_type": "uniprot_ac",
+          "name": "CAMK2A"
+        },
+        {
+          "id": "Q9H4A3",
+          "enz_type": "uniprot_ac",
+          "name": "WNK1"
+        }
+      ],
+      "pmids": [
+        "11027280",
+        "17392271"
+      ]
+    },
+    {
+      "residue": "S",
+      "site": "S118",
+      "ptm_type": "Phosphorylation",
+      "score": 1,
+      "sources": [
+        {
+          "name": "PSP",
+          "label": "psp",
+          "url": "http://www.phosphosite.org/"
+        }
+      ],
+      "enzymes": [],
+      "pmids": []
+    },
+    {
+      "residue": "S",
+      "site": "S240",
+      "ptm_type": "Phosphorylation",
+      "score": 4,
+      "sources": [
+        {
+          "name": "UniProt",
+          "label": "uniprot",
+          "url": "http://www.uniprot.org/"
+        },
+        {
+          "name": "RLIMS-P",
+          "label": "rlimsp",
+          "url": "http://research.bioinformatics.udel.edu/rlimsp/"
+        },
+        {
+          "name": "PSP",
+          "label": "psp",
+          "url": "http://www.phosphosite.org/"
+        },
+        {
+          "name": "Signor",
+          "label": "sign",
+          "url": "signor.uniroma2.it"
+        }
+      ],
+      "enzymes": [
+        {
+          "id": "Q9UQM7",
+          "enz_type": "uniprot_ac",
+          "name": "CAMK2A"
+        }
+      ],
+      "pmids": [
+        "11879191",
+        "11879191,11027280",
+        "11027280"
+      ]
+    },
+    {
+      "residue": "S",
+      "site": "S245",
+      "ptm_type": "Phosphorylation",
+      "score": 4,
+      "sources": [
+        {
+          "name": "neXtProt",
+          "label": "npro",
+          "url": "www.nextprot.org"
+        },
+        {
+          "name": "Signor",
+          "label": "sign",
+          "url": "signor.uniroma2.it"
+        },
+        {
+          "name": "UniProt",
+          "label": "uniprot",
+          "url": "http://www.uniprot.org/"
+        },
+        {
+          "name": "phospho.ELM",
+          "label": "pelm",
+          "url": "http://phospho.elm.eu.org/"
+        },
+        {
+          "name": "PSP",
+          "label": "psp",
+          "url": "http://www.phosphosite.org/"
+        },
+        {
+          "name": "RLIMS-P",
+          "label": "rlimsp",
+          "url": "http://research.bioinformatics.udel.edu/rlimsp/"
+        }
+      ],
+      "enzymes": [
+        {
+          "id": "P27361",
+          "enz_type": "uniprot_ac",
+          "name": "MAPK3"
+        },
+        {
+          "id": "Q14680",
+          "enz_type": "uniprot_ac",
+          "name": "MELK"
+        },
+        {
+          "id": "P28482",
+          "enz_type": "uniprot_ac",
+          "name": "MAPK1"
+        }
+      ],
+      "pmids": [
+        "12193595",
+        "12193595,19115199",
+        "20659902",
+        "11027280",
+        "10197981",
+        "18032924,23437179,26194464,23077590,25316549,26057631,22880011,23831640"
+      ]
+    },
+    {
+      "residue": "S",
+      "site": "S250",
+      "ptm_type": "Phosphorylation",
+      "score": 4,
+      "sources": [
+        {
+          "name": "neXtProt",
+          "label": "npro",
+          "url": "www.nextprot.org"
+        },
+        {
+          "name": "Signor",
+          "label": "sign",
+          "url": "signor.uniroma2.it"
+        },
+        {
+          "name": "RLIMS-P",
+          "label": "rlimsp",
+          "url": "http://research.bioinformatics.udel.edu/rlimsp/"
+        },
+        {
+          "name": "PSP",
+          "label": "psp",
+          "url": "http://www.phosphosite.org/"
+        },
+        {
+          "name": "phospho.ELM",
+          "label": "pelm",
+          "url": "http://phospho.elm.eu.org/"
+        },
+        {
+          "name": "UniProt",
+          "label": "uniprot",
+          "url": "http://www.uniprot.org/"
+        }
+      ],
+      "enzymes": [
+        {
+          "id": "P27361",
+          "enz_type": "uniprot_ac",
+          "name": "MAPK3"
+        },
+        {
+          "id": "P28482",
+          "enz_type": "uniprot_ac",
+          "name": "MAPK1"
+        }
+      ],
+      "pmids": [
+        "12193595",
+        "18032924,23437179,26194464,23077590,25316549,26057631,22880011,23831640",
+        "10197981",
+        "12193595,19115199",
+        "11027280"
+      ]
+    },
+    {
+      "residue": "S",
+      "site": "S255",
+      "ptm_type": "Phosphorylation",
+      "score": 4,
+      "sources": [
+        {
+          "name": "UniProt",
+          "label": "uniprot",
+          "url": "http://www.uniprot.org/"
+        },
+        {
+          "name": "RLIMS-P",
+          "label": "rlimsp",
+          "url": "http://research.bioinformatics.udel.edu/rlimsp/"
+        },
+        {
+          "name": "neXtProt",
+          "label": "npro",
+          "url": "www.nextprot.org"
+        },
+        {
+          "name": "phospho.ELM",
+          "label": "pelm",
+          "url": "http://phospho.elm.eu.org/"
+        },
+        {
+          "name": "PSP",
+          "label": "psp",
+          "url": "http://www.phosphosite.org/"
+        },
+        {
+          "name": "Signor",
+          "label": "sign",
+          "url": "signor.uniroma2.it"
+        }
+      ],
+      "enzymes": [
+        {
+          "id": "P27361",
+          "enz_type": "uniprot_ac",
+          "name": "MAPK3"
+        },
+        {
+          "id": "P28482",
+          "enz_type": "uniprot_ac",
+          "name": "MAPK1"
+        }
+      ],
+      "pmids": [
+        "12193595",
+        "18032924,23437179,26194464,23077590,25316549,26057631,22880011,23831640",
+        "10197981",
+        "11027280",
+        "12193595,19115199"
+      ]
+    },
+    {
+      "residue": "S",
+      "site": "S260",
+      "ptm_type": "Phosphorylation",
+      "score": 4,
+      "sources": [
+        {
+          "name": "PSP",
+          "label": "psp",
+          "url": "http://www.phosphosite.org/"
+        },
+        {
+          "name": "neXtProt",
+          "label": "npro",
+          "url": "www.nextprot.org"
+        },
+        {
+          "name": "Signor",
+          "label": "sign",
+          "url": "signor.uniroma2.it"
+        }
+      ],
+      "enzymes": [
+        {
+          "id": "Q9UQM7",
+          "enz_type": "uniprot_ac",
+          "name": "CAMK2A"
+        },
+        {
+          "id": "Q9H4A3",
+          "enz_type": "uniprot_ac",
+          "name": "WNK1"
+        }
+      ],
+      "pmids": [
+        "11027280",
+        "17392271"
+      ]
+    },
+    {
+      "residue": "S",
+      "site": "S317",
+      "ptm_type": "Phosphorylation",
+      "score": 1,
+      "sources": [
+        {
+          "name": "PSP",
+          "label": "psp",
+          "url": "http://www.phosphosite.org/"
+        }
+      ],
+      "enzymes": [],
+      "pmids": []
+    },
+    {
+      "residue": "S",
+      "site": "S417",
+      "ptm_type": "Phosphorylation",
+      "score": 2,
+      "sources": [
+        {
+          "name": "PSP",
+          "label": "psp",
+          "url": "http://www.phosphosite.org/"
+        }
+      ],
+      "enzymes": [
+        {
+          "id": "Q13177",
+          "enz_type": "uniprot_ac",
+          "name": "PAK2"
+        }
+      ],
+      "pmids": [
+        "22393057"
+      ]
+    },
+    {
+      "residue": "S",
+      "site": "S458",
+      "ptm_type": "Phosphorylation",
+      "score": 2,
+      "sources": [
+        {
+          "name": "UniProt",
+          "label": "uniprot",
+          "url": "http://www.uniprot.org/"
+        },
+        {
+          "name": "PSP",
+          "label": "psp",
+          "url": "http://www.phosphosite.org/"
+        },
+        {
+          "name": "phospho.ELM",
+          "label": "pelm",
+          "url": "http://phospho.elm.eu.org/"
+        }
+      ],
+      "enzymes": [],
+      "pmids": [
+        "18669648,23186163,20068231",
+        "18669648"
+      ]
+    },
+    {
+      "residue": "S",
+      "site": "S460",
+      "ptm_type": "Phosphorylation",
+      "score": 2,
+      "sources": [
+        {
+          "name": "UniProt",
+          "label": "uniprot",
+          "url": "http://www.uniprot.org/"
+        },
+        {
+          "name": "PSP",
+          "label": "psp",
+          "url": "http://www.phosphosite.org/"
+        }
+      ],
+      "enzymes": [],
+      "pmids": [
+        "20068231"
+      ]
+    },
+    {
+      "residue": "S",
+      "site": "S464",
+      "ptm_type": "Phosphorylation",
+      "score": 4,
+      "sources": [
+        {
+          "name": "RLIMS-P",
+          "label": "rlimsp",
+          "url": "http://research.bioinformatics.udel.edu/rlimsp/"
+        },
+        {
+          "name": "UniProt",
+          "label": "uniprot",
+          "url": "http://www.uniprot.org/"
+        },
+        {
+          "name": "PSP",
+          "label": "psp",
+          "url": "http://www.phosphosite.org/"
+        },
+        {
+          "name": "phospho.ELM",
+          "label": "pelm",
+          "url": "http://phospho.elm.eu.org/"
+        },
+        {
+          "name": "neXtProt",
+          "label": "npro",
+          "url": "www.nextprot.org"
+        }
+      ],
+      "enzymes": [
+        {
+          "id": "O00238",
+          "enz_type": "uniprot_ac",
+          "name": "BMPR1B"
+        },
+        {
+          "id": "P36897",
+          "enz_type": "uniprot_ac",
+          "name": "TGFBR1"
+        }
+      ],
+      "pmids": [
+        "9346908,11043574",
+        "8980228",
+        "9136927",
+        "9892009",
+        "9346908,8980228"
+      ]
+    },
+    {
+      "residue": "S",
+      "site": "S465",
+      "ptm_type": "Phosphorylation",
+      "score": 4,
+      "sources": [
+        {
+          "name": "phospho.ELM",
+          "label": "pelm",
+          "url": "http://phospho.elm.eu.org/"
+        },
+        {
+          "name": "UniProt",
+          "label": "uniprot",
+          "url": "http://www.uniprot.org/"
+        },
+        {
+          "name": "PRO",
+          "label": "pro",
+          "url": "http://pir.georgetown.edu/pro/pro.shtml"
+        },
+        {
+          "name": "neXtProt",
+          "label": "npro",
+          "url": "www.nextprot.org"
+        },
+        {
+          "name": "PSP",
+          "label": "psp",
+          "url": "http://www.phosphosite.org/"
+        },
+        {
+          "name": "Signor",
+          "label": "sign",
+          "url": "signor.uniroma2.it"
+        },
+        {
+          "name": "RLIMS-P",
+          "label": "rlimsp",
+          "url": "http://research.bioinformatics.udel.edu/rlimsp/"
+        }
+      ],
+      "enzymes": [
+        {
+          "id": "P36897",
+          "enz_type": "uniprot_ac",
+          "name": "TGFBR1"
+        },
+        {
+          "id": "Q8NER5",
+          "enz_type": "uniprot_ac",
+          "name": "ACVR1C"
+        },
+        {
+          "id": "O00238",
+          "enz_type": "uniprot_ac",
+          "name": "BMPR1B"
+        },
+        {
+          "id": "Q9H4A3",
+          "enz_type": "uniprot_ac",
+          "name": "WNK1"
+        }
+      ],
+      "pmids": [
+        "9892009",
+        "9346908,9136927,8980228",
+        "9346908,8980228",
+        "15134444,8980228",
+        "16709598",
+        "9136927",
+        "17392271",
+        "23478445",
+        "9346908,15134444,8980228",
+        "9346908",
+        "18032924,17099224,23934187,26057631,22880011,9346966,15134444,11043574,12660320,9346908,23937725"
+      ]
+    },
+    {
+      "residue": "S",
+      "site": "S467",
+      "ptm_type": "Phosphorylation",
+      "score": 4,
+      "sources": [
+        {
+          "name": "neXtProt",
+          "label": "npro",
+          "url": "www.nextprot.org"
+        },
+        {
+          "name": "UniProt",
+          "label": "uniprot",
+          "url": "http://www.uniprot.org/"
+        },
+        {
+          "name": "phospho.ELM",
+          "label": "pelm",
+          "url": "http://phospho.elm.eu.org/"
+        },
+        {
+          "name": "PSP",
+          "label": "psp",
+          "url": "http://www.phosphosite.org/"
+        },
+        {
+          "name": "PRO",
+          "label": "pro",
+          "url": "http://pir.georgetown.edu/pro/pro.shtml"
+        },
+        {
+          "name": "Signor",
+          "label": "sign",
+          "url": "signor.uniroma2.it"
+        },
+        {
+          "name": "RLIMS-P",
+          "label": "rlimsp",
+          "url": "http://research.bioinformatics.udel.edu/rlimsp/"
+        }
+      ],
+      "enzymes": [
+        {
+          "id": "P36897",
+          "enz_type": "uniprot_ac",
+          "name": "TGFBR1"
+        },
+        {
+          "id": "O00238",
+          "enz_type": "uniprot_ac",
+          "name": "BMPR1B"
+        },
+        {
+          "id": "Q8NER5",
+          "enz_type": "uniprot_ac",
+          "name": "ACVR1C"
+        }
+      ],
+      "pmids": [
+        "9346908,8980228",
+        "23478445",
+        "9136927",
+        "9892009",
+        "9346908",
+        "16709598",
+        "18032924,17099224,23934187,26057631,22880011,9346966,15134444,12660320,9346908,23937725",
+        "15134444,8980228",
+        "9346908,15134444,8980228",
+        "9346908,9136927,8980228"
+      ]
+    },
+    {
+      "residue": "T",
+      "site": "T8",
+      "ptm_type": "Phosphorylation",
+      "score": 4,
+      "sources": [
+        {
+          "name": "PSP",
+          "label": "psp",
+          "url": "http://www.phosphosite.org/"
+        },
+        {
+          "name": "phospho.ELM",
+          "label": "pelm",
+          "url": "http://phospho.elm.eu.org/"
+        },
+        {
+          "name": "neXtProt",
+          "label": "npro",
+          "url": "www.nextprot.org"
+        },
+        {
+          "name": "UniProt",
+          "label": "uniprot",
+          "url": "http://www.uniprot.org/"
+        },
+        {
+          "name": "RLIMS-P",
+          "label": "rlimsp",
+          "url": "http://research.bioinformatics.udel.edu/rlimsp/"
+        },
+        {
+          "name": "Signor",
+          "label": "sign",
+          "url": "signor.uniroma2.it"
+        }
+      ],
+      "enzymes": [
+        {
+          "id": "P27361",
+          "enz_type": "uniprot_ac",
+          "name": "MAPK3"
+        },
+        {
+          "id": "P24941",
+          "enz_type": "uniprot_ac",
+          "name": "CDK2"
+        }
+      ],
+      "pmids": [
+        "12193595",
+        "15241418,19201832",
+        "18691976",
+        "12193595,23186163,20068231",
+        "19201832,12193595",
+        "12193595,19115199",
+        "17081983,11027280"
+      ]
+    },
+    {
+      "residue": "T",
+      "site": "T172",
+      "ptm_type": "Phosphorylation",
+      "score": 1,
+      "sources": [
+        {
+          "name": "PSP",
+          "label": "psp",
+          "url": "http://www.phosphosite.org/"
+        }
+      ],
+      "enzymes": [],
+      "pmids": []
+    },
+    {
+      "residue": "T",
+      "site": "T197",
+      "ptm_type": "Phosphorylation",
+      "score": 2,
+      "sources": [
+        {
+          "name": "PSP",
+          "label": "psp",
+          "url": "http://www.phosphosite.org/"
+        }
+      ],
+      "enzymes": [
+        {
+          "id": "P25098",
+          "enz_type": "uniprot_ac",
+          "name": "GRK2"
+        }
+      ],
+      "pmids": [
+        "16121194"
+      ]
+    },
+    {
+      "residue": "T",
+      "site": "T220",
+      "ptm_type": "Phosphorylation",
+      "score": 4,
+      "sources": [
+        {
+          "name": "PSP",
+          "label": "psp",
+          "url": "http://www.phosphosite.org/"
+        },
+        {
+          "name": "neXtProt",
+          "label": "npro",
+          "url": "www.nextprot.org"
+        },
+        {
+          "name": "RLIMS-P",
+          "label": "rlimsp",
+          "url": "http://research.bioinformatics.udel.edu/rlimsp/"
+        },
+        {
+          "name": "Signor",
+          "label": "sign",
+          "url": "signor.uniroma2.it"
+        },
+        {
+          "name": "phospho.ELM",
+          "label": "pelm",
+          "url": "http://phospho.elm.eu.org/"
+        },
+        {
+          "name": "PRO",
+          "label": "pro",
+          "url": "http://pir.georgetown.edu/pro/pro.shtml"
+        },
+        {
+          "name": "UniProt",
+          "label": "uniprot",
+          "url": "http://www.uniprot.org/"
+        }
+      ],
+      "enzymes": [
+        {
+          "id": "P27361",
+          "enz_type": "uniprot_ac",
+          "name": "MAPK3"
+        },
+        {
+          "id": "P28482",
+          "enz_type": "uniprot_ac",
+          "name": "MAPK1"
+        }
+      ],
+      "pmids": [
+        "12193595",
+        "23546880,25316549",
+        "12193595,19115199",
+        "11027280",
+        "10197981"
+      ]
+    },
+    {
+      "residue": "T",
+      "site": "T324",
+      "ptm_type": "Phosphorylation",
+      "score": 1,
+      "sources": [
+        {
+          "name": "PSP",
+          "label": "psp",
+          "url": "http://www.phosphosite.org/"
+        }
+      ],
+      "enzymes": [],
+      "pmids": []
+    },
+    {
+      "residue": "Y",
+      "site": "Y102",
+      "ptm_type": "Phosphorylation",
+      "score": 1,
+      "sources": [
+        {
+          "name": "PSP",
+          "label": "psp",
+          "url": "http://www.phosphosite.org/"
+        }
+      ],
+      "enzymes": [],
+      "pmids": []
+    },
+    {
+      "residue": "Y",
+      "site": "Y128",
+      "ptm_type": "Phosphorylation",
+      "score": 1,
+      "sources": [
+        {
+          "name": "PSP",
+          "label": "psp",
+          "url": "http://www.phosphosite.org/"
+        }
+      ],
+      "enzymes": [],
+      "pmids": []
+    },
+    {
+      "residue": "Y",
+      "site": "Y165",
+      "ptm_type": "Phosphorylation",
+      "score": 1,
+      "sources": [
+        {
+          "name": "PSP",
+          "label": "psp",
+          "url": "http://www.phosphosite.org/"
+        }
+      ],
+      "enzymes": [],
+      "pmids": []
+    },
+    {
+      "residue": null,
+      "site": null,
+      "ptm_type": null,
+      "score": 4,
+      "sources": [
+        {
+          "name": "eFIP",
+          "label": "efip",
+          "url": "http://research.bioinformatics.udel.edu/eFIPonline/index.php"
+        },
+        {
+          "name": "PRO",
+          "label": "pro",
+          "url": "http://pir.georgetown.edu/pro/pro.shtml"
+        }
+      ],
+      "enzymes": [
+        {
+          "id": "Q13485",
+          "enz_type": "uniprot_ac",
+          "name": "SMAD4"
+        }
+      ],
+      "pmids": [
+        "9346908",
+        "9346966"
+      ]
+    }
+  ],
+  "Q15796-2": [
+    {
+      "residue": "K",
+      "site": "K19",
+      "ptm_type": "Acetylation",
+      "score": 2,
+      "sources": [
+        {
+          "name": "PRO",
+          "label": "pro",
+          "url": "http://pir.georgetown.edu/pro/pro.shtml"
+        }
+      ],
+      "enzymes": [],
+      "pmids": [
+        "17074756"
+      ]
+    },
+    {
+      "residue": "S",
+      "site": "S435",
+      "ptm_type": "Phosphorylation",
+      "score": 2,
+      "sources": [
+        {
+          "name": "PRO",
+          "label": "pro",
+          "url": "http://pir.georgetown.edu/pro/pro.shtml"
+        }
+      ],
+      "enzymes": [
+        {
+          "id": "PR:000025963",
+          "enz_type": "pro_id",
+          "name": "transforming growth factor beta type II receptor homodimeric complex phosphorylated form (human)"
+        }
+      ],
+      "pmids": [
+        "17074756"
+      ]
+    },
+    {
+      "residue": "S",
+      "site": "S437",
+      "ptm_type": "Phosphorylation",
+      "score": 2,
+      "sources": [
+        {
+          "name": "PRO",
+          "label": "pro",
+          "url": "http://pir.georgetown.edu/pro/pro.shtml"
+        }
+      ],
+      "enzymes": [
+        {
+          "id": "PR:000025963",
+          "enz_type": "pro_id",
+          "name": "transforming growth factor beta type II receptor homodimeric complex phosphorylated form (human)"
+        }
+      ],
+      "pmids": [
+        "17074756"
+      ]
+    }
+  ],
+  "Q15796-1": [
+    {
+      "residue": "K",
+      "site": "K19",
+      "ptm_type": "Acetylation",
+      "score": 2,
+      "sources": [
+        {
+          "name": "PRO",
+          "label": "pro",
+          "url": "http://pir.georgetown.edu/pro/pro.shtml"
+        }
+      ],
+      "enzymes": [],
+      "pmids": [
+        "17074756"
+      ]
+    },
+    {
+      "residue": "S",
+      "site": "S2",
+      "ptm_type": "Phosphorylation",
+      "score": 0,
+      "sources": [
+        {
+          "name": "HPRD",
+          "label": "hprd",
+          "url": "http://www.hprd.org/"
+        }
+      ],
+      "enzymes": [],
+      "pmids": [
+        "20068231"
+      ]
+    },
+    {
+      "residue": "S",
+      "site": "S110",
+      "ptm_type": "Phosphorylation",
+      "score": 1,
+      "sources": [
+        {
+          "name": "HPRD",
+          "label": "hprd",
+          "url": "http://www.hprd.org/"
+        }
+      ],
+      "enzymes": [
+        {
+          "id": "Q9UQM7",
+          "enz_type": "uniprot_ac",
+          "name": "CAMK2A"
+        }
+      ],
+      "pmids": [
+        "11027280"
+      ]
+    },
+    {
+      "residue": "S",
+      "site": "S240",
+      "ptm_type": "Phosphorylation",
+      "score": 3,
+      "sources": [
+        {
+          "name": "PRO",
+          "label": "pro",
+          "url": "http://pir.georgetown.edu/pro/pro.shtml"
+        },
+        {
+          "name": "HPRD",
+          "label": "hprd",
+          "url": "http://www.hprd.org/"
+        }
+      ],
+      "enzymes": [
+        {
+          "id": "PR:000003197",
+          "enz_type": "pro_id",
+          "name": "calcium/calmodulin-dependent protein kinase type II chain"
+        },
+        {
+          "id": "Q9UQM7",
+          "enz_type": "uniprot_ac",
+          "name": "CAMK2A"
+        }
+      ],
+      "pmids": [
+        "11027280"
+      ]
+    },
+    {
+      "residue": "S",
+      "site": "S245",
+      "ptm_type": "Phosphorylation",
+      "score": 4,
+      "sources": [
+        {
+          "name": "PRO",
+          "label": "pro",
+          "url": "http://pir.georgetown.edu/pro/pro.shtml"
+        },
+        {
+          "name": "HPRD",
+          "label": "hprd",
+          "url": "http://www.hprd.org/"
+        }
+      ],
+      "enzymes": [
+        {
+          "id": "PR:000026189",
+          "enz_type": "pro_id",
+          "name": "hMAPK3/iso:1/Phos:1"
+        },
+        {
+          "id": "P28482",
+          "enz_type": "uniprot_ac",
+          "name": "MAPK1"
+        },
+        {
+          "id": "PR:000026196",
+          "enz_type": "pro_id",
+          "name": "MAP2K1/iso:1/Phos:1"
+        }
+      ],
+      "pmids": [
+        "12193595",
+        "10197981"
+      ]
+    },
+    {
+      "residue": "S",
+      "site": "S250",
+      "ptm_type": "Phosphorylation",
+      "score": 4,
+      "sources": [
+        {
+          "name": "HPRD",
+          "label": "hprd",
+          "url": "http://www.hprd.org/"
+        },
+        {
+          "name": "PRO",
+          "label": "pro",
+          "url": "http://pir.georgetown.edu/pro/pro.shtml"
+        }
+      ],
+      "enzymes": [
+        {
+          "id": "P28482",
+          "enz_type": "uniprot_ac",
+          "name": "MAPK1"
+        },
+        {
+          "id": "PR:000026196",
+          "enz_type": "pro_id",
+          "name": "MAP2K1/iso:1/Phos:1"
+        },
+        {
+          "id": "PR:000026189",
+          "enz_type": "pro_id",
+          "name": "hMAPK3/iso:1/Phos:1"
+        }
+      ],
+      "pmids": [
+        "10197981",
+        "12193595"
+      ]
+    },
+    {
+      "residue": "S",
+      "site": "S255",
+      "ptm_type": "Phosphorylation",
+      "score": 3,
+      "sources": [
+        {
+          "name": "PRO",
+          "label": "pro",
+          "url": "http://pir.georgetown.edu/pro/pro.shtml"
+        }
+      ],
+      "enzymes": [
+        {
+          "id": "PR:000026189",
+          "enz_type": "pro_id",
+          "name": "hMAPK3/iso:1/Phos:1"
+        },
+        {
+          "id": "PR:000026196",
+          "enz_type": "pro_id",
+          "name": "MAP2K1/iso:1/Phos:1"
+        }
+      ],
+      "pmids": [
+        "12193595",
+        "10197981"
+      ]
+    },
+    {
+      "residue": "S",
+      "site": "S260",
+      "ptm_type": "Phosphorylation",
+      "score": 1,
+      "sources": [
+        {
+          "name": "HPRD",
+          "label": "hprd",
+          "url": "http://www.hprd.org/"
+        }
+      ],
+      "enzymes": [
+        {
+          "id": "Q9UQM7",
+          "enz_type": "uniprot_ac",
+          "name": "CAMK2A"
+        }
+      ],
+      "pmids": [
+        "11027280"
+      ]
+    },
+    {
+      "residue": "S",
+      "site": "S458",
+      "ptm_type": "Phosphorylation",
+      "score": 0,
+      "sources": [
+        {
+          "name": "HPRD",
+          "label": "hprd",
+          "url": "http://www.hprd.org/"
+        }
+      ],
+      "enzymes": [],
+      "pmids": [
+        "18691976,18669648,19415658,20068231"
+      ]
+    },
+    {
+      "residue": "S",
+      "site": "S460",
+      "ptm_type": "Phosphorylation",
+      "score": 0,
+      "sources": [
+        {
+          "name": "HPRD",
+          "label": "hprd",
+          "url": "http://www.hprd.org/"
+        }
+      ],
+      "enzymes": [],
+      "pmids": [
+        "20068231"
+      ]
+    },
+    {
+      "residue": "S",
+      "site": "S464",
+      "ptm_type": "Phosphorylation",
+      "score": 2,
+      "sources": [
+        {
+          "name": "HPRD",
+          "label": "hprd",
+          "url": "http://www.hprd.org/"
+        }
+      ],
+      "enzymes": [
+        {
+          "id": "P36897",
+          "enz_type": "uniprot_ac",
+          "name": "TGFBR1"
+        },
+        {
+          "id": "P36896",
+          "enz_type": "uniprot_ac",
+          "name": "ACVR1B"
+        }
+      ],
+      "pmids": [
+        "9346908,9892009",
+        "9892009"
+      ]
+    },
+    {
+      "residue": "S",
+      "site": "S465",
+      "ptm_type": "Phosphorylation",
+      "score": 4,
+      "sources": [
+        {
+          "name": "HPRD",
+          "label": "hprd",
+          "url": "http://www.hprd.org/"
+        },
+        {
+          "name": "PRO",
+          "label": "pro",
+          "url": "http://pir.georgetown.edu/pro/pro.shtml"
+        }
+      ],
+      "enzymes": [
+        {
+          "id": "P36896",
+          "enz_type": "uniprot_ac",
+          "name": "ACVR1B"
+        },
+        {
+          "id": "PR:000025963",
+          "enz_type": "pro_id",
+          "name": "transforming growth factor beta type II receptor homodimeric complex phosphorylated form (human)"
+        },
+        {
+          "id": "P36897",
+          "enz_type": "uniprot_ac",
+          "name": "TGFBR1"
+        }
+      ],
+      "pmids": [
+        "9892009",
+        "17074756",
+        "8980228,9346966",
+        "9346908,9892009",
+        "12193595",
+        "11027280",
+        "9346966,12193595,8980228,11027280"
+      ]
+    },
+    {
+      "residue": "S",
+      "site": "S467",
+      "ptm_type": "Phosphorylation",
+      "score": 4,
+      "sources": [
+        {
+          "name": "PRO",
+          "label": "pro",
+          "url": "http://pir.georgetown.edu/pro/pro.shtml"
+        },
+        {
+          "name": "HPRD",
+          "label": "hprd",
+          "url": "http://www.hprd.org/"
+        }
+      ],
+      "enzymes": [
+        {
+          "id": "P36896",
+          "enz_type": "uniprot_ac",
+          "name": "ACVR1B"
+        },
+        {
+          "id": "P36897",
+          "enz_type": "uniprot_ac",
+          "name": "TGFBR1"
+        },
+        {
+          "id": "PR:000025963",
+          "enz_type": "pro_id",
+          "name": "transforming growth factor beta type II receptor homodimeric complex phosphorylated form (human)"
+        }
+      ],
+      "pmids": [
+        "17074756",
+        "9892009",
+        "9346908,9892009",
+        "12193595",
+        "11027280",
+        "9346966,12193595,8980228,11027280",
+        "8980228,9346966"
+      ]
+    },
+    {
+      "residue": "T",
+      "site": "T8",
+      "ptm_type": "Phosphorylation",
+      "score": 4,
+      "sources": [
+        {
+          "name": "HPRD",
+          "label": "hprd",
+          "url": "http://www.hprd.org/"
+        },
+        {
+          "name": "PRO",
+          "label": "pro",
+          "url": "http://pir.georgetown.edu/pro/pro.shtml"
+        }
+      ],
+      "enzymes": [
+        {
+          "id": "P27361",
+          "enz_type": "uniprot_ac",
+          "name": "MAPK3"
+        },
+        {
+          "id": "PR:000026189",
+          "enz_type": "pro_id",
+          "name": "hMAPK3/iso:1/Phos:1"
+        }
+      ],
+      "pmids": [
+        "19413330,12193595,18491316,18691976,19651622,20068231,11027280",
+        "12193595"
+      ]
+    },
+    {
+      "residue": "T",
+      "site": "T220",
+      "ptm_type": "Phosphorylation",
+      "score": 4,
+      "sources": [
+        {
+          "name": "PRO",
+          "label": "pro",
+          "url": "http://pir.georgetown.edu/pro/pro.shtml"
+        },
+        {
+          "name": "HPRD",
+          "label": "hprd",
+          "url": "http://www.hprd.org/"
+        }
+      ],
+      "enzymes": [
+        {
+          "id": "PR:000026189",
+          "enz_type": "pro_id",
+          "name": "hMAPK3/iso:1/Phos:1"
+        },
+        {
+          "id": "PR:000026196",
+          "enz_type": "pro_id",
+          "name": "MAP2K1/iso:1/Phos:1"
+        },
+        {
+          "id": "P28482",
+          "enz_type": "uniprot_ac",
+          "name": "MAPK1"
+        }
+      ],
+      "pmids": [
+        "12193595",
+        "10197981"
+      ]
+    }
+  ]
+}
