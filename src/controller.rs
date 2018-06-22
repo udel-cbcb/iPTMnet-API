@@ -14,7 +14,7 @@ use futures::Stream;
 pub fn get_status_controller(_req: HttpRequest<super::State>) -> HttpResponse {
     let mut status : HashMap<&str,&str> = HashMap::new();
     status.insert("status","alive");
-    status.insert("version","1.1.4");
+    status.insert("version","1.1.6");
     let status_serialized = serde_json::to_string_pretty(&status).unwrap();
     return HttpResponse::Ok().force_close().body(status_serialized);
 }
