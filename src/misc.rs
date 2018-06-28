@@ -211,6 +211,24 @@ pub fn get_vec_i16_from_param(params: &Params, key: &str)-> Result<Vec<i16>> {
     return Ok(values);
 }
 
+pub fn get_vec_i32_from_param(params: &Params, key: &str)-> Result<Vec<i32>> {
+    let mut values : Vec<i32> = Vec::new();
+    for param in params.iter() {
+        if param.0 == key {
+            let value_str : &str = param.1.as_ref();
+            match value_str.parse::<i32>(){
+                Ok(value) => {
+                    values.push(value);
+                },
+                Err(_error) => {
+                    return Err(format!("{value} is not int",value=value_str).into());
+                }
+            }            
+        }
+    }
+    return Ok(values);
+}
+
 pub fn to_vec_i64(data_str: &Option<String>, seperator: &str) -> Vec<i64> {
     match data_str {
         &Some(ref data) => {
@@ -291,7 +309,7 @@ pub fn str_vec_to_str(items: &Vec<String>) -> String{
 
 }
 
-pub fn taxons_to_tuple_str(taxons: &Vec<i16>) -> String {
+pub fn taxons_to_tuple_str(taxons: &Vec<i32>) -> String {
     let mut taxons_str = String::new();
     for (index,taxon) in taxons.iter().enumerate() {
         let taxon_str = format!("{taxon}",taxon=taxon);

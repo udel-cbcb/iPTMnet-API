@@ -420,7 +420,7 @@ fn build_pro_info(row: &MyRow) -> Result<Pro> {
 }
 
 
-pub fn search(search_term: &str, term_type: &str, role: &str, ptm_types: &Vec<String>, organism_taxons: &Vec<i16>,conn: &Connection) -> Result<Rc<RefCell<Vec<SearchResult>>>>{
+pub fn search(search_term: &str, term_type: &str, role: &str, ptm_types: &Vec<String>, organism_taxons: &Vec<i32>,conn: &Connection) -> Result<Rc<RefCell<Vec<SearchResult>>>>{
 
     //build the query
     let query_str = query_builder::search(term_type,role,organism_taxons,&conn.engine);

@@ -12,7 +12,7 @@ pub fn info(engine: &Engine) -> String {
     }
 }
 
-pub fn search(term_type: &str, role: &str,organism_taxons: &Vec<i16>,engine: &Engine) -> String {
+pub fn search(term_type: &str, role: &str,organism_taxons: &Vec<i32>,engine: &Engine) -> String {
     // build the search term matching clause
     let mut search_term_clause = String::new();
 

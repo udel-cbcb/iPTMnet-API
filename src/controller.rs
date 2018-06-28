@@ -123,7 +123,7 @@ pub fn search_controller(req: HttpRequest<super::State>) -> HttpResponse {
     
     // Organism
     let organism_taxon_codes;
-    match misc::get_vec_i16_from_param(req.query(),"organism") {
+    match misc::get_vec_i32_from_param(req.query(),"organism") {
         Ok(value) => {
             organism_taxon_codes = value;
         },
