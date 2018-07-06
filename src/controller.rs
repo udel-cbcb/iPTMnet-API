@@ -10,6 +10,8 @@ use flatten;
 use csv;
 use std::collections::HashMap;
 use futures::Stream;
+use std::fs::File;
+use std::io::prelude::*;
 
 pub fn get_status_controller(_req: HttpRequest<super::State>) -> HttpResponse {
     let mut status : HashMap<&str,&str> = HashMap::new();
@@ -805,7 +807,31 @@ pub fn batch_ptm_ppi_controller(req: HttpRequest<super::State>) -> Box<Future<It
             }
 
         }).responder()
+}
 
+pub fn get_statistics_controller(_req: HttpRequest<super::State>) -> HttpResponse {
+    //Open the statistics file
+    let mut statistics_file;
+    match File::open("static/statistics.json") {
+        Ok(value) => {
+            statistics_file = value;
+        },
+        Err(error) => {
+            error!("{}",error);
+            return HttpResponse::InternalServerError().force_close().header(http::header::CONTENT_TYPE, "text/plain").body(format!("{}",error));
+        }
+    }
 
+    let mut contents = String::new();
+    match statistics_file.read_to_string(&mut contents) {
+        Ok(_) => {
+            
+        },
+        Err(error) => {
+            error!("{}",error);
+            return HttpResponse::InternalServerError().force_close().header(http::header::CONTENT_TYPE, "text/plain").body(format!("{}",error));
+        }
+    }
 
+    return HttpResponse::Ok().force_close().body(contents);
 }
