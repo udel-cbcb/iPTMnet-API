@@ -86,14 +86,27 @@ pub fn search_controller(req: HttpRequest<super::State>) -> HttpResponse {
     //get content header
     let content_header = misc::get_accept_header_value(&req);
     
+    //params
     let search_term;
     let term_type;
     let role;
+    let mut paginate = false;
+    let limit;
+    let offset;
 
     // search term
     let search_term_option = req.query().get("search_term");
     match search_term_option {
-        Some(val) => {search_term = val},
+        Some(val) => {
+            if !val.is_empty(){
+                search_term = val
+            }else{
+                return HttpResponse::BadRequest()
+                .force_close()
+                .header(http::header::CONTENT_TYPE, "text/plain")
+                .body("search_term cannot be blank");
+            }
+        },
         None => {return HttpResponse::BadRequest()
         .force_close()
         .header(http::header::CONTENT_TYPE, "text/plain")
@@ -137,9 +150,93 @@ pub fn search_controller(req: HttpRequest<super::State>) -> HttpResponse {
                     .body(format!("{}",error))
         }
     }
+    
+    //paginate
+    let paginate_option = req.query().get("paginate");
+    match paginate_option {
+        Some(value) => {
+            if String::from(value).to_lowercase() == "true" {
+                paginate = true;
+            }else if String::from(value).to_lowercase() == "false" {
+                paginate = false;
+            }else{
+                error!("Invalid paginate option : {}",String::from(value));
+            }
+        },
+        None => {
+            paginate = false;
+        },
+    }
+
+    //start
+    if paginate {
+        let start_index;
+        let start_index_option = req.query().get("start_index");
+        match start_index_option {
+            Some(val) => {
+                match val.parse::<i32>() {
+                    Ok(start_index_val) => {
+                        start_index = start_index_val
+                    },
+                    Err(error) => {
+                        error!("{}",error);
+                        return  HttpResponse::InternalServerError()
+                        .force_close()
+                        .header(http::header::CONTENT_TYPE, "text/plain")
+                        .body(format!("{}",error))
+                    },
+                }
+            },
+            None => {
+                return HttpResponse::BadRequest()
+                    .force_close()
+                    .header(http::header::CONTENT_TYPE, "text/plain")
+                    .body("start_index cannot be empty");
+            }
+        }
+
+        //end
+        let end_index;
+        let end_index_option = req.query().get("end_index");
+        match end_index_option {
+            Some(val) => {
+                match val.parse::<i32>() {
+                    Ok(end_index_val) => {
+                        end_index = end_index_val
+                    },
+                    Err(error) => {
+                        error!("{}",error);
+                        return  HttpResponse::InternalServerError()
+                        .force_close()
+                        .header(http::header::CONTENT_TYPE, "text/plain")
+                        .body(format!("{}",error))
+                    },
+                }
+            },
+            None => {
+                return HttpResponse::BadRequest()
+                    .force_close()
+                    .header(http::header::CONTENT_TYPE, "text/plain")
+                    .body("end_index cannot be empty");
+            }
+        }
+
+        //calculate the limit and offset
+        limit = end_index - start_index;
+        if limit <= 0 {
+            {return HttpResponse::BadRequest()
+                    .force_close()
+                    .header(http::header::CONTENT_TYPE, "text/plain")
+                    .body("end_index cannot be smaller than or equal to start index");}
+        }
+        offset = start_index;
+    }else{
+        limit = 0;
+        offset = 0;
+    }
 
     // perform the search
-    let search_values_result = database::search(search_term,term_type,role,&ptm_types,&organism_taxon_codes,&conn);
+    let search_values_result = database::search(search_term,term_type,role,&ptm_types,&organism_taxon_codes,paginate,offset,limit,&conn);
 
     match search_values_result {
         Ok(search_values) => {

@@ -34,6 +34,9 @@ class TestApplication(unittest.TestCase):
         params = {
             "search_term": "smad2",
             "term_type": "All",
+            "paginate" : "true",
+            "start_index": 0,
+            "end_index": 2,
             "ptm_type": ["Acetylation",
                          "C-Glycosylation",
                          "Myristoylation",

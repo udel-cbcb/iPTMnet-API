@@ -420,10 +420,18 @@ fn build_pro_info(row: &MyRow) -> Result<Pro> {
 }
 
 
-pub fn search(search_term: &str, term_type: &str, role: &str, ptm_types: &Vec<String>, organism_taxons: &Vec<i32>,conn: &Connection) -> Result<Rc<RefCell<Vec<SearchResult>>>>{
+pub fn search(search_term: &str,
+              term_type: &str,
+              role: &str,
+              ptm_types: &Vec<String>,
+              organism_taxons: &Vec<i32>,
+              paginate: bool,
+              offset: i32,
+              limit: i32,
+              conn: &Connection) -> Result<Rc<RefCell<Vec<SearchResult>>>>{
 
     //build the query
-    let query_str = query_builder::search(term_type,role,organism_taxons,&conn.engine);
+    let query_str = query_builder::search(term_type,role,organism_taxons,paginate,offset,limit,&conn.engine);
     info!("{}",query_str);
     //build ptm labels
     let mut ptm_labels_to_filter: Vec<String> = Vec::new();

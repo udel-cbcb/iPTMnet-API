@@ -12,7 +12,7 @@ pub fn info(engine: &Engine) -> String {
     }
 }
 
-pub fn search(term_type: &str, role: &str,organism_taxons: &Vec<i32>,engine: &Engine) -> String {
+pub fn search(term_type: &str, role: &str,organism_taxons: &Vec<i32>,paginate: bool,offset: i32, limit: i32,engine: &Engine) -> String {
     // build the search term matching clause
     let mut search_term_clause = String::new();
 
@@ -73,11 +73,23 @@ pub fn search(term_type: &str, role: &str,organism_taxons: &Vec<i32>,engine: &En
         }
     }    
 
-    return format!("SELECT * FROM MV_ENTRY where ({search_term_clause}) AND ({enzyme_clause}) AND iptm_entry_type != 'pro_id' {taxon_clause}",
+    // pagination
+    if paginate {
+        return format!("SELECT * FROM MV_ENTRY where ({search_term_clause}) AND ({enzyme_clause}) AND iptm_entry_type != 'pro_id' {taxon_clause} \
+                    ORDER BY iptm_entry_id LIMIT {limit} OFFSET {offset}",
                     search_term_clause=search_term_clause,
                     enzyme_clause=enzyme_clause,
-                    taxon_clause=taxon_clause);
-
+                    taxon_clause=taxon_clause,
+                    limit=limit,
+                    offset=offset
+                );
+    }else{
+        return format!("SELECT * FROM MV_ENTRY where ({search_term_clause}) AND ({enzyme_clause}) AND iptm_entry_type != 'pro_id' {taxon_clause}",
+                    search_term_clause=search_term_clause,
+                    enzyme_clause=enzyme_clause,
+                    taxon_clause=taxon_clause
+                    );
+    }
 }
 
 pub fn pro_info(engine: &Engine) -> String {
