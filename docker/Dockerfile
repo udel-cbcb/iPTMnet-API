@@ -1,5 +1,5 @@
 # use alpine linux as the base
-FROM fedora:28
+FROM fedora:27
 
 MAINTAINER Sachinx0e
 

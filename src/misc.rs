@@ -193,12 +193,12 @@ pub fn get_vec_str_from_param(params: &Params, key: &str)-> Vec<String> {
 
 }
 
-pub fn get_vec_i16_from_param(params: &Params, key: &str)-> Result<Vec<i16>> {
-    let mut values : Vec<i16> = Vec::new();
+pub fn get_vec_i32_from_param(params: &Params, key: &str)-> Result<Vec<i32>> {
+    let mut values : Vec<i32> = Vec::new();
     for param in params.iter() {
         if param.0 == key {
             let value_str : &str = param.1.as_ref();
-            match value_str.parse::<i16>(){
+            match value_str.parse::<i32>(){
                 Ok(value) => {
                     values.push(value);
                 },
@@ -291,7 +291,21 @@ pub fn str_vec_to_str(items: &Vec<String>) -> String{
 
 }
 
-pub fn taxons_to_tuple_str(taxons: &Vec<i16>) -> String {
+pub fn str_vec_to_str_with_sep(items: &Vec<String>,seperator: String) -> String{
+    let mut items_str = String::new();
+    for (index,item) in items.iter().enumerate() {
+        if index == 0 {
+            items_str = item.clone();
+        }else{
+            items_str = format!("{prev_str}{seperator}{curr_str}",prev_str=items_str,seperator=seperator,curr_str=item);
+        }
+    }
+
+    return items_str;
+
+}
+
+pub fn taxons_to_tuple_str(taxons: &Vec<i32>) -> String {
     let mut taxons_str = String::new();
     for (index,taxon) in taxons.iter().enumerate() {
         let taxon_str = format!("{taxon}",taxon=taxon);
@@ -313,6 +327,21 @@ pub fn to_bool(bool_str: Option<String>) -> bool{
             return false;
         }
     }
+}
+
+pub fn to_postgres_array_str(items: &Vec<String>) -> String{
+    let mut items_str = String::new();
+    for (index,item) in items.iter().enumerate() {
+        if index == 0 {
+            items_str = format!(r#"'{curr_str}'"#,curr_str=item);
+        }else{
+            let curr_str = format!(r#"'{curr_str}'"#,curr_str=item);
+            items_str = format!("{prev_str},{curr_str}",prev_str=items_str,curr_str=curr_str);
+        }
+    }
+       
+    return format!("array[{items}]",items=items_str);
+
 }
 
 pub fn get_source(source_type: Option<String>) -> Option<Source> {
@@ -360,6 +389,23 @@ pub fn get_ptm_event_label(ptm_name: &str) -> Option<String>{
         "s-nitrosylation" => Some(String::from("sno")),
         _ => None
     }
+}
+
+pub fn default_ptm_labels() -> Vec<String>{
+    let mut ptm_labels:Vec<String> = Vec::new();
+    ptm_labels.push(String::from("ac"));
+    ptm_labels.push(String::from("gn"));
+    ptm_labels.push(String::from("go"));
+    ptm_labels.push(String::from("gc"));
+    ptm_labels.push(String::from("gs"));
+    ptm_labels.push(String::from("me"));
+    ptm_labels.push(String::from("my"));
+    ptm_labels.push(String::from("p"));
+    ptm_labels.push(String::from("su"));
+    ptm_labels.push(String::from("ub"));
+    ptm_labels.push(String::from("i"));
+    ptm_labels.push(String::from("sno"));
+    return ptm_labels;
 }
 
 pub fn query_substrates_to_tuple_str(query_substrates: &Vec<QuerySubstrate>) -> String {
@@ -462,17 +508,6 @@ fn has_non_large_scale(pmids: &Vec<String>, pmid_stats: &HashMap<String,i64>) ->
             }
         }
         
-    }
-
-    return false;
-
-}
-
-pub fn has_filter_labels(ptm_labels: &Vec<String>, ptm_labels_to_filter: &Vec<String>) -> bool {
-    for filter_label in ptm_labels_to_filter {
-        if ptm_labels.contains(filter_label) {
-            return true;
-        }
     }
 
     return false;

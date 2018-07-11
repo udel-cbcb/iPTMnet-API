@@ -1,0 +1,397 @@
+{
+  "source": [
+    {
+      "": "HPRD",
+      "Substrates (protein)": 2927,
+      "Substrates (proteoforms)": 6574,
+      "Sites": 62145,
+      "Enzymes": 288,
+      "Enzyme-substrate pairs": 2514,
+      "Enzyme-substrate-site": 4886,
+      "PTM-dependent PPI": 0,
+      "PMIDs": 2269
+    },
+    {
+      "": "phospho.ELM",
+      "Substrates (protein)": 8524,
+      "Substrates (proteoforms)": 169,
+      "Sites": 35095,
+      "Enzymes": 243,
+      "Enzyme-substrate pairs": 994,
+      "Enzyme-substrate-site": 1796,
+      "PTM-dependent PPI": 0,
+      "PMIDs": 3505
+    },
+    {
+      "": "PhosphoSitePlus *",
+      "Substrates (protein)": 40462,
+      "Substrates (proteoforms)": 3027,
+      "Sites": 493177,
+      "Enzymes": 643,
+      "Enzyme-substrate pairs": 6616,
+      "Enzyme-substrate-site": 12067,
+      "PTM-dependent PPI": 0,
+      "PMIDs": 5952
+    },
+    {
+      "": "p3DB",
+      "Substrates (protein)": 4987,
+      "Substrates (proteoforms)": 349,
+      "Sites": 15271,
+      "Enzymes": 0,
+      "Enzyme-substrate pairs": 0,
+      "Enzyme-substrate-site": 0,
+      "PTM-dependent PPI": 0,
+      "PMIDs": 27
+    },
+    {
+      "": "PhosphoGrid",
+      "Substrates (protein)": 3139,
+      "Substrates (proteoforms)": 0,
+      "Sites": 19919,
+      "Enzymes": 39,
+      "Enzyme-substrate pairs": 622,
+      "Enzyme-substrate-site": 1418,
+      "PTM-dependent PPI": 0,
+      "PMIDs": 502
+    },
+    {
+      "": "PhosPhAt",
+      "Substrates (protein)": 7435,
+      "Substrates (proteoforms)": 0,
+      "Sites": 26443,
+      "Enzymes": 0,
+      "Enzyme-substrate pairs": 0,
+      "Enzyme-substrate-site": 0,
+      "PTM-dependent PPI": 0,
+      "PMIDs": 39
+    },
+    {
+      "": "PRO",
+      "Substrates (protein)": 895,
+      "Substrates (proteoforms)": 2739,
+      "Sites": 6913,
+      "Enzymes": 97,
+      "Enzyme-substrate pairs": 475,
+      "Enzyme-substrate-site": 976,
+      "PTM-dependent PPI": 717,
+      "PMIDs": 929
+    },
+    {
+      "": "UniProt",
+      "Substrates (protein)": 23779,
+      "Substrates (proteoforms)": 0,
+      "Sites": 85364,
+      "Enzymes": 735,
+      "Enzyme-substrate pairs": 2185,
+      "Enzyme-substrate-site": 3796,
+      "PTM-dependent PPI": 0,
+      "PMIDs": 7241
+    },
+    {
+      "": "RLIMS-P",
+      "Substrates (protein)": 3077,
+      "Substrates (proteoforms)": 0,
+      "Sites": 8040,
+      "Enzymes": 0,
+      "Enzyme-substrate pairs": 0,
+      "Enzyme-substrate-site": 0,
+      "PTM-dependent PPI": 0,
+      "PMIDs": 18352
+    },
+    {
+      "": "eFIP",
+      "Substrates (protein)": 0,
+      "Substrates (proteoforms)": 0,
+      "Sites": 0,
+      "Enzymes": 0,
+      "Enzyme-substrate pairs": 0,
+      "Enzyme-substrate-site": 0,
+      "PTM-dependent PPI": 757,
+      "PMIDs": 599
+    },
+    {
+      "": "PomBase",
+      "Substrates (protein)": 2547,
+      "Substrates (proteoforms)": 0,
+      "Sites": 17303,
+      "Enzymes": 0,
+      "Enzyme-substrate pairs": 0,
+      "Enzyme-substrate-site": 0,
+      "PTM-dependent PPI": 0,
+      "PMIDs": 104
+    },
+    {
+      "": "neXtProt **",
+      "Substrates (protein)": 1365,
+      "Substrates (proteoforms)": 55,
+      "Sites": 3827,
+      "Enzymes": 292,
+      "Enzyme-substrate pairs": 2532,
+      "Enzyme-substrate-site": 4364,
+      "PTM-dependent PPI": 0,
+      "PMIDs": 2799
+    },
+    {
+      "": "Signor",
+      "Substrates (protein)": 1289,
+      "Substrates (proteoforms)": 0,
+      "Sites": 3461,
+      "Enzymes": 355,
+      "Enzyme-substrate pairs": 2856,
+      "Enzyme-substrate-site": 4928,
+      "PTM-dependent PPI": 0,
+      "PMIDs": 2552
+    },
+    {
+      "": "dbSNO",
+      "Substrates (protein)": 2934,
+      "Substrates (proteoforms)": 0,
+      "Sites": 5822,
+      "Enzymes": 0,
+      "Enzyme-substrate pairs": 0,
+      "Enzyme-substrate-site": 0,
+      "PTM-dependent PPI": 0,
+      "PMIDs": 150
+    }
+  ],
+  "overview": {
+    "Substrates (protein)": 62129,
+    "Substrates (proteoforms)": 11882,
+    "Sites": 654574,
+    "Enzymes": 1217,
+    "Enzyme-substrate pairs": 12687,
+    "Enzyme-substrate-site": 24326,
+    "PTM-dependent PPI": 1474,
+    "PMIDs": 30547
+  },
+  "date": "August 8, 2017",
+  "eventtype": [
+    {
+      "": "Phosphorylation",
+      "Substrates (protein)": 56365,
+      "Substrates (proteoforms)": 10710,
+      "Sites": 490597,
+      "Enzymes": 1165,
+      "Enzyme-substrate pairs": 12439,
+      "Enzyme-substrate-site": 23879,
+      "PTM-dependent PPI": 757,
+      "PMIDs": 26998
+    },
+    {
+      "": "Acetylation",
+      "Substrates (protein)": 16995,
+      "Substrates (proteoforms)": 1011,
+      "Sites": 50855,
+      "Enzymes": 29,
+      "Enzyme-substrate pairs": 161,
+      "Enzyme-substrate-site": 309,
+      "PTM-dependent PPI": 0,
+      "PMIDs": 1126
+    },
+    {
+      "": "Ubiquitination",
+      "Substrates (protein)": 16856,
+      "Substrates (proteoforms)": 522,
+      "Sites": 70850,
+      "Enzymes": 1,
+      "Enzyme-substrate pairs": 2,
+      "Enzyme-substrate-site": 4,
+      "PTM-dependent PPI": 0,
+      "PMIDs": 222
+    },
+    {
+      "": "Methylation",
+      "Substrates (protein)": 7393,
+      "Substrates (proteoforms)": 247,
+      "Sites": 18707,
+      "Enzymes": 23,
+      "Enzyme-substrate pairs": 83,
+      "Enzyme-substrate-site": 132,
+      "PTM-dependent PPI": 0,
+      "PMIDs": 330
+    },
+    {
+      "": "N-Glycosylation",
+      "Substrates (protein)": 2254,
+      "Substrates (proteoforms)": 29,
+      "Sites": 5479,
+      "Enzymes": 0,
+      "Enzyme-substrate pairs": 0,
+      "Enzyme-substrate-site": 0,
+      "PTM-dependent PPI": 0,
+      "PMIDs": 1331
+    },
+    {
+      "": "O-Glycosylation",
+      "Substrates (protein)": 1329,
+      "Substrates (proteoforms)": 17,
+      "Sites": 4641,
+      "Enzymes": 0,
+      "Enzyme-substrate pairs": 0,
+      "Enzyme-substrate-site": 0,
+      "PTM-dependent PPI": 0,
+      "PMIDs": 277
+    },
+    {
+      "": "C-Glycosylation",
+      "Substrates (protein)": 20,
+      "Substrates (proteoforms)": 1,
+      "Sites": 201,
+      "Enzymes": 0,
+      "Enzyme-substrate pairs": 0,
+      "Enzyme-substrate-site": 0,
+      "PTM-dependent PPI": 0,
+      "PMIDs": 18
+    },
+    {
+      "": "S-Glycosylation",
+      "Substrates (protein)": 5,
+      "Substrates (proteoforms)": 0,
+      "Sites": 5,
+      "Enzymes": 0,
+      "Enzyme-substrate pairs": 0,
+      "Enzyme-substrate-site": 0,
+      "PTM-dependent PPI": 0,
+      "PMIDs": 6
+    },
+    {
+      "": "Sumoylation",
+      "Substrates (protein)": 2191,
+      "Substrates (proteoforms)": 100,
+      "Sites": 7131,
+      "Enzymes": 0,
+      "Enzyme-substrate pairs": 2,
+      "Enzyme-substrate-site": 2,
+      "PTM-dependent PPI": 0,
+      "PMIDs": 8
+    },
+    {
+      "": "Myristoylation",
+      "Substrates (protein)": 261,
+      "Substrates (proteoforms)": 20,
+      "Sites": 286,
+      "Enzymes": 0,
+      "Enzyme-substrate pairs": 0,
+      "Enzyme-substrate-site": 0,
+      "PTM-dependent PPI": 0,
+      "PMIDs": 182
+    },
+    {
+      "": "S-Nitrosylation",
+      "Substrates (protein)": 2934,
+      "Substrates (proteoforms)": 0,
+      "Sites": 5822,
+      "Enzymes": 0,
+      "Enzyme-substrate pairs": 0,
+      "Enzyme-substrate-site": 0,
+      "PTM-dependent PPI": 0,
+      "PMIDs": 150
+    }
+  ],
+  "release": "4.1",
+  "organism": [
+    {
+      "": "Homo sapiens (Human)",
+      "Substrates (protein)": 18497,
+      "Substrates (proteoforms)": 8347,
+      "Sites": 381966,
+      "Enzymes": 528,
+      "Enzyme-substrate pairs": 9629,
+      "Enzyme-substrate-site": 18606,
+      "PTM-dependent PPI": 1090,
+      "PMIDs": 21637
+    },
+    {
+      "": "Mus musculus (Mouse)",
+      "Substrates (protein)": 15114,
+      "Substrates (proteoforms)": 722,
+      "Sites": 142910,
+      "Enzymes": 266,
+      "Enzyme-substrate pairs": 1346,
+      "Enzyme-substrate-site": 2280,
+      "PTM-dependent PPI": 272,
+      "PMIDs": 4613
+    },
+    {
+      "": "Rattus norvegicus (Rat)",
+      "Substrates (protein)": 7115,
+      "Substrates (proteoforms)": 96,
+      "Sites": 39318,
+      "Enzymes": 136,
+      "Enzyme-substrate pairs": 637,
+      "Enzyme-substrate-site": 1088,
+      "PTM-dependent PPI": 26,
+      "PMIDs": 2262
+    },
+    {
+      "": "Saccharomyces cerevisiae (strain ATCC 204508 / S288c) (Baker's yeast)",
+      "Substrates (protein)": 3368,
+      "Substrates (proteoforms)": 0,
+      "Sites": 21820,
+      "Enzymes": 54,
+      "Enzyme-substrate pairs": 645,
+      "Enzyme-substrate-site": 1458,
+      "PTM-dependent PPI": 28,
+      "PMIDs": 923
+    },
+    {
+      "": "Drosophila melanogaster (Fruit fly)",
+      "Substrates (protein)": 835,
+      "Substrates (proteoforms)": 0,
+      "Sites": 3413,
+      "Enzymes": 5,
+      "Enzyme-substrate pairs": 5,
+      "Enzyme-substrate-site": 17,
+      "PTM-dependent PPI": 1,
+      "PMIDs": 201
+    },
+    {
+      "": "Caenorhabditis elegans",
+      "Substrates (protein)": 793,
+      "Substrates (proteoforms)": 0,
+      "Sites": 1982,
+      "Enzymes": 10,
+      "Enzyme-substrate pairs": 12,
+      "Enzyme-substrate-site": 18,
+      "PTM-dependent PPI": 0,
+      "PMIDs": 120
+    },
+    {
+      "": "Arabidopsis thaliana (Mouse-ear cress)",
+      "Substrates (protein)": 8595,
+      "Substrates (proteoforms)": 344,
+      "Sites": 32685,
+      "Enzymes": 48,
+      "Enzyme-substrate pairs": 156,
+      "Enzyme-substrate-site": 346,
+      "PTM-dependent PPI": 31,
+      "PMIDs": 338
+    },
+    {
+      "": "Zea mays (Maize)",
+      "Substrates (protein)": 100,
+      "Substrates (proteoforms)": 0,
+      "Sites": 138,
+      "Enzymes": 2,
+      "Enzyme-substrate pairs": 2,
+      "Enzyme-substrate-site": 4,
+      "PTM-dependent PPI": 0,
+      "PMIDs": 17
+    },
+    {
+      "": "Oryza sativa subsp. japonica (Rice)",
+      "Substrates (protein)": 1810,
+      "Substrates (proteoforms)": 14,
+      "Sites": 4376,
+      "Enzymes": 1,
+      "Enzyme-substrate pairs": 1,
+      "Enzyme-substrate-site": 1,
+      "PTM-dependent PPI": 0,
+      "PMIDs": 15
+    }
+  ],
+  "history": {
+    
+  }
+}
