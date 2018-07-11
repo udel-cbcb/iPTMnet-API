@@ -34,9 +34,6 @@ class TestApplication(unittest.TestCase):
         params = {
             "search_term": "smad2",
             "term_type": "All",
-            "paginate" : "true",
-            "start_index": 0,
-            "end_index": 2,
             "ptm_type": ["Acetylation",
                          "C-Glycosylation",
                          "Myristoylation",
@@ -56,6 +53,9 @@ class TestApplication(unittest.TestCase):
 
         # assert if request was successful
         self.assertEqual(result.status_code, 200, result.text)
+
+        # assert if header contains count
+        self.assertIsNotNone(result.headers.get("count"))
 
         # parse the returned response
         returned_search_results = json.loads(result.text)
@@ -96,6 +96,9 @@ class TestApplication(unittest.TestCase):
         # assert if request was successful
         self.assertEqual(result.status_code, 200, result.text)
 
+        # assert if header contains count
+        self.assertIsNotNone(result.headers.get("count"))
+
         # parse the returned response
         returned_search_results = helper.load_csv_from_string(result.text)
 
@@ -105,6 +108,78 @@ class TestApplication(unittest.TestCase):
         for index,search_result in enumerate(expected_search_results):
             self.assertEqual(search_result in returned_search_results, True, "Item at index: {index} not found".format(index=index))
 
+
+    # test browse json
+    def test_browse(self):
+        params = {
+            "term_type": "All",
+            "start_index": "0",
+            "end_index": "120",
+            "ptm_type": ["Acetylation",
+                         "C-Glycosylation",
+                         "Myristoylation",
+                         "Ubiquitination",
+                         "N-Glycosylation",
+                         "S-Glycosylation",
+                         "Phosphorylation",
+                         "S-Nitrosylation",
+                         "O-Glycosylation",
+                         "Methylation",
+                         "Sumoylation"],
+            "role": "Enzyme or Substrate",
+            "organism": []
+        }
+
+        result = requests.get('{host}/browse'.format(host=self.host),params = params)
+
+        # assert if request was successful
+        self.assertEqual(result.status_code, 200, result.text)
+
+        # assert if header contains count
+        self.assertIsNotNone(result.headers.get("count"))
+
+        # parse the returned response
+        returned_search_results = json.loads(result.text)
+
+        self.assertEqual(len(returned_search_results),120)
+
+    # test search json csv
+    def test_browse_csv(self):
+        params = {
+            "term_type": "All",
+            "start_index": "0",
+            "end_index": "120",
+            "ptm_type": ["Acetylation",
+                         "C-Glycosylation",
+                         "Myristoylation",
+                         "Ubiquitination",
+                         "N-Glycosylation",
+                         "S-Glycosylation",
+                         "Phosphorylation",
+                         "S-Nitrosylation",
+                         "O-Glycosylation",
+                         "Methylation",
+                         "Sumoylation"],
+            "role": "Enzyme or Substrate",
+            "organism": [10090,9606]
+        }
+
+        headers = {
+            "Accept": "text/plain"
+        }
+
+        result = requests.get('{host}/browse'.format(host=self.host),params = params,headers=headers)
+
+        # assert if request was successful
+        self.assertEqual(result.status_code, 200, result.text)
+
+        # assert if header contains count
+        self.assertIsNotNone(result.headers.get("count"))
+
+        # parse the returned response
+        returned_search_results = helper.load_csv_from_string(result.text)
+
+        self.assertEqual(len(returned_search_results), 120)
 
     # test get substrate json
     def test_get_substrates(self):

@@ -315,6 +315,21 @@ pub fn to_bool(bool_str: Option<String>) -> bool{
     }
 }
 
+pub fn to_postgres_array_str(items: &Vec<String>) -> String{
+    let mut items_str = String::new();
+    for (index,item) in items.iter().enumerate() {
+        if index == 0 {
+            items_str = format!(r#"'{curr_str}'"#,curr_str=item);
+        }else{
+            let curr_str = format!(r#"'{curr_str}'"#,curr_str=item);
+            items_str = format!("{prev_str},{curr_str}",prev_str=items_str,curr_str=curr_str);
+        }
+    }
+       
+    return format!("array[{items}]",items=items_str);
+
+}
+
 pub fn get_source(source_type: Option<String>) -> Option<Source> {
     match source_type {
         Some(value) => {
@@ -360,6 +375,23 @@ pub fn get_ptm_event_label(ptm_name: &str) -> Option<String>{
         "s-nitrosylation" => Some(String::from("sno")),
         _ => None
     }
+}
+
+pub fn default_ptm_labels() -> Vec<String>{
+    let mut ptm_labels:Vec<String> = Vec::new();
+    ptm_labels.push(String::from("ac"));
+    ptm_labels.push(String::from("gn"));
+    ptm_labels.push(String::from("go"));
+    ptm_labels.push(String::from("gc"));
+    ptm_labels.push(String::from("gs"));
+    ptm_labels.push(String::from("me"));
+    ptm_labels.push(String::from("my"));
+    ptm_labels.push(String::from("p"));
+    ptm_labels.push(String::from("su"));
+    ptm_labels.push(String::from("ub"));
+    ptm_labels.push(String::from("i"));
+    ptm_labels.push(String::from("sno"));
+    return ptm_labels;
 }
 
 pub fn query_substrates_to_tuple_str(query_substrates: &Vec<QuerySubstrate>) -> String {
@@ -462,17 +494,6 @@ fn has_non_large_scale(pmids: &Vec<String>, pmid_stats: &HashMap<String,i64>) ->
             }
         }
         
-    }
-
-    return false;
-
-}
-
-pub fn has_filter_labels(ptm_labels: &Vec<String>, ptm_labels_to_filter: &Vec<String>) -> bool {
-    for filter_label in ptm_labels_to_filter {
-        if ptm_labels.contains(filter_label) {
-            return true;
-        }
     }
 
     return false;

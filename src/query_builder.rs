@@ -12,7 +12,17 @@ pub fn info(engine: &Engine) -> String {
     }
 }
 
-pub fn search(term_type: &str, role: &str,organism_taxons: &Vec<i32>,paginate: bool,offset: i32, limit: i32,engine: &Engine) -> String {
+pub fn search(term_type: &str, role: &str,ptm_types: &Vec<String>,organism_taxons: &Vec<i32>,paginate: bool,offset: i32, limit: i32,engine: &Engine) -> String {
+    let search_clause = search_clause(term_type, role,ptm_types,organism_taxons, paginate, offset, limit, engine);
+    return format!("SELECT * FROM {search_clause}",search_clause=search_clause);
+}
+
+pub fn search_count(term_type: &str, role: &str,ptm_types: &Vec<String>, organism_taxons: &Vec<i32>,engine: &Engine) -> String {
+    let search_clause = search_clause(term_type, role,ptm_types,organism_taxons, false,0,0,engine);
+    return format!("SELECT COUNT(*) AS search_count FROM {search_clause}",search_clause=search_clause);
+}
+
+fn search_clause(term_type: &str, role: &str,ptm_types: &Vec<String>,organism_taxons: &Vec<i32>,paginate: bool,offset: i32, limit: i32,engine: &Engine) -> String {
     // build the search term matching clause
     let mut search_term_clause = String::new();
 
@@ -59,6 +69,19 @@ pub fn search(term_type: &str, role: &str,organism_taxons: &Vec<i32>,paginate: b
         enzyme_clause = "role_as_enzyme = 'T' AND role_as_substrate = 'T'"
     }
 
+    //ptm clause
+    let ptm_clause;
+    match engine {
+            Engine::Postgres => {
+                let ptm_array = misc::to_postgres_array_str(ptm_types);
+                ptm_clause = format!("AND (string_to_array(list_as_substrate,',') && {array})",array=ptm_array);
+            },
+            Engine::Oracle => {
+                //ptm_clause = format!("AND (taxon_code = ANY ({taxon_codes}))",taxon_codes=taxon_codes);
+                ptm_clause = String::from("");
+            }
+    }
+
     //taxon clause
     let mut taxon_clause = String::new();
     if !organism_taxons.is_empty() {
@@ -75,22 +98,25 @@ pub fn search(term_type: &str, role: &str,organism_taxons: &Vec<i32>,paginate: b
 
     // pagination
     if paginate {
-        return format!("SELECT * FROM MV_ENTRY where ({search_term_clause}) AND ({enzyme_clause}) AND iptm_entry_type != 'pro_id' {taxon_clause} \
+        return format!("MV_ENTRY where ({search_term_clause}) AND ({enzyme_clause}) AND iptm_entry_type != 'pro_id' {ptm_clause} {taxon_clause} \
                     ORDER BY iptm_entry_id LIMIT {limit} OFFSET {offset}",
                     search_term_clause=search_term_clause,
                     enzyme_clause=enzyme_clause,
+                    ptm_clause=ptm_clause,
                     taxon_clause=taxon_clause,
                     limit=limit,
                     offset=offset
                 );
     }else{
-        return format!("SELECT * FROM MV_ENTRY where ({search_term_clause}) AND ({enzyme_clause}) AND iptm_entry_type != 'pro_id' {taxon_clause}",
+        return format!("MV_ENTRY where ({search_term_clause}) AND ({enzyme_clause}) AND iptm_entry_type != 'pro_id' {ptm_clause} {taxon_clause}",
                     search_term_clause=search_term_clause,
                     enzyme_clause=enzyme_clause,
+                    ptm_clause=ptm_clause,
                     taxon_clause=taxon_clause
                     );
     }
 }
+
 
 pub fn pro_info(engine: &Engine) -> String {
     let query_str = String::from("SELECT * FROM MV_ENTRY where iptm_entry_code = $1");

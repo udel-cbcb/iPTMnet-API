@@ -165,8 +165,8 @@ macro_rules! execute_query {
                                     if !rows.is_empty() {
                                         //get the first row
                                         let row = rows.get(0);
-                                        let info = $builder_func(&row)?;
-                                        Ok(Some(info))
+                                        let value = $builder_func(&row)?;
+                                        Ok(Some(value))
                                     }else{
                                         Ok(None)
                                     }
@@ -428,30 +428,18 @@ pub fn search(search_term: &str,
               paginate: bool,
               offset: i32,
               limit: i32,
-              conn: &Connection) -> Result<Rc<RefCell<Vec<SearchResult>>>>{
+              conn: &Connection) -> Result<(i64,Rc<RefCell<Vec<SearchResult>>>)>{
 
-    //build the query
-    let query_str = query_builder::search(term_type,role,organism_taxons,paginate,offset,limit,&conn.engine);
-    info!("{}",query_str);
-    //build ptm labels
-    let mut ptm_labels_to_filter: Vec<String> = Vec::new();
-    for ptm_type in ptm_types {
-        let ptm_label_option = misc::get_ptm_event_label(&ptm_type.to_lowercase());
-        match ptm_label_option {
-            Some(ptm_label) => {
-                ptm_labels_to_filter.push(ptm_label)
-            },
-            None => {
-                return Err(format!("invalid PTM type {}",ptm_type).into());
-            }
-        }
-    };
-
+    //build the queries
+    let query_str = query_builder::search(term_type,role,ptm_types,organism_taxons,paginate,offset,limit,&conn.engine);
+    //info!("{}",query_str);
+        
     let search_results: Rc<RefCell<Vec<SearchResult>>> = Rc::new(RefCell::new(Vec::new()));
+    let count: i64;
 
-    let closure = |row:&MyRow| {
+    let handle_search_row = |row:&MyRow| {
         // Get the search result from the row
-        let search_result_opt = get_search_result(row,&ptm_labels_to_filter);
+        let search_result_opt = get_search_result(row);
         match search_result_opt {
             Some(value) => {
                 search_results.borrow_mut().push(value);
@@ -470,22 +458,51 @@ pub fn search(search_term: &str,
             search_term_formatted = String::from(search_term);
         }
     }
+    
+    let count_option = get_search_count(search_term_formatted.clone(),term_type,role,ptm_types,organism_taxons,conn)?;
+    match count_option {
+        Some(value) => {
+            count = value;
+        },
+        None => {
+            count = 0;
+        },
+    }
 
     if term_type == "All" {
-        execute_query_callback!(closure,conn,query_str,&[&search_term_formatted,&search_term_formatted,&search_term_formatted]);
-        return Ok(search_results.clone());
+        execute_query_callback!(handle_search_row,conn,query_str,&[&search_term_formatted,&search_term_formatted,&search_term_formatted]);
+        return Ok((count.clone(),search_results.clone()));
     }else if term_type == "UniprotID" {
-        execute_query_callback!(closure,conn,query_str,&[&search_term_formatted]);
-        return Ok(search_results.clone());        
+        execute_query_callback!(handle_search_row,conn,query_str,&[&search_term_formatted]);
+        return Ok((count.clone(),search_results.clone()));        
     }else if term_type == "Protein/Gene Name" {
-        execute_query_callback!(closure,conn,query_str,&[&search_term_formatted,&search_term_formatted]);
-        return Ok(search_results.clone());
+        execute_query_callback!(handle_search_row,conn,query_str,&[&search_term_formatted,&search_term_formatted]);
+        return Ok((count.clone(),search_results.clone()));
     }else{
-        return Ok(search_results.clone());
+        return Ok((count.clone(),search_results.clone()));
     }
 }
 
-fn get_search_result(row: &MyRow,ptm_labels_to_filter: &Vec<String>) -> Option<SearchResult> {
+fn get_search_count(search_term_formatted: String,
+              term_type: &str,
+              role: &str,
+              ptm_types: &Vec<String>,
+              organism_taxons: &Vec<i32>,
+              conn: &Connection
+              ) -> Result<Option<i64>> 
+{
+    let count_query_str = query_builder::search_count(term_type,role,ptm_types,organism_taxons,&conn.engine);
+    //info!("{}",count_query_str);
+    return execute_query!(build_search_count,conn,count_query_str,&[&search_term_formatted,&search_term_formatted,&search_term_formatted]);
+
+}
+
+fn build_search_count(row: &MyRow) -> Result<i64> {
+    let count = row.get_i64("search_count").unwrap_or_default();
+    return Ok(count);
+}
+
+fn get_search_result(row: &MyRow) -> Option<SearchResult> {
     let organism = Organism {
         taxon_code: row.get_string("taxon_code"),
         species: row.get_string("taxon_species"),
@@ -511,22 +528,7 @@ fn get_search_result(row: &MyRow,ptm_labels_to_filter: &Vec<String>) -> Option<S
         isoforms: row.get_i64("num_form")
     };
 
-    let ptm_str: Option<String> = row.get_string("list_as_substrate");
-    let ptm_labels = misc::remove_duplicates(&misc::to_vec_string(&ptm_str,","));
-
-    // if the client has suppplied a list of ptm labels to filter against
-    if ptm_labels_to_filter.len() > 0 {
-
-        //check if the ptms we received from the DB contain the ptms that client has asked to filter against
-        let has_filter_labels = misc::has_filter_labels(&ptm_labels,ptm_labels_to_filter);
-        if has_filter_labels {
-            return Some(search_result);
-        }else{
-            return None;
-        }
-    }else {
-        return Some(search_result);
-    }
+    return Some(search_result);
 }
 
 pub fn get_substrate_events(id: &str, conn: &Connection) -> Result<HashMap<String,Vec<SubstrateEvent>>> {

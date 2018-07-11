@@ -136,6 +136,30 @@ pub fn search_controller(req: HttpRequest<super::State>) -> HttpResponse {
     // ptm type
     let ptm_types = misc::get_vec_str_from_param(req.query(),"ptm_type");
     
+    //build ptm labels
+    let mut ptm_labels_to_filter: Vec<String> = Vec::new();
+
+    if !ptm_types.is_empty(){
+        for ptm_type in ptm_types {
+            let ptm_label_option = misc::get_ptm_event_label(&ptm_type.to_lowercase());
+            match ptm_label_option {
+                Some(ptm_label) => {
+                    ptm_labels_to_filter.push(ptm_label)
+                },
+                None => {
+                    let error_msg = format!("invalid PTM type {}",ptm_type);
+                    error!("{}",error_msg);
+                    return HttpResponse::BadRequest()
+                    .force_close()
+                    .header(http::header::CONTENT_TYPE, "text/plain")
+                    .body(error_msg);
+                }
+            }
+        };       
+    }else{
+        ptm_labels_to_filter = misc::default_ptm_labels();        
+    }
+    
     // Organism
     let organism_taxon_codes;
     match misc::get_vec_i32_from_param(req.query(),"organism") {
@@ -236,11 +260,11 @@ pub fn search_controller(req: HttpRequest<super::State>) -> HttpResponse {
     }
 
     // perform the search
-    let search_values_result = database::search(search_term,term_type,role,&ptm_types,&organism_taxon_codes,paginate,offset,limit,&conn);
+    let search_values_result = database::search(search_term,term_type,role,&ptm_labels_to_filter,&organism_taxon_codes,paginate,offset,limit,&conn);
 
     match search_values_result {
-        Ok(search_values) => {
-            
+        Ok(values) => {
+            let (count, search_values) = values; 
             if content_header == "application/json" || content_header.is_empty() {
                 let search_values_serialized_result = serde_json::to_string_pretty(&(*search_values));
 
@@ -250,6 +274,7 @@ pub fn search_controller(req: HttpRequest<super::State>) -> HttpResponse {
                         HttpResponse::Ok()
                         .force_close()
                         .header(http::header::CONTENT_TYPE, "application/json")
+                        .header("count", count.to_string())
                         .body(search_values_serialized)
                     },
 
@@ -301,6 +326,7 @@ pub fn search_controller(req: HttpRequest<super::State>) -> HttpResponse {
                             return HttpResponse::Ok()
                             .force_close()
                             .header(http::header::CONTENT_TYPE, "text/csv")
+                            .header("count", count.to_string())
                             .body(data);
                         },
                         Err(error) => {
@@ -329,6 +355,250 @@ pub fn search_controller(req: HttpRequest<super::State>) -> HttpResponse {
 
     }
 }
+
+pub fn browse_controller(req: HttpRequest<super::State>) -> HttpResponse {
+
+    //get the connection from pool
+    let conn;
+    match database::connect(&req.state().db_params) {
+        Ok(val) => {conn = val},
+        Err(error) => {return HttpResponse::InternalServerError()
+                        .force_close()
+                        .header(http::header::CONTENT_TYPE, "text/plain")
+                        .body(format!("{}",error));},
+    }
+
+    //get content header
+    let content_header = misc::get_accept_header_value(&req);
+    
+    //params
+    let search_term = "";
+    let term_type;
+    let role;
+    let paginate = true;
+    let limit;
+    let offset;
+
+    // term type
+    let term_type_option = req.query().get("term_type");
+    match term_type_option {
+        Some(val) => {term_type=val},
+        None => {return HttpResponse::BadRequest()
+        .force_close()
+        .header(http::header::CONTENT_TYPE, "text/plain")
+        .body("term_type cannot be empty");}
+    }
+
+    // role
+    let role_option = req.query().get("role");
+    match role_option {
+        Some(val) => {role=val},
+        None => {return HttpResponse::BadRequest()
+                .force_close()
+                .header(http::header::CONTENT_TYPE, "text/plain")
+                .body("role cannot be empty");}
+    }
+
+    // ptm type
+    let ptm_types = misc::get_vec_str_from_param(req.query(),"ptm_type");
+    
+    //build ptm labels
+    let mut ptm_labels_to_filter: Vec<String> = Vec::new();
+
+    if !ptm_types.is_empty(){
+        for ptm_type in ptm_types {
+            let ptm_label_option = misc::get_ptm_event_label(&ptm_type.to_lowercase());
+            match ptm_label_option {
+                Some(ptm_label) => {
+                    ptm_labels_to_filter.push(ptm_label)
+                },
+                None => {
+                    let error_msg = format!("invalid PTM type {}",ptm_type);
+                    error!("{}",error_msg);
+                    return HttpResponse::BadRequest()
+                    .force_close()
+                    .header(http::header::CONTENT_TYPE, "text/plain")
+                    .body(error_msg);
+                }
+            }
+        };       
+    }else{
+        ptm_labels_to_filter = misc::default_ptm_labels();        
+    }
+       
+    // Organism
+    let organism_taxon_codes;
+    match misc::get_vec_i32_from_param(req.query(),"organism") {
+        Ok(value) => {
+            organism_taxon_codes = value;
+        },
+        Err(error) => {
+            error!("{}",error);
+            return  HttpResponse::InternalServerError()
+                    .force_close()
+                    .header(http::header::CONTENT_TYPE, "text/plain")
+                    .body(format!("{}",error))
+        }
+    }
+    
+    let start_index;
+    let start_index_option = req.query().get("start_index");
+    match start_index_option {
+            Some(val) => {
+                match val.parse::<i32>() {
+                    Ok(start_index_val) => {
+                        start_index = start_index_val
+                    },
+                    Err(error) => {
+                        error!("{}",error);
+                        return  HttpResponse::InternalServerError()
+                        .force_close()
+                        .header(http::header::CONTENT_TYPE, "text/plain")
+                        .body(format!("{}",error))
+                    },
+                }
+            },
+            None => {
+                return HttpResponse::BadRequest()
+                    .force_close()
+                    .header(http::header::CONTENT_TYPE, "text/plain")
+                    .body("start_index cannot be empty");
+            }
+    }
+
+    //end
+    let end_index;
+    let end_index_option = req.query().get("end_index");
+    match end_index_option {
+            Some(val) => {
+                match val.parse::<i32>() {
+                    Ok(end_index_val) => {
+                        end_index = end_index_val
+                    },
+                    Err(error) => {
+                        error!("{}",error);
+                        return  HttpResponse::InternalServerError()
+                        .force_close()
+                        .header(http::header::CONTENT_TYPE, "text/plain")
+                        .body(format!("{}",error))
+                    },
+                }
+            },
+            None => {
+                return HttpResponse::BadRequest()
+                    .force_close()
+                    .header(http::header::CONTENT_TYPE, "text/plain")
+                    .body("end_index cannot be empty");
+        }
+    }
+
+    //calculate the limit and offset
+    limit = end_index - start_index;
+    if limit <= 0 {
+        {return HttpResponse::BadRequest()
+                    .force_close()
+                    .header(http::header::CONTENT_TYPE, "text/plain")
+                    .body("end_index cannot be smaller than or equal to start index");}
+    }
+    offset = start_index;
+
+    // perform the search
+    let search_values_result = database::search(search_term,term_type,role,&ptm_labels_to_filter,&organism_taxon_codes,paginate,offset,limit,&conn);
+
+    match search_values_result {
+        Ok(values) => {
+            let (count, search_values) = values; 
+            if content_header == "application/json" || content_header.is_empty() {
+                let search_values_serialized_result = serde_json::to_string_pretty(&(*search_values));
+
+                match search_values_serialized_result {
+
+                    Ok(search_values_serialized) => {
+                        HttpResponse::Ok()
+                        .force_close()
+                        .header(http::header::CONTENT_TYPE, "application/json")
+                        .header("count", count.to_string())
+                        .body(search_values_serialized)
+                    },
+
+                    Err(error) => {
+                        error!("{}",error);
+                        HttpResponse::InternalServerError()
+                        .force_close()
+                        .header(http::header::CONTENT_TYPE, "text/plain")
+                        .body(format!("{}",error))
+                    }
+
+                }
+            } else if content_header == "text/plain" {
+                    //convert the values to flat structure
+                    let search_results_flat = flatten::search_results(&(*search_values.borrow()));
+
+                    let mut wtr = csv::Writer::from_writer(vec![]);
+                    
+                    for search_result_flat in search_results_flat {
+                        let result = wtr.serialize(&search_result_flat);
+                        match result {
+                            Ok(_) => {},
+                            Err(error) => {
+                                error!("{}",error);
+                                return HttpResponse::InternalServerError()
+                                .force_close()
+                                .header(http::header::CONTENT_TYPE, "text/plain")
+                                .body(format!("{}",error));
+                            }
+                        }
+                    }
+
+                    let inner;
+                    let inner_result = wtr.into_inner();
+                    match inner_result {
+                        Ok(value) => {inner=value;},
+                        Err(error) => {
+                            error!("{}",error);
+                            return HttpResponse::InternalServerError()
+                            .force_close()
+                            .header(http::header::CONTENT_TYPE, "text/plain")
+                            .body(format!("{}",error));
+                        }
+                    }
+
+                    let data_result = String::from_utf8(inner);
+                    match data_result {
+                        Ok(data) => {
+                            return HttpResponse::Ok()
+                            .force_close()
+                            .header(http::header::CONTENT_TYPE, "text/csv")
+                            .header("count", count.to_string())
+                            .body(data);
+                        },
+                        Err(error) => {
+                            error!("{}",error);
+                            return HttpResponse::InternalServerError()
+                            .force_close()
+                            .header(http::header::CONTENT_TYPE, "text/plain")
+                            .body(format!("{}",error));
+                        }
+                    }
+            }else {
+                return HttpResponse::BadRequest()
+                .force_close()
+                .header(http::header::CONTENT_TYPE, "text/plain")
+                .body(format!("Invalid ACCEPT header - {}",content_header));
+            }
+
+        },
+
+        Err(error) => {
+            HttpResponse::InternalServerError()
+            .force_close()
+            .header(http::header::CONTENT_TYPE, "text/plain")
+            .body(format!("{}",error))
+        }
+
+    }
+}
+
 
 pub fn substrate_controller(req: HttpRequest<super::State>) -> HttpResponse {
     //get the value of ID
