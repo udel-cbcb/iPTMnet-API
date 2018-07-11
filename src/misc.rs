@@ -291,6 +291,20 @@ pub fn str_vec_to_str(items: &Vec<String>) -> String{
 
 }
 
+pub fn str_vec_to_str_with_sep(items: &Vec<String>,seperator: String) -> String{
+    let mut items_str = String::new();
+    for (index,item) in items.iter().enumerate() {
+        if index == 0 {
+            items_str = item.clone();
+        }else{
+            items_str = format!("{prev_str}{seperator}{curr_str}",prev_str=items_str,seperator=seperator,curr_str=item);
+        }
+    }
+
+    return items_str;
+
+}
+
 pub fn taxons_to_tuple_str(taxons: &Vec<i32>) -> String {
     let mut taxons_str = String::new();
     for (index,taxon) in taxons.iter().enumerate() {

@@ -52,21 +52,25 @@ fn search_clause(term_type: &str, role: &str,ptm_types: &Vec<String>,organism_ta
                 search_term_clause = String::from("uniprot_id ILIKE $1 OR gene_name ILIKE $2")
             },
             &Engine::Oracle => {
-                search_term_clause = String::from("regexp_like(uniprot_id,:1,'i')' OR regexp_like(gene_name,:2,'i')")
+                if !paginate{
+                    search_term_clause = String::from("regexp_like(uniprot_id,:1,'i')' OR regexp_like(gene_name,:2,'i')")
+                }else{
+                    search_term_clause = String::from("")
+                }
             }
         }
     }
 
     // build the enzyme matching clause
-    let mut enzyme_clause = "";
+    let mut enzyme_clause = String::from("");
     if role == "Enzyme or Substrate" {
-        enzyme_clause = "role_as_enzyme = 'T' OR role_as_substrate = 'T'"
+        enzyme_clause = String::from("AND (role_as_enzyme = 'T' OR role_as_substrate = 'T')")
     }else if role == "Enzyme" {
-        enzyme_clause = "role_as_enzyme = 'T'"
+        enzyme_clause = String::from("AND (role_as_enzyme = 'T')")
     }else if role  == "Substrate" {
-        enzyme_clause = "role_as_substrate = 'T'"
+        enzyme_clause = String::from("AND (role_as_substrate = 'T')")
     }else if role == "Enzyme and Substrate" {
-        enzyme_clause = "role_as_enzyme = 'T' AND role_as_substrate = 'T'"
+        enzyme_clause = String::from("AND (role_as_enzyme = 'T' AND role_as_substrate = 'T')")
     }
 
     //ptm clause
@@ -78,7 +82,8 @@ fn search_clause(term_type: &str, role: &str,ptm_types: &Vec<String>,organism_ta
             },
             Engine::Oracle => {
                 //ptm_clause = format!("AND (taxon_code = ANY ({taxon_codes}))",taxon_codes=taxon_codes);
-                ptm_clause = String::from("");
+                let ptm_csv = misc::str_vec_to_str_with_sep(ptm_types,String::from("|"));
+                ptm_clause = format!("AND (regexp_like(LIST_AS_SUBSTRATE,'{ptm_csv}','i'))",ptm_csv=ptm_csv);
             }
     }
 
@@ -98,17 +103,29 @@ fn search_clause(term_type: &str, role: &str,ptm_types: &Vec<String>,organism_ta
 
     // pagination
     if paginate {
-        return format!("MV_ENTRY where ({search_term_clause}) AND ({enzyme_clause}) AND iptm_entry_type != 'pro_id' {ptm_clause} {taxon_clause} \
-                    ORDER BY iptm_entry_id LIMIT {limit} OFFSET {offset}",
+
+        //limit offset clause
+        let limit_offset_clause;
+        match engine {
+            Engine::Postgres => {
+                limit_offset_clause = format!("OFFSET {offset} LIMIT {limit}",limit=limit,offset=offset);
+            },
+            Engine::Oracle => {
+                limit_offset_clause = format!("OFFSET {offset} rows FETCH NEXT {limit} rows only",limit=limit,offset=offset);
+                //limit_offset_clause = String::from("");
+            }
+        }
+
+        return format!("MV_ENTRY where ({search_term_clause}) {enzyme_clause} AND iptm_entry_type != 'pro_id' {ptm_clause} {taxon_clause} \
+                    ORDER BY iptm_entry_id {limit_offset_clause}",
                     search_term_clause=search_term_clause,
                     enzyme_clause=enzyme_clause,
                     ptm_clause=ptm_clause,
                     taxon_clause=taxon_clause,
-                    limit=limit,
-                    offset=offset
+                    limit_offset_clause=limit_offset_clause
                 );
     }else{
-        return format!("MV_ENTRY where ({search_term_clause}) AND ({enzyme_clause}) AND iptm_entry_type != 'pro_id' {ptm_clause} {taxon_clause}",
+        return format!("MV_ENTRY where ({search_term_clause}) {enzyme_clause} AND iptm_entry_type != 'pro_id' {ptm_clause} {taxon_clause} ORDER BY iptm_entry_id",
                     search_term_clause=search_term_clause,
                     enzyme_clause=enzyme_clause,
                     ptm_clause=ptm_clause,
