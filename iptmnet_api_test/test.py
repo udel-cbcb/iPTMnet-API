@@ -485,7 +485,7 @@ class TestApplication(unittest.TestCase):
             "Accept": "application/json"
         }
 
-        result = requests.post(url='{host}/msa'.format(host=self.host),headers=headers)
+        result = requests.get(url='{host}/Q15796/msa'.format(host=self.host),headers=headers)
 
         # assert if request was successful
         self.assertEqual(result.status_code, 200, result.text)

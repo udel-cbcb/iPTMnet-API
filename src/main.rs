@@ -13,6 +13,7 @@ extern crate inner;
 extern crate futures;
 extern crate csv;
 extern crate ini;
+extern crate bio;
 
 #[macro_use]
 extern crate log;

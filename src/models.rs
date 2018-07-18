@@ -242,4 +242,10 @@ pub struct Alignment {
     pub sequence: String,
 }
 
+#[derive(Serialize, Deserialize, Debug)]
+pub struct Sequence {
+    pub id: String,
+    pub sequence: String,
+}
+
 

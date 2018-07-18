@@ -3,6 +3,7 @@ use actix_web::*;
 use database;
 use serde_json;
 use misc;
+use msa;
 use std::str;
 use futures::future::Future;
 use models::QuerySubstrate;
@@ -1215,7 +1216,25 @@ pub fn get_msa_controller(req: HttpRequest<super::State>) -> HttpResponse {
     }
 
     //get the id string
-    let _sequences_result = database::get_sequences(&id,&conn);
+    let sequences_result = database::get_sequences(&id,&conn);
+
+    match sequences_result {
+        Ok(sequences) => {
+            let alignment_result = msa::align(&sequences);
+            match alignment_result {
+                Ok(alignment) => {
+                    info!("{}",alignment);
+                },
+                Err(error) => {
+                    error!("{}",error);
+                }
+            }
+            
+        },
+        Err(error) => {
+            
+        },
+    }
 
     return HttpResponse::Ok()
                     .force_close()

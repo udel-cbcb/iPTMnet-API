@@ -1205,9 +1205,26 @@ fn build_ptm_ppi(row: &MyRow) -> Result<BatchPTMPPI> {
         return Ok(ptm_ppi);
 }
 
-pub fn get_sequences(id: &str, conn: &Connection) -> Result<Vec<Alignment>> {
+pub fn get_sequences(id: &str, conn: &Connection) -> Result<Vec<Sequence>> {
     //perform the query
-    let alignments: Vec<Alignment> = Vec::new();
-    return Ok(alignments);
+    let mut sequences: Vec<Sequence> = Vec::new();
+    let query_str = query_builder::get_sequences(&conn.engine);
+    let id_formatted = format!("%{id}%",id=String::from(id));
+    execute_query_bulk!(build_sequences,conn,query_str,sequences,&[&id_formatted]);
+
+    return Ok(sequences);
+}   
+
+fn build_sequences(row: &MyRow) -> Result<Sequence> {
+    let id = row.get_string_unwrapped("id");
+    let sequence_str = row.get_string_unwrapped("seq");
+
+    let sequence = Sequence {
+        id: id,
+        sequence : sequence_str
+    };  
+
+    return Ok(sequence);
+
 }
 
