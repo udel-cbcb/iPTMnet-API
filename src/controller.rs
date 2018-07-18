@@ -1223,22 +1223,52 @@ pub fn get_msa_controller(req: HttpRequest<super::State>) -> HttpResponse {
             let alignment_result = msa::align(&sequences);
             match alignment_result {
                 Ok(alignment) => {
-                    info!("{}",alignment);
+                    let decorate_result = msa::decorate(&alignment);
+                    match decorate_result {
+                        Ok(alignment_decorated) => {
+                            let alignment_serialized_result = serde_json::to_string(&alignment_decorated);
+                            match alignment_serialized_result {
+                                Ok(alignment_serialized) => {
+                                    return HttpResponse::Ok()
+                                    .force_close()
+                                    .header(http::header::CONTENT_TYPE, "application/json")
+                                    .body(alignment_serialized);
+                                },
+                                Err(error) => {
+                                    let error_msg = format!("{}",error);
+                                    return HttpResponse::Ok()
+                                    .force_close()
+                                    .header(http::header::CONTENT_TYPE, "application/json")
+                                    .body(error_msg);        
+                                }
+                            }
+                        },
+                        Err(error) => {
+                            let error_msg = format!("{}",error);
+                            return HttpResponse::Ok()
+                                    .force_close()
+                                    .header(http::header::CONTENT_TYPE, "application/json")
+                                    .body(error_msg);
+                        }
+                    }
                 },
                 Err(error) => {
-                    error!("{}",error);
+                    let error_msg = format!("{}",error);
+                    return HttpResponse::Ok()
+                    .force_close()
+                    .header(http::header::CONTENT_TYPE, "application/json")
+                    .body(error_msg);
                 }
             }
             
         },
         Err(error) => {
-            
-        },
-    }
-
-    return HttpResponse::Ok()
+            let error_msg = format!("{}",error);
+            return HttpResponse::Ok()
                     .force_close()
                     .header(http::header::CONTENT_TYPE, "application/json")
-                    .body("");
+                    .body(error_msg);       
+        },
+    }
 
 }

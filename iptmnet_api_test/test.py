@@ -491,7 +491,7 @@ class TestApplication(unittest.TestCase):
         self.assertEqual(result.status_code, 200, result.text)
 
         # parse the returned response
-        returned_msa = helper.load_csv_from_string(result.text)
+        returned_msa = json.loads(result.text);
 
         # assert
         self.assertEqual(len(returned_msa),3)
