@@ -1202,3 +1202,24 @@ pub fn get_statistics_controller(_req: HttpRequest<super::State>) -> HttpRespons
 
     return HttpResponse::Ok().force_close().body(contents);
 }
+
+pub fn get_msa_controller(req: HttpRequest<super::State>) -> HttpResponse {
+    //get the value of ID
+    let id: String  = req.match_info().query("id").unwrap();
+
+    //get the connection from pool
+    let conn;
+    match database::connect(&req.state().db_params) {
+        Ok(val) => {conn = val},
+        Err(error) => {return HttpResponse::InternalServerError().force_close().body(format!("{}",error));},
+    }
+
+    //get the id string
+    let _sequences_result = database::get_sequences(&id,&conn);
+
+    return HttpResponse::Ok()
+                    .force_close()
+                    .header(http::header::CONTENT_TYPE, "application/json")
+                    .body("");
+
+}

@@ -478,6 +478,24 @@ class TestApplication(unittest.TestCase):
         for index,ptmppi in enumerate(expected_ptmppi):
             self.assertEqual(ptmppi in returned_ptmppi, True, "Item at {index} not found".format(index=index))
 
+    # test batch ptm ppi csv
+    def test_msa(self):
+
+        headers = {
+            "Accept": "application/json"
+        }
+
+        result = requests.post(url='{host}/msa'.format(host=self.host),headers=headers)
+
+        # assert if request was successful
+        self.assertEqual(result.status_code, 200, result.text)
+
+        # parse the returned response
+        returned_msa = helper.load_csv_from_string(result.text)
+
+        # assert
+        self.assertEqual(len(returned_msa),3)
+
 
 if __name__ == '__main__':
     unittest.main()

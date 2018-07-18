@@ -192,3 +192,14 @@ pub fn ptmppi(engine: &Engine) -> String {
         }
     }
 }
+
+pub fn get_sequences(engine: &Engine) -> String {
+    match engine {
+        Engine::Postgres => {
+            return String::from("SELECT * FROM SEQUENCE where ID ILIKE $1");
+        },
+        Engine::Oracle => {
+            return String::from("SELECT * FROM SEQUENCE where regexp_like(ID,:1,'i')");
+        }
+    }
+}

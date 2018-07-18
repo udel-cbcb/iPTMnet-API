@@ -1204,3 +1204,10 @@ fn build_ptm_ppi(row: &MyRow) -> Result<BatchPTMPPI> {
 
         return Ok(ptm_ppi);
 }
+
+pub fn get_sequences(id: &str, conn: &Connection) -> Result<Vec<Alignment>> {
+    //perform the query
+    let alignments: Vec<Alignment> = Vec::new();
+    return Ok(alignments);
+}
+
