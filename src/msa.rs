@@ -1,10 +1,12 @@
 use models::Sequence;
+use database;
 use models::Alignment;
 use models::AlignmentItem;
 use std::io::{Write};
 use std::process::{Command, Stdio};
 use errors::*;
 use bio::io;
+use rayon::prelude::*;
 
 fn to_fasta(sequences: &Vec<Sequence>) -> String {
     let mut fasta_string = String::from("");
@@ -47,34 +49,55 @@ pub fn align(sequences: &Vec<Sequence>) -> Result<String> {
     }
 }
 
-pub fn decorate(alignmened_sequences: &str) -> Result<Vec<Alignment>> {
+pub fn decorate(id: &str,alignmened_sequences: &str,db_params: database::DBParams) -> Result<Vec<Alignment>> {
     let mut alignments : Vec<Alignment> = Vec::new();
 
     //decode the fasta string
     let fasta_reader = io::fasta::Reader::new(alignmened_sequences.as_bytes());
-
+       
     for record_result in fasta_reader.records(){
         let record = record_result?;
-        let id = record.id();
+        let form_id = record.id();
         let seq = record.seq();
 
-        let mut alignmentitems: Vec<AlignmentItem> = Vec::new();
-        for(position,seq_item) in seq.iter().enumerate(){
-            let alignment_item = AlignmentItem{
-                site: String::from_utf8(vec![*seq_item])?,
-                position: position as i16,
-                decorations: Vec::new()
-            };
-            alignmentitems.push(alignment_item);
-        }
+        let closure = |seq_item| decorate_item(seq_item,String::from(id),String::from(form_id),db_params.clone());
+       
+        let alignment_items = seq.par_iter().enumerate().map(closure).collect::<Result<Vec<AlignmentItem>>>()?;
 
         let alignment = Alignment {
-            id: String::from(id),
-            sequence: alignmentitems 
+            id: String::from(form_id),
+            sequence: alignment_items //for now we add an empty list
         };
         alignments.push(alignment);
-
-    }
+    }   
 
     return Ok(alignments);
 }
+
+
+fn decorate_item(seq_item: (usize, &u8),id: String,form_id: String,db_params: database::DBParams) -> Result<AlignmentItem> {    
+    let str_vec = [*(seq_item.1)].to_vec();
+    let site;
+    match String::from_utf8(str_vec) {
+        Ok(val) => {
+            site = val;
+        },
+        Err(_) => {
+            site = String::from("-");
+        }
+    }
+
+    let mut position = seq_item.0 as i16;
+    position = position + 1;
+
+    let conn = database::connect(&db_params)?;
+    let decorations = database::get_decorations(&id,&form_id,position as i64,&site,&conn)?;
+
+    let alignment_item = AlignmentItem {
+        site: site,
+        position: position,
+        decorations: decorations
+    };
+    return Ok(alignment_item);       
+}
+

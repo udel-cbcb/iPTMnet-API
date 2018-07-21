@@ -1223,7 +1223,7 @@ pub fn get_msa_controller(req: HttpRequest<super::State>) -> HttpResponse {
             let alignment_result = msa::align(&sequences);
             match alignment_result {
                 Ok(alignment) => {
-                    let decorate_result = msa::decorate(&alignment);
+                    let decorate_result = msa::decorate(&id,&alignment,(&req.state().db_params).clone());
                     match decorate_result {
                         Ok(alignment_decorated) => {
                             let alignment_serialized_result = serde_json::to_string(&alignment_decorated);

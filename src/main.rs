@@ -14,6 +14,7 @@ extern crate futures;
 extern crate csv;
 extern crate ini;
 extern crate bio;
+extern crate rayon;
 
 #[macro_use]
 extern crate log;

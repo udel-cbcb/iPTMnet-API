@@ -1228,3 +1228,83 @@ fn build_sequences(row: &MyRow) -> Result<Sequence> {
 
 }
 
+pub fn get_decorations(id: &str, form_id: &str, position: i64,residue: &str, conn: &Connection) -> Result<Vec<Decoration>> {
+    //perform the query
+    let mut decorations: Vec<Decoration> = Vec::new();
+    let query_str = query_builder::get_decorations(&conn.engine);
+    let is_conserved;
+    match get_decorations_count(id, position, residue, conn) {
+        Ok(val) => {
+            if val.unwrap_or(0) > 0 {
+                is_conserved = true;
+            }else{
+                is_conserved = false;
+            }
+        },
+        Err(_) => {
+            is_conserved = false;
+        }
+    }
+
+    let clousure = |row: &MyRow| build_decoration(row,is_conserved);
+
+    execute_query_bulk!(clousure,conn,query_str,decorations,&[&String::from(form_id),&position,&String::from(residue)]);
+
+    if is_conserved && decorations.len() == 0 {
+        let decoration = Decoration {
+            ptm_type: Some(String::from("")),
+            source: Vec::new(),
+            pmids: Vec::new(),
+            is_conserved: is_conserved
+        };
+        decorations.push(decoration);
+    }
+
+    return Ok(decorations);
+}
+
+pub fn build_decoration(row: &MyRow,is_conserved: bool) -> Result<Decoration> {
+
+    let source_labels = misc::to_vec_string(&row.get_string("source_labels"),",");
+    
+    let mut sources: Vec<Source> = Vec::new();
+    for source_label in source_labels {
+        let source = misc::get_source(Some(source_label));
+        match source {
+            Some(value) => {
+                sources.push(value);
+            },
+            None => {
+
+            }
+        }
+    }
+
+    let decoration = Decoration {
+        ptm_type: row.get_string("event_name"),
+        source: sources,
+        pmids: misc::to_pmid_list(row.get_string("pmids")),
+        is_conserved: is_conserved
+    };
+
+    return Ok(decoration);    
+
+}
+
+pub fn get_decorations_count(id: &str, position: i64,residue: &str, conn: &Connection) -> Result<Option<i64>> {
+    let query_str = query_builder::get_decorations_count(&conn.engine);
+    
+    let closure = |row: &MyRow| -> Result<i64> {
+        let result = row.get_i64("count");
+        match result {
+            Some(val) => {
+                return Ok(val);
+            },
+            None => {
+                return Ok(0);
+            }
+        }
+    };
+
+    return execute_query!(closure,conn,query_str,&[&id,&position,&residue]);
+}

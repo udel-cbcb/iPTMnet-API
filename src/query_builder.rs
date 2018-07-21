@@ -203,3 +203,25 @@ pub fn get_sequences(engine: &Engine) -> String {
         }
     }
 }
+
+pub fn get_decorations(engine: &Engine) -> String {
+    match engine {
+        Engine::Postgres => {
+            return String::from("select event_name,string_agg(source_label, ', ') as source_labels ,string_agg(pmids, ', ') as pmids from mv_event where sub_form_code = $1 and position = $2 and residue = $3 AND position is not null group by event_name");
+        },
+        Engine::Oracle => {
+            return String::from("SELECT * FROM SEQUENCE where regexp_like(ID,:1,'i')");
+        }
+    }
+}
+
+pub fn get_decorations_count(engine: &Engine) -> String {
+    match engine {
+        Engine::Postgres => {
+            return String::from(r#"select count(*) as "count" from mv_event where sub_code = $1 and position = $2 and residue = $3 AND position is not null"#);
+        },
+        Engine::Oracle => {
+            return String::from("SELECT * FROM SEQUENCE where regexp_like(ID,:1,'i')");
+        }
+    }
+}
