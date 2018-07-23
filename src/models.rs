@@ -236,4 +236,31 @@ pub struct BatchPTMPPIFlat {
     pub pmids: Option<String>,
 }
 
+#[derive(Serialize, Deserialize, Clone,Debug)]
+pub struct Alignment {
+    pub id: String,
+    pub sequence: Vec<AlignmentItem>,
+}
+
+#[derive(Serialize, Deserialize,Clone, Debug)]
+pub struct AlignmentItem {
+    pub site: String,
+    pub position: i16,
+    pub decorations: Vec<Decoration>
+}
+
+#[derive(Serialize, Deserialize, Clone,Debug)]
+pub struct Decoration {
+    pub ptm_type: Option<String>,
+    pub source: Vec<Source>,
+    pub pmids: Vec<String>,
+    pub is_conserved: bool
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct Sequence {
+    pub id: String,
+    pub sequence: String,
+}
+
 

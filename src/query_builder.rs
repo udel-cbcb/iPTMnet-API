@@ -19,7 +19,7 @@ pub fn search(term_type: &str, role: &str,ptm_types: &Vec<String>,organism_taxon
 
 pub fn search_count(term_type: &str, role: &str,ptm_types: &Vec<String>, organism_taxons: &Vec<i32>,engine: &Engine) -> String {
     let search_clause = search_clause(term_type, role,ptm_types,organism_taxons, false,0,0,engine);
-    return format!("SELECT COUNT(*) AS search_count FROM {search_clause}",search_clause=search_clause);
+    return format!("SELECT COUNT(iptm_entry_id) AS search_count FROM {search_clause}",search_clause=search_clause);
 }
 
 fn search_clause(term_type: &str, role: &str,ptm_types: &Vec<String>,organism_taxons: &Vec<i32>,paginate: bool,offset: i32, limit: i32,engine: &Engine) -> String {
@@ -125,7 +125,7 @@ fn search_clause(term_type: &str, role: &str,ptm_types: &Vec<String>,organism_ta
                     limit_offset_clause=limit_offset_clause
                 );
     }else{
-        return format!("MV_ENTRY where ({search_term_clause}) {enzyme_clause} AND iptm_entry_type != 'pro_id' {ptm_clause} {taxon_clause} ORDER BY iptm_entry_id",
+        return format!("MV_ENTRY where ({search_term_clause}) {enzyme_clause} AND iptm_entry_type != 'pro_id' {ptm_clause} {taxon_clause}",
                     search_term_clause=search_term_clause,
                     enzyme_clause=enzyme_clause,
                     ptm_clause=ptm_clause,
@@ -189,6 +189,39 @@ pub fn ptmppi(engine: &Engine) -> String {
         },
         &Engine::Oracle => {
             return query_str.replace("$",":");
+        }
+    }
+}
+
+pub fn get_sequences(engine: &Engine) -> String {
+    match engine {
+        Engine::Postgres => {
+            return String::from("SELECT * FROM SEQUENCE where ID ILIKE $1");
+        },
+        Engine::Oracle => {
+            return String::from("SELECT * FROM SEQUENCE where regexp_like(ID,:1,'i')");
+        }
+    }
+}
+
+pub fn get_decorations(engine: &Engine) -> String {
+    match engine {
+        Engine::Postgres => {
+            return String::from("select event_name,string_agg(source_label, ', ') as source_labels ,string_agg(pmids, ', ') as pmids from mv_event where sub_form_code = $1 and position = $2 and residue = $3 AND position is not null group by event_name");
+        },
+        Engine::Oracle => {
+            return String::from("SELECT * FROM SEQUENCE where regexp_like(ID,:1,'i')");
+        }
+    }
+}
+
+pub fn get_decorations_count(engine: &Engine) -> String {
+    match engine {
+        Engine::Postgres => {
+            return String::from(r#"select count(*) as "count" from mv_event where sub_code = $1 and position = $2 and residue = $3 AND position is not null"#);
+        },
+        Engine::Oracle => {
+            return String::from("SELECT * FROM SEQUENCE where regexp_like(ID,:1,'i')");
         }
     }
 }
