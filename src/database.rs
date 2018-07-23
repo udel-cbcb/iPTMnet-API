@@ -432,8 +432,7 @@ pub fn search(search_term: &str,
 
     //build the queries
     let query_str = query_builder::search(term_type,role,ptm_types,organism_taxons,paginate,offset,limit,&conn.engine);
-    info!("{}",query_str);
-        
+         
     let search_results: Rc<RefCell<Vec<SearchResult>>> = Rc::new(RefCell::new(Vec::new()));
     let count: i64;
 
@@ -496,7 +495,6 @@ fn get_search_count(search_term_formatted: String,
               ) -> Result<Option<i64>> 
 {
     let count_query_str = query_builder::search_count(term_type,role,ptm_types,organism_taxons,&conn.engine);
-    info!("{}",count_query_str);
     if term_type == "All" {
         return execute_query!(build_search_count,conn,count_query_str,&[&search_term_formatted,&search_term_formatted,&search_term_formatted]);
     }else if term_type == "UniprotID" {

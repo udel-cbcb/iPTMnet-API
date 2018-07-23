@@ -348,6 +348,7 @@ pub fn search_controller(req: HttpRequest<super::State>) -> HttpResponse {
         },
 
         Err(error) => {
+            error!("{}",error);
             HttpResponse::InternalServerError()
             .force_close()
             .header(http::header::CONTENT_TYPE, "text/plain")

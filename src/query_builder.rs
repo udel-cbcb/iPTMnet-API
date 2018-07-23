@@ -19,7 +19,7 @@ pub fn search(term_type: &str, role: &str,ptm_types: &Vec<String>,organism_taxon
 
 pub fn search_count(term_type: &str, role: &str,ptm_types: &Vec<String>, organism_taxons: &Vec<i32>,engine: &Engine) -> String {
     let search_clause = search_clause(term_type, role,ptm_types,organism_taxons, false,0,0,engine);
-    return format!("SELECT COUNT(*) AS search_count FROM {search_clause}",search_clause=search_clause);
+    return format!("SELECT COUNT(iptm_entry_id) AS search_count FROM {search_clause}",search_clause=search_clause);
 }
 
 fn search_clause(term_type: &str, role: &str,ptm_types: &Vec<String>,organism_taxons: &Vec<i32>,paginate: bool,offset: i32, limit: i32,engine: &Engine) -> String {
@@ -125,7 +125,7 @@ fn search_clause(term_type: &str, role: &str,ptm_types: &Vec<String>,organism_ta
                     limit_offset_clause=limit_offset_clause
                 );
     }else{
-        return format!("MV_ENTRY where ({search_term_clause}) {enzyme_clause} AND iptm_entry_type != 'pro_id' {ptm_clause} {taxon_clause} ORDER BY iptm_entry_id",
+        return format!("MV_ENTRY where ({search_term_clause}) {enzyme_clause} AND iptm_entry_type != 'pro_id' {ptm_clause} {taxon_clause}",
                     search_term_clause=search_term_clause,
                     enzyme_clause=enzyme_clause,
                     ptm_clause=ptm_clause,
