@@ -7,7 +7,7 @@ import json
 class TestApplication(unittest.TestCase):
     maxDiff = None
     #host = "http://aws3.proteininformationresource.org"
-    host = "http://localhost:8088"
+    host = "http://localhost:8081"
 
 
     # test get info

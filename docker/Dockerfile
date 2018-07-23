@@ -13,16 +13,6 @@ ENV DB_NAME ""
 ENV DB_USER ""
 ENV DB_PASSWORD ""
 
-# install oracle drivers
-COPY ./oracle/* oracle/
-#RUN dnf update -y
-RUN dnf install libaio -y
-RUN rpm -i oracle/oracle-instantclient11.2-basic-11.2.0.4.0-1.x86_64.rpm
-RUN rpm -i oracle/oracle-instantclient11.2-devel-11.2.0.4.0-1.x86_64.rpm
-RUN rpm -i oracle/oracle-instantclient11.2-sqlplus-11.2.0.4.0-1.x86_64.rpm
-RUN sh -c "echo /usr/lib/oracle/11.2/client64/lib > /etc/ld.so.conf.d/oracle-instantclient.conf"
-RUN ldconfig
-
 # copy docker_run.sh script
 COPY ./docker_run.sh /home/
 
@@ -32,8 +22,15 @@ COPY ./iptmnet_api /home/
 # copy the config file
 COPY ./config.ini /home/
 
+# copy the muscle executable
+COPY ./muscle /home/ 
+
 # run the app
 WORKDIR "/home/"
+
+# update PATH env variable so that iptmnet_api can find muscle executable
+ENV PATH="/home/:${PATH}"
+
 
 EXPOSE 8088
 CMD ["sh", "./docker_run.sh"]

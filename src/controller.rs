@@ -17,7 +17,7 @@ use std::io::prelude::*;
 pub fn get_status_controller(_req: HttpRequest<super::State>) -> HttpResponse {
     let mut status : HashMap<&str,&str> = HashMap::new();
     status.insert("status","alive");
-    status.insert("version","1.1.7");
+    status.insert("version","1.1.8");
     let status_serialized = serde_json::to_string_pretty(&status).unwrap();
     return HttpResponse::Ok().force_close().body(status_serialized);
 }
@@ -1255,7 +1255,7 @@ pub fn get_msa_controller(req: HttpRequest<super::State>) -> HttpResponse {
                 },
                 Err(error) => {
                     let error_msg = format!("{}",error);
-                    return HttpResponse::Ok()
+                    return HttpResponse::InternalServerError()
                     .force_close()
                     .header(http::header::CONTENT_TYPE, "application/json")
                     .body(error_msg);
@@ -1265,7 +1265,7 @@ pub fn get_msa_controller(req: HttpRequest<super::State>) -> HttpResponse {
         },
         Err(error) => {
             let error_msg = format!("{}",error);
-            return HttpResponse::Ok()
+            return HttpResponse::InternalServerError()
                     .force_close()
                     .header(http::header::CONTENT_TYPE, "application/json")
                     .body(error_msg);       
