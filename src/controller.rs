@@ -3,6 +3,7 @@ use actix_web::*;
 use database;
 use serde_json;
 use misc;
+use msa;
 use std::str;
 use futures::future::Future;
 use models::QuerySubstrate;
@@ -16,7 +17,7 @@ use std::io::prelude::*;
 pub fn get_status_controller(_req: HttpRequest<super::State>) -> HttpResponse {
     let mut status : HashMap<&str,&str> = HashMap::new();
     status.insert("status","alive");
-    status.insert("version","1.1.7");
+    status.insert("version","1.1.8");
     let status_serialized = serde_json::to_string_pretty(&status).unwrap();
     return HttpResponse::Ok().force_close().body(status_serialized);
 }
@@ -347,6 +348,7 @@ pub fn search_controller(req: HttpRequest<super::State>) -> HttpResponse {
         },
 
         Err(error) => {
+            error!("{}",error);
             HttpResponse::InternalServerError()
             .force_close()
             .header(http::header::CONTENT_TYPE, "text/plain")
@@ -1201,4 +1203,73 @@ pub fn get_statistics_controller(_req: HttpRequest<super::State>) -> HttpRespons
     }
 
     return HttpResponse::Ok().force_close().body(contents);
+}
+
+pub fn get_msa_controller(req: HttpRequest<super::State>) -> HttpResponse {
+    //get the value of ID
+    let id: String  = req.match_info().query("id").unwrap();
+
+    //get the connection from pool
+    let conn;
+    match database::connect(&req.state().db_params) {
+        Ok(val) => {conn = val},
+        Err(error) => {return HttpResponse::InternalServerError().force_close().body(format!("{}",error));},
+    }
+
+    //get the id string
+    let sequences_result = database::get_sequences(&id,&conn);
+
+    match sequences_result {
+        Ok(sequences) => {
+            let alignment_result = msa::align(&sequences);
+            match alignment_result {
+                Ok(alignment) => {
+                    let decorate_result = msa::decorate(&id,&alignment,(&req.state().db_params).clone());
+                    match decorate_result {
+                        Ok(alignment_decorated) => {
+                            let alignment_serialized_result = serde_json::to_string(&alignment_decorated);
+                            match alignment_serialized_result {
+                                Ok(alignment_serialized) => {
+                                    return HttpResponse::Ok()
+                                    .force_close()
+                                    .header(http::header::CONTENT_TYPE, "application/json")
+                                    .body(alignment_serialized);
+                                },
+                                Err(error) => {
+                                    let error_msg = format!("{}",error);
+                                    return HttpResponse::Ok()
+                                    .force_close()
+                                    .header(http::header::CONTENT_TYPE, "application/json")
+                                    .body(error_msg);        
+                                }
+                            }
+                        },
+                        Err(error) => {
+                            let error_msg = format!("{}",error);
+                            return HttpResponse::Ok()
+                                    .force_close()
+                                    .header(http::header::CONTENT_TYPE, "application/json")
+                                    .body(error_msg);
+                        }
+                    }
+                },
+                Err(error) => {
+                    let error_msg = format!("{}",error);
+                    return HttpResponse::InternalServerError()
+                    .force_close()
+                    .header(http::header::CONTENT_TYPE, "application/json")
+                    .body(error_msg);
+                }
+            }
+            
+        },
+        Err(error) => {
+            let error_msg = format!("{}",error);
+            return HttpResponse::InternalServerError()
+                    .force_close()
+                    .header(http::header::CONTENT_TYPE, "application/json")
+                    .body(error_msg);       
+        },
+    }
+
 }

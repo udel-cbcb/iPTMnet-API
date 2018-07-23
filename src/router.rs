@@ -16,5 +16,6 @@ pub fn init_routes(application: App<super::State>) -> App<super::State> {
             .resource("/batch_ptm_enzymes",|r|r.method(http::Method::POST).f(controller::batch_ptm_enzymes_controller))
             .resource("/batch_ptm_ppi",|r|r.method(http::Method::POST).f(controller::batch_ptm_ppi_controller))
             .resource("/statistics",|r|r.method(http::Method::GET).f(controller::get_statistics_controller))
+            .resource("/{id}/msa",|r|r.method(http::Method::GET).f(controller::get_msa_controller))
             .register();
 }

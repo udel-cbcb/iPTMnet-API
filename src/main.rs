@@ -13,6 +13,8 @@ extern crate inner;
 extern crate futures;
 extern crate csv;
 extern crate ini;
+extern crate bio;
+extern crate rayon;
 
 #[macro_use]
 extern crate log;
@@ -32,6 +34,7 @@ mod errors;
 mod misc;
 mod flatten;
 mod query_builder;
+mod msa;
 
 use actix_web::middleware::Logger;
 use actix_web::*;

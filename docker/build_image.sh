@@ -1,4 +1,5 @@
 # copy the iptmnet api executable
+cargo build --release
 cp ./../target/release/iptmnet_api ./
 
 # copy oracle instant client rpms
@@ -7,5 +8,5 @@ mkdir ./oracle
 cp -r ./../oracle/* ./oracle/
 
 # build the iptmnet api images
-docker build --no-cache . -t udelcbcb/iptmnet_api:1.1.7
+docker build --no-cache . -t udelcbcb/iptmnet_api:1.1.8
 

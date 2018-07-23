@@ -7,7 +7,7 @@ import json
 class TestApplication(unittest.TestCase):
     maxDiff = None
     #host = "http://aws3.proteininformationresource.org"
-    host = "http://localhost:8088"
+    host = "http://localhost:8081"
 
 
     # test get info
@@ -477,6 +477,24 @@ class TestApplication(unittest.TestCase):
 
         for index,ptmppi in enumerate(expected_ptmppi):
             self.assertEqual(ptmppi in returned_ptmppi, True, "Item at {index} not found".format(index=index))
+
+    # test batch ptm ppi csv
+    def test_msa(self):
+
+        headers = {
+            "Accept": "application/json"
+        }
+
+        result = requests.get(url='{host}/Q15796/msa'.format(host=self.host),headers=headers)
+
+        # assert if request was successful
+        self.assertEqual(result.status_code, 200, result.text)
+
+        # parse the returned response
+        returned_msa = json.loads(result.text);
+
+        # assert
+        self.assertEqual(len(returned_msa),3)
 
 
 if __name__ == '__main__':
