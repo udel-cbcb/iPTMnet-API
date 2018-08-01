@@ -218,6 +218,15 @@
           "format" : "^[\\w\\s:-]+)$"
         } ],
         "responses" : {
+          "200" : {
+            "description" : "an array of sequences.",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/alignment"
+              }
+            }
+          },
           "400" : {
             "description" : "bad input parameter"
           },
@@ -582,7 +591,52 @@
       "items" : {
         "$ref" : "#/definitions/substrate_table_inner"
       },
-      "example" : "[{\"site\":\"S2\",\"type\":\"Acetylation\",\"score\":1,\"sources\":{\"PRO\":\"http://www.uniprot.org/uniprot/Q15796\"},\"PMIDs\":[19413330,22814378,22223895,20068231]},{\"site\":\"S2\",\"type\":\"Phosphorylation\",\"score\":1,\"sources\":{\"PhosphoSitePlus\":\"http://www.phosphosite.org/uniprotAccAction?id=Q15796\"}},{\"site\":\"T8\",\"type\":\"Phosphorylation\",\"enzyme\":{\"id\":\"P24941\",\"type\":\"uniprot_ac\",\"name\":\"CDK2\"},\"score\":3,\"sources\":{\"neXtProt\":\"https://www.nextprot.org/entry/NX_Q15796/\"},\"PMIDs\":[15241418,19201832]},{\"site\":\"T8\",\"type\":\"Phosphorylation\",\"enzyme\":{\"id\":\"P27361\",\"type\":\"uniprot_ac\",\"name\":\"MAPK3\"},\"score\":4,\"PMIDs\":[12193595,19115199,18691976],\"sources\":{\"neXtProt\":\"https://www.nextprot.org/entry/NX_Q15796/\",\"phospho.ELM\":\"http://phospho.elm.eu.org/byAccession/Q15796.html\",\"PhosphoSitePlus\":\"http://www.phosphosite.org/uniprotAccAction?id=Q15796\",\"Signor\":\"http://signor.uniroma2.it/relation_result.php?id=Q15796\",\"UniProt\":\"http://www.uniprot.org/uniprot/Q15796\"}}]"
+      "example" : [ {
+        "site" : "S2",
+        "type" : "Acetylation",
+        "score" : 1,
+        "sources" : {
+          "PRO" : "http://www.uniprot.org/uniprot/Q15796"
+        },
+        "PMIDs" : [ 19413330, 22814378, 22223895, 20068231 ]
+      }, {
+        "site" : "S2",
+        "type" : "Phosphorylation",
+        "score" : 1,
+        "sources" : {
+          "PhosphoSitePlus" : "http://www.phosphosite.org/uniprotAccAction?id=Q15796"
+        }
+      }, {
+        "site" : "T8",
+        "type" : "Phosphorylation",
+        "enzyme" : {
+          "id" : "P24941",
+          "type" : "uniprot_ac",
+          "name" : "CDK2"
+        },
+        "score" : 3,
+        "sources" : {
+          "neXtProt" : "https://www.nextprot.org/entry/NX_Q15796/"
+        },
+        "PMIDs" : [ 15241418, 19201832 ]
+      }, {
+        "site" : "T8",
+        "type" : "Phosphorylation",
+        "enzyme" : {
+          "id" : "P27361",
+          "type" : "uniprot_ac",
+          "name" : "MAPK3"
+        },
+        "score" : 4,
+        "PMIDs" : [ 12193595, 19115199, 18691976 ],
+        "sources" : {
+          "neXtProt" : "https://www.nextprot.org/entry/NX_Q15796/",
+          "phospho.ELM" : "http://phospho.elm.eu.org/byAccession/Q15796.html",
+          "PhosphoSitePlus" : "http://www.phosphosite.org/uniprotAccAction?id=Q15796",
+          "Signor" : "http://signor.uniroma2.it/relation_result.php?id=Q15796",
+          "UniProt" : "http://www.uniprot.org/uniprot/Q15796"
+        }
+      } ]
     },
     "proteoform" : {
       "type" : "object",
@@ -1169,6 +1223,146 @@
         "species" : "Homo sapiens",
         "taxon_code" : 9606,
         "common_name" : "Human"
+      }
+    },
+    "alignment" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "example" : "Q15796"
+        },
+        "sequence" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/alignment_item"
+          }
+        }
+      },
+      "example" : {
+        "sequence" : [ {
+          "site" : "site",
+          "decorations" : [ {
+            "pmids" : [ "pmids", "pmids" ],
+            "ptm_type" : "ptm_type",
+            "source" : [ {
+              "name" : "PRO",
+              "url" : "www.example.com"
+            }, {
+              "name" : "PRO",
+              "url" : "www.example.com"
+            } ]
+          }, {
+            "pmids" : [ "pmids", "pmids" ],
+            "ptm_type" : "ptm_type",
+            "source" : [ {
+              "name" : "PRO",
+              "url" : "www.example.com"
+            }, {
+              "name" : "PRO",
+              "url" : "www.example.com"
+            } ]
+          } ],
+          "position" : 0
+        }, {
+          "site" : "site",
+          "decorations" : [ {
+            "pmids" : [ "pmids", "pmids" ],
+            "ptm_type" : "ptm_type",
+            "source" : [ {
+              "name" : "PRO",
+              "url" : "www.example.com"
+            }, {
+              "name" : "PRO",
+              "url" : "www.example.com"
+            } ]
+          }, {
+            "pmids" : [ "pmids", "pmids" ],
+            "ptm_type" : "ptm_type",
+            "source" : [ {
+              "name" : "PRO",
+              "url" : "www.example.com"
+            }, {
+              "name" : "PRO",
+              "url" : "www.example.com"
+            } ]
+          } ],
+          "position" : 0
+        } ],
+        "id" : "Q15796"
+      }
+    },
+    "alignment_item" : {
+      "type" : "object",
+      "properties" : {
+        "site" : {
+          "type" : "string"
+        },
+        "position" : {
+          "type" : "integer"
+        },
+        "decorations" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/decoration"
+          }
+        }
+      },
+      "example" : {
+        "site" : "site",
+        "decorations" : [ {
+          "pmids" : [ "pmids", "pmids" ],
+          "ptm_type" : "ptm_type",
+          "source" : [ {
+            "name" : "PRO",
+            "url" : "www.example.com"
+          }, {
+            "name" : "PRO",
+            "url" : "www.example.com"
+          } ]
+        }, {
+          "pmids" : [ "pmids", "pmids" ],
+          "ptm_type" : "ptm_type",
+          "source" : [ {
+            "name" : "PRO",
+            "url" : "www.example.com"
+          }, {
+            "name" : "PRO",
+            "url" : "www.example.com"
+          } ]
+        } ],
+        "position" : 0
+      }
+    },
+    "decoration" : {
+      "type" : "object",
+      "properties" : {
+        "ptm_type" : {
+          "type" : "string"
+        },
+        "source" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/source"
+          }
+        },
+        "pmids" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      },
+      "example" : {
+        "pmids" : [ "pmids", "pmids" ],
+        "ptm_type" : "ptm_type",
+        "source" : [ {
+          "name" : "PRO",
+          "url" : "www.example.com"
+        }, {
+          "name" : "PRO",
+          "url" : "www.example.com"
+        } ]
       }
     },
     "inline_response_200" : {

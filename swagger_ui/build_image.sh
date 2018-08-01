@@ -1,2 +1,2 @@
 # build the image
-sudo docker build --no-cache . -t udelcbcb/iptmnet_api_doc:1.3
+sudo docker build --no-cache . -t udelcbcb/iptmnet_api_doc:1.4
