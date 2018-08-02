@@ -185,7 +185,12 @@ pub fn search_controller(req: HttpRequest<super::State>) -> HttpResponse {
             }else if String::from(value).to_lowercase() == "false" {
                 paginate = false;
             }else{
-                error!("Invalid paginate option : {}",String::from(value));
+                let error_msg = format!("Invalid paginate option : {}. It must be either true or false",String::from(value));
+                error!("{}",error_msg);
+                return  HttpResponse::InternalServerError()
+                        .force_close()
+                        .header(http::header::CONTENT_TYPE, "text/plain")
+                        .body(format!("{}",error_msg))
             }
         },
         None => {
@@ -201,6 +206,7 @@ pub fn search_controller(req: HttpRequest<super::State>) -> HttpResponse {
             Some(val) => {
                 match val.parse::<i32>() {
                     Ok(start_index_val) => {
+                        debug!("{}",start_index_val);
                         start_index = start_index_val
                     },
                     Err(error) => {
