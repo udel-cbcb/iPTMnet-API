@@ -64,9 +64,9 @@
         }, {
           "name" : "paginate",
           "in" : "query",
-          "description" : "A boolean flag that controls if the API should return paginated results.",
+          "description" : "A flag that controls if the API should return paginated results. Possible values are \"true\" or \"false\"",
           "required" : false,
-          "type" : "integer"
+          "type" : "string"
         }, {
           "name" : "start_index",
           "in" : "query",
