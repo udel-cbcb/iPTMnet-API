@@ -25,6 +25,9 @@ COPY ./config.ini /home/
 # copy the muscle executable
 COPY ./muscle /home/ 
 
+# copy the static directory
+COPY ./static /home/static
+
 # run the app
 WORKDIR "/home/"
 

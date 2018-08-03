@@ -2,6 +2,11 @@
 cargo build --release
 cp ./../target/release/iptmnet_api ./
 
+# copy the static assets
+rm -r ./static
+mkdir ./static
+cp -r ./../static/* ./static
+
 # copy oracle instant client rpms
 rm -r ./oracle
 mkdir ./oracle
