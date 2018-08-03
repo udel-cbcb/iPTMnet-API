@@ -282,6 +282,7 @@ pub fn search_controller(req: HttpRequest<super::State>) -> HttpResponse {
                         .force_close()
                         .header(http::header::CONTENT_TYPE, "application/json")
                         .header("count", count.to_string())
+                        .header("Access-Control-Expose-Headers","count")
                         .body(search_values_serialized)
                     },
 
@@ -334,6 +335,7 @@ pub fn search_controller(req: HttpRequest<super::State>) -> HttpResponse {
                             .force_close()
                             .header(http::header::CONTENT_TYPE, "text/csv")
                             .header("count", count.to_string())
+                            .header("Access-Control-Expose-Headers","count")
                             .body(data);
                         },
                         Err(error) => {
@@ -526,6 +528,7 @@ pub fn browse_controller(req: HttpRequest<super::State>) -> HttpResponse {
                         .force_close()
                         .header(http::header::CONTENT_TYPE, "application/json")
                         .header("count", count.to_string())
+                        .header("Access-Control-Expose-Headers","count")
                         .body(search_values_serialized)
                     },
 
