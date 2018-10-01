@@ -5,9 +5,6 @@ pub fn info(engine: &Engine) -> String {
     match engine {
         Engine::Postgres => {
             return String::from("SELECT * FROM MV_ENTRY where iptm_entry_code = $1");
-        },
-        Engine::Oracle => {
-            return String::from("SELECT * FROM MV_ENTRY where iptm_entry_code = :1");
         }
     }
 }
@@ -30,9 +27,6 @@ fn search_clause(term_type: &str, role: &str,ptm_types: &Vec<String>,organism_ta
         match engine {
             &Engine::Postgres => {
                 search_term_clause = String::from("uniprot_id ILIKE $1 OR protein_name ILIKE $2 OR gene_name ILIKE $3");
-            },
-            &Engine::Oracle => {
-                search_term_clause = String::from("regexp_like(uniprot_id,:1,'i') OR regexp_like(protein_name,:2,'i') OR regexp_like(gene_name,:3,'i')")    
             }
         }
         
@@ -40,9 +34,6 @@ fn search_clause(term_type: &str, role: &str,ptm_types: &Vec<String>,organism_ta
         match engine {
             &Engine::Postgres => {
                 search_term_clause = String::from("uniprot_id ILIKE $1")
-            },
-            &Engine::Oracle => {
-                search_term_clause = String::from("regexp_like(uniprot_id,:1,'i')")
             }
         }
         
@@ -50,13 +41,6 @@ fn search_clause(term_type: &str, role: &str,ptm_types: &Vec<String>,organism_ta
         match engine {
             &Engine::Postgres => {
                 search_term_clause = String::from("uniprot_id ILIKE $1 OR gene_name ILIKE $2")
-            },
-            &Engine::Oracle => {
-                if !paginate{
-                    search_term_clause = String::from("regexp_like(uniprot_id,:1,'i')' OR regexp_like(gene_name,:2,'i')")
-                }else{
-                    search_term_clause = String::from("")
-                }
             }
         }
     }
@@ -79,11 +63,6 @@ fn search_clause(term_type: &str, role: &str,ptm_types: &Vec<String>,organism_ta
             Engine::Postgres => {
                 let ptm_array = misc::to_postgres_array_str(ptm_types);
                 ptm_clause = format!("AND (string_to_array(list_as_substrate,',') && {array})",array=ptm_array);
-            },
-            Engine::Oracle => {
-                //ptm_clause = format!("AND (taxon_code = ANY ({taxon_codes}))",taxon_codes=taxon_codes);
-                let ptm_csv = misc::str_vec_to_str_with_sep(ptm_types,String::from("|"));
-                ptm_clause = format!("AND (regexp_like(LIST_AS_SUBSTRATE,'{ptm_csv}','i'))",ptm_csv=ptm_csv);
             }
     }
 
@@ -94,9 +73,6 @@ fn search_clause(term_type: &str, role: &str,ptm_types: &Vec<String>,organism_ta
         match engine {
             Engine::Postgres => {
                 taxon_clause = format!("AND (taxon_code = ANY ('{{{taxon_codes}}}'))",taxon_codes=taxon_codes);
-            },
-            Engine::Oracle => {
-                taxon_clause = format!("AND (taxon_code = ANY ({taxon_codes}))",taxon_codes=taxon_codes);
             }
         }
     }    
@@ -109,10 +85,6 @@ fn search_clause(term_type: &str, role: &str,ptm_types: &Vec<String>,organism_ta
         match engine {
             Engine::Postgres => {
                 limit_offset_clause = format!("OFFSET {offset} LIMIT {limit}",limit=limit,offset=offset);
-            },
-            Engine::Oracle => {
-                limit_offset_clause = format!("OFFSET {offset} rows FETCH NEXT {limit} rows only",limit=limit,offset=offset);
-                //limit_offset_clause = String::from("");
             }
         }
 
@@ -140,9 +112,6 @@ pub fn pro_info(engine: &Engine) -> String {
     match engine {
         &Engine::Postgres => {
             return query_str;
-        },
-        &Engine::Oracle => {
-            return query_str.replace("$",":");
         }
     }
 }
@@ -152,9 +121,6 @@ pub fn sub_forms(engine: &Engine) -> String {
     match engine {
         &Engine::Postgres => {
             return query_str;
-        },
-        &Engine::Oracle => {
-            return query_str.replace("$",":");
         }
     }
 }
@@ -163,9 +129,6 @@ pub fn proteoforms(engine: &Engine) -> String  {
     match engine {
         &Engine::Postgres => {
             return String::from("SELECT * FROM MV_PROTEO where SUB_XREF ILIKE $1 AND EVENT_NAME != 'Interaction'");
-        },
-        &Engine::Oracle => {
-            return String::from("SELECT * FROM MV_PROTEO where regexp_like(SUB_XREF,:1,'i') AND EVENT_NAME != 'Interaction'");
         }
     }
 }
@@ -174,9 +137,6 @@ pub fn proteoformppi(engine: &Engine) -> String {
     match engine {
         &Engine::Postgres => {
             return String::from("SELECT * FROM MV_PROTEO where SUB_XREF ILIKE $1 AND EVENT_NAME = 'Interaction'");
-        },
-        &Engine::Oracle => {
-            return String::from("SELECT * FROM MV_PROTEO where regexp_like(SUB_XREF,:1,'i') AND EVENT_NAME = 'Interaction'");
         }
     }
 }
@@ -186,9 +146,6 @@ pub fn ptmppi(engine: &Engine) -> String {
     match engine {
         &Engine::Postgres => {
             return query_str;
-        },
-        &Engine::Oracle => {
-            return query_str.replace("$",":");
         }
     }
 }
@@ -197,9 +154,6 @@ pub fn get_sequences(engine: &Engine) -> String {
     match engine {
         Engine::Postgres => {
             return String::from("SELECT * FROM SEQUENCE where ID ILIKE $1");
-        },
-        Engine::Oracle => {
-            return String::from("SELECT * FROM SEQUENCE where regexp_like(ID,:1,'i')");
         }
     }
 }
@@ -208,9 +162,6 @@ pub fn get_decorations(engine: &Engine) -> String {
     match engine {
         Engine::Postgres => {
             return String::from("select event_name,string_agg(source_label, ', ') as source_labels ,string_agg(pmids, ', ') as pmids from mv_event where sub_form_code = $1 and position = $2 and residue = $3 AND position is not null group by event_name");
-        },
-        Engine::Oracle => {
-            return String::from("SELECT * FROM SEQUENCE where regexp_like(ID,:1,'i')");
         }
     }
 }
@@ -219,9 +170,6 @@ pub fn get_decorations_count(engine: &Engine) -> String {
     match engine {
         Engine::Postgres => {
             return String::from(r#"select count(*) as "count" from mv_event where sub_code = $1 and position = $2 and residue = $3 AND position is not null"#);
-        },
-        Engine::Oracle => {
-            return String::from("SELECT * FROM SEQUENCE where regexp_like(ID,:1,'i')");
         }
     }
 }

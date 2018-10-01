@@ -91,7 +91,7 @@ pub fn search_controller(req: HttpRequest<super::State>) -> HttpResponse {
     let search_term;
     let term_type;
     let role;
-    let mut paginate = false;
+    let paginate;
     let limit;
     let offset;
 

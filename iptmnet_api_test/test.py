@@ -1,13 +1,13 @@
 import unittest
 import requests
-import test_helper as helper
+import helper
 import models
 import json
 
 class TestApplication(unittest.TestCase):
     maxDiff = None
     #host = "http://aws3.proteininformationresource.org"
-    host = "http://localhost:8081"
+    host = "http://localhost:8088"
 
 
     # test get info
@@ -491,7 +491,7 @@ class TestApplication(unittest.TestCase):
         self.assertEqual(result.status_code, 200, result.text)
 
         # parse the returned response
-        returned_msa = json.loads(result.text);
+        returned_msa = json.loads(result.text)
 
         # assert
         self.assertEqual(len(returned_msa),3)

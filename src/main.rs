@@ -4,7 +4,6 @@
 extern crate env_logger;
 extern crate actix_web;
 extern crate postgres;
-extern crate oracle;
 
 extern crate serde;
 extern crate serde_json;

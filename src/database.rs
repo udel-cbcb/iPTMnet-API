@@ -2,7 +2,6 @@ use models::*;
 use errors::*;
 use misc;
 use postgres;
-use oracle;
 use std::collections::HashMap;
 use std::rc::Rc;
 use std::cell::RefCell;
@@ -20,8 +19,7 @@ pub struct DBParams {
 
 #[derive(Debug)]
 pub enum Engine {
-    Postgres,
-    Oracle
+    Postgres
 }
 
 pub trait MyRow<'a>{
@@ -50,104 +48,32 @@ impl<'a> MyRow<'a> for postgres::rows::Row<'a> {
     }
 }
 
-impl<'a> MyRow<'a> for oracle::Row {
-    fn get_string(&self,column_name: &str) -> Option<String>{
-        let result = self.get(column_name);
-        match result {
-            Ok(val) => {
-                return Some(val);
-            },
-            Err(_error) => {
-                return None;
-            }
-        };
-    }
-
-    fn get_string_unwrapped(&self,column_name: &str) -> String {
-        let result = self.get(column_name);
-        match result {
-            Ok(val) => {
-                return val;
-            },
-            Err(error) => {
-                panic!("{}",error);
-            }
-        };
-    }
-
-    fn get_i64(&self,column_name: &str) -> Option<i64>{
-        let result = self.get(column_name);
-        match result {
-            Ok(val) => {
-                return Some(val);
-            },
-            Err(_error) => {
-                return None;
-            }
-        };
-    }
-
-    fn get_bool(&self,column_name: &str) -> Option<bool>{
-        let result = self.get(column_name);
-        match result {
-            Ok(val) => {
-                return Some(val);
-            },
-            Err(_error) => {
-                return None;
-            }
-        };
-    }
-}
-
 
 pub struct Connection {
     pub engine: Engine,
-    pub pg_conn: Option<postgres::Connection>,
-    pub oracle_conn: Option<oracle::Connection>
+    pub pg_conn: Option<postgres::Connection>
 }
 
 pub fn connect(db_params: &DBParams) -> Result<Connection> {
-    if db_params.engine == "oracle" {
-        let connect_string = format!("{host}:{port}/{db_name}",host=db_params.host,port=db_params.port,db_name=db_params.db_name);
-        let connect_result = oracle::Connection::connect(&db_params.user, &db_params.pass, &connect_string, &[]);
-        match connect_result {
-            Ok(conn) => {
-                let connection = Connection {
-                    engine: Engine::Oracle,
-                    pg_conn: None,
-                    oracle_conn: Some(conn)
-                };
-                return Ok(connection);
-            },
-            Err(error) => {
-                error!("{}",error);
-                error!("Connect string - {}",connect_string);
-                return Err(format!("{}",error).into());
-            }
-        }
-    }else{
-        let connect_string = format!("postgres://{user}:{pass}@{host}:{port}/{database}",user=db_params.user,
+    let connect_string = format!("postgres://{user}:{pass}@{host}:{port}/{database}",user=db_params.user,
                                      pass=db_params.pass,
                                      host=db_params.host,
                                      port=db_params.port,
                                      database=db_params.db_name
         );
-        let connect_result = postgres::Connection::connect(connect_string.clone(),postgres::TlsMode::None);
-        match connect_result {
-            Ok(conn) => {
-                let connection = Connection {
-                    engine: Engine::Postgres,
-                    pg_conn: Some(conn),
-                    oracle_conn: None
-                };
-                return Ok(connection);
-            },
-            Err(error) => {
-                error!("{}",error);
-                error!("Connect string - {}",connect_string);
-                return Err(format!("{}",error).into());
-            }
+    let connect_result = postgres::Connection::connect(connect_string.clone(),postgres::TlsMode::None);
+    match connect_result {
+        Ok(conn) => {
+            let connection = Connection {
+                engine: Engine::Postgres,
+                pg_conn: Some(conn)
+            };
+            return Ok(connection);
+        },
+        Err(error) => {
+            error!("{}",error);
+            error!("Connect string - {}",connect_string);
+            return Err(format!("{}",error).into());
         }
     }
 }
@@ -184,44 +110,6 @@ macro_rules! execute_query {
                         }
                     }
                 },
-
-                Engine::Oracle => {
-                    match $conn.oracle_conn {
-                        Some(ref oracle_conn) => {
-                            let query_result = oracle_conn.query(&$query_str,$params);
-                            match query_result {
-                                Ok(rows_result) => {
-                                    for row_result in rows_result {
-                                        match row_result {
-                                            Ok(row) => {
-                                                let info = $builder_func(&row)?;
-                                                return Ok(Some(info));
-                                            },
-                                            Err(error) => {
-                                                error!("{}",error);
-                                                return Err(format!("{}",error).into());
-                                            }
-                                        }
-                                    }
-
-                                    //if we have reached here, then that means row count was zero so we return error
-                                    Ok(None)
-
-                                },
-                                Err(error) => {
-                                    Err(format!("{}",error).into())
-                                }
-                            }
-                        },
-                        None => {
-                            //Invalid database engine
-                            let message = String::from("Oracle engine is None");
-                            error!("{}",message);
-                            Err(message.into())
-                        }
-                    }
-
-                }
             }
     )
 }
@@ -255,41 +143,6 @@ macro_rules! execute_query_bulk {
                         }
                     }
                 },
-                Engine::Oracle => {
-                    match $conn.oracle_conn {
-                        Some(ref oracle_conn) => {
-                            //execute the query
-                            let query_result = oracle_conn.query(&$query_str,$params);
-                            match query_result {
-                                Ok(rows_result) => {
-                                    for row_result in rows_result {
-                                        match row_result {
-                                            Ok(row) => {
-                                                // Get the item from the row
-                                                let item = $build_item(&row)?;
-                                                $list.push(item);
-                                            },
-                                            Err(error) => {
-                                                error!("{}",error);
-                                                return Err(format!("{}",error).into());
-                                            }
-                                        }
-                                    };
-
-                                },
-                                Err(error) => {
-                                    return Err(format!("{}",error).into());
-                                }
-                            }
-                        },
-                        None => {
-                            //Invalid database engine
-                            let message = String::from("Oracle engine is None");
-                            error!("{}",message);
-                            return Err(message.into());
-                        }
-                    }
-                }
             }
     );
 }
@@ -316,39 +169,6 @@ macro_rules! execute_query_callback {
                         },
                         None => {
                             let message = String::from("Postgres engine is None");
-                            error!("{}",message);
-                            return Err(message.into());
-                        }
-                    }
-                },
-                Engine::Oracle => {
-                    match $conn.oracle_conn {
-                        Some(ref oracle_conn) => {
-                            //execute the query
-                            let query_result = oracle_conn.query(&$query_str,$params);
-                            match query_result {
-                                Ok(rows_result) => {
-                                    for row_result in rows_result {
-                                        match row_result {
-                                            Ok(row) => {
-                                                $callback(&row);
-                                            },
-                                            Err(error) => {
-                                                error!("{}",error);
-                                                return Err(format!("{}",error).into());
-                                            }
-                                        }
-                                    };
-
-                                },
-                                Err(error) => {
-                                    return Err(format!("{}",error).into());
-                                }
-                            }
-                        },
-                        None => {
-                            //Invalid database engine
-                            let message = String::from("Oracle engine is None");
                             error!("{}",message);
                             return Err(message.into());
                         }
@@ -452,13 +272,6 @@ pub fn search(search_term: &str,
     match &conn.engine {
         Engine::Postgres => {
             search_term_formatted = format!("%{search_term}%",search_term=search_term);
-        },
-        Engine::Oracle => {
-            if search_term.is_empty(){
-                search_term_formatted = String::from(".*");
-            }else{
-                search_term_formatted = String::from(search_term);
-            }
         }
     }
     
@@ -657,40 +470,6 @@ fn get_events_for_sub_form(sub_form: &str,conn: &Connection) -> Result<(Vec<Subs
                     return Err(message.into());
                 }
             }
-        },
-        Engine::Oracle => {
-            match conn.oracle_conn {
-                Some(ref oracle_conn) => {
-                    //execute the query
-                    let query_result = oracle_conn.query(&query_str,&[]);
-                    match query_result {
-                        Ok(rows_result) => {
-                            for row_result in rows_result {
-                                match row_result {
-                                    Ok(row) => {
-                                        //update the events and pmid stats
-                                        update_events(&row,&mut events,&mut pmid_stats);                                        
-                                    },
-                                    Err(error) => {
-                                        error!("{}",error);
-                                        return Err(format!("{}",error).into());
-                                    }
-                                }
-                            };
-
-                        },
-                        Err(error) => {
-                            return Err(format!("{}",error).into());
-                        }
-                    }
-                },
-                None => {
-                    //Invalid database engine
-                    let message = String::from("Oracle engine is None");
-                    error!("{}",message);
-                    return Err(message.into());
-                }
-            }
         }
     }
 
@@ -866,9 +645,6 @@ pub fn get_proteoforms(id: &str, conn: &Connection) -> Result<Vec<Proteoform>> {
     match &conn.engine {
         Engine::Postgres => {
             formatted_id = format!("%{id}%",id=id);
-        },
-        Engine::Oracle => {
-            formatted_id = String::from(id);
         }
     }
 
@@ -919,9 +695,6 @@ pub fn get_proteoformppis(id: &str, conn: &Connection) -> Result<Vec<ProteoformP
     match &conn.engine {
         Engine::Postgres => {
             formatted_id = format!("%{id}%",id=id);
-        },
-        Engine::Oracle => {
-            formatted_id = String::from(id);
         }
     }
 
@@ -1042,15 +815,6 @@ pub fn get_ptm_enzymes(query_substrates: &Vec<QuerySubstrate>, conn: &Connection
                 FROM MV_EVENT \
                 where (sub_code,residue,position) in ({tuples}) and enz_code is not NULL \
                 GROUP BY(enz_code,enz_symbol,sub_code,sub_symbol,residue,position,event_name)",tuples=query_substrates_str); 
-        },
-        Engine::Oracle => {
-            query_str = format!("SELECT event_name,sub_code,sub_symbol,residue,position,enz_code,enz_symbol, \
-                LISTAGG(source_label,',') WITHIN GROUP (ORDER BY source_label) as source_label, \
-                LISTAGG(num_substrates,'|') WITHIN GROUP (ORDER BY source_label) as num_substrates, \
-                LISTAGG(pmids,',') WITHIN GROUP (ORDER BY source_label) as pmids \
-                FROM MV_EVENT \
-                where (sub_code,residue,position) in ({tuples}) and enz_code is not NULL \
-                GROUP BY(enz_code,enz_symbol,sub_code,sub_symbol,residue,position,event_name)",tuples=query_substrates_str);
         }
     }
 

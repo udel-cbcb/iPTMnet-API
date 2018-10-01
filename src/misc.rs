@@ -291,6 +291,7 @@ pub fn str_vec_to_str(items: &Vec<String>) -> String{
 
 }
 
+/**
 pub fn str_vec_to_str_with_sep(items: &Vec<String>,seperator: String) -> String{
     let mut items_str = String::new();
     for (index,item) in items.iter().enumerate() {
@@ -303,7 +304,7 @@ pub fn str_vec_to_str_with_sep(items: &Vec<String>,seperator: String) -> String{
 
     return items_str;
 
-}
+}**/
 
 pub fn taxons_to_tuple_str(taxons: &Vec<i32>) -> String {
     let mut taxons_str = String::new();
