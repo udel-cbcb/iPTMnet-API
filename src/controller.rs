@@ -17,7 +17,7 @@ use std::io::prelude::*;
 pub fn get_status_controller(_req: HttpRequest<super::State>) -> HttpResponse {
     let mut status : HashMap<&str,&str> = HashMap::new();
     status.insert("status","alive");
-    status.insert("version","1.1.8");
+    status.insert("version","1.1.9");
     let status_serialized = serde_json::to_string_pretty(&status).unwrap();
     return HttpResponse::Ok().force_close().body(status_serialized);
 }
@@ -1218,6 +1218,9 @@ pub fn get_msa_controller(req: HttpRequest<super::State>) -> HttpResponse {
     //get the value of ID
     let id: String  = req.match_info().query("id").unwrap();
 
+    //get content header
+    let content_header = misc::get_accept_header_value(&req);
+
     //get the connection from pool
     let conn;
     match database::connect(&req.state().db_params) {
@@ -1236,6 +1239,7 @@ pub fn get_msa_controller(req: HttpRequest<super::State>) -> HttpResponse {
                     let decorate_result = msa::decorate(&id,&alignment,(&req.state().db_params).clone());
                     match decorate_result {
                         Ok(alignment_decorated) => {
+                            /*** 
                             let alignment_serialized_result = serde_json::to_string(&alignment_decorated);
                             match alignment_serialized_result {
                                 Ok(alignment_serialized) => {
@@ -1252,6 +1256,48 @@ pub fn get_msa_controller(req: HttpRequest<super::State>) -> HttpResponse {
                                     .body(error_msg);        
                                 }
                             }
+                            ***/
+                            if content_header == "application/json" {
+                                let alignment_serialized_result = serde_json::to_string(&alignment_decorated);
+                                match alignment_serialized_result {
+                                    Ok(alignment_serialized) => {
+                                        return HttpResponse::Ok()
+                                        .force_close()
+                                        .header(http::header::CONTENT_TYPE, "application/json")
+                                        .body(alignment_serialized);
+                                    },
+                                    Err(error) => {
+                                        let error_msg = format!("{}",error);
+                                        return HttpResponse::Ok()
+                                        .force_close()
+                                        .header(http::header::CONTENT_TYPE, "application/json")
+                                        .body(error_msg);        
+                                    }
+                                }    
+                            }else if content_header == "text/plain" {
+                                let alignment_serialized_result = serde_json::to_string(&alignment_decorated);
+                                match alignment_serialized_result {
+                                    Ok(alignment_serialized) => {
+                                        return HttpResponse::Ok()
+                                        .force_close()
+                                        .header(http::header::CONTENT_TYPE, "application/json")
+                                        .body(alignment_serialized);
+                                    },
+                                    Err(error) => {
+                                        let error_msg = format!("{}",error);
+                                        return HttpResponse::Ok()
+                                        .force_close()
+                                        .header(http::header::CONTENT_TYPE, "application/json")
+                                        .body(error_msg);        
+                                    }
+                                }
+                            }else {
+                                let error_msg = format!("{}","unknown content_header");
+                                    return HttpResponse::Ok()
+                                    .force_close()
+                                    .header(http::header::CONTENT_TYPE, "application/json")
+                                    .body(error_msg);
+                            }                          
                         },
                         Err(error) => {
                             let error_msg = format!("{}",error);

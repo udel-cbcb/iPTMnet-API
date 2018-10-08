@@ -249,6 +249,14 @@ pub struct AlignmentItem {
     pub decorations: Vec<Decoration>
 }
 
+#[derive(Serialize, Deserialize,Clone, Debug)]
+pub struct AlignmentFlat {
+    pub id: String,
+    pub site: String,
+    pub position: i16,
+    pub decorations: Vec<Decoration>
+}
+
 #[derive(Serialize, Deserialize, Clone,Debug)]
 pub struct Decoration {
     pub ptm_type: Option<String>,

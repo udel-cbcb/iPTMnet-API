@@ -60,9 +60,10 @@ pub fn decorate(id: &str,alignmened_sequences: &str,db_params: database::DBParam
         let form_id = record.id();
         let seq = record.seq();
 
-        let closure = |seq_item| decorate_item(seq_item,String::from(id),String::from(form_id),db_params.clone());
+        let conn = database::connect(&db_params)?;
+        let closure = |seq_item| decorate_item(seq_item,String::from(id),String::from(form_id),&conn);
        
-        let alignment_items = seq.par_iter().enumerate().map(closure).collect::<Result<Vec<AlignmentItem>>>()?;
+        let alignment_items = seq.iter().enumerate().map(closure).collect::<Result<Vec<AlignmentItem>>>()?;
 
         let alignment = Alignment {
             id: String::from(form_id),
@@ -75,7 +76,7 @@ pub fn decorate(id: &str,alignmened_sequences: &str,db_params: database::DBParam
 }
 
 
-fn decorate_item(seq_item: (usize, &u8),id: String,form_id: String,db_params: database::DBParams) -> Result<AlignmentItem> {    
+fn decorate_item(seq_item: (usize, &u8),id: String,form_id: String,conn: &database::Connection) -> Result<AlignmentItem> {    
     let str_vec = [*(seq_item.1)].to_vec();
     let site;
     match String::from_utf8(str_vec) {
@@ -90,7 +91,6 @@ fn decorate_item(seq_item: (usize, &u8),id: String,form_id: String,db_params: da
     let mut position = seq_item.0 as i16;
     position = position + 1;
 
-    let conn = database::connect(&db_params)?;
     let decorations = database::get_decorations(&id,&form_id,position as i64,&site,&conn)?;
 
     let alignment_item = AlignmentItem {

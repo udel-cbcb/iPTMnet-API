@@ -444,3 +444,11 @@ pub fn sources(sources: &Vec<Source>) -> String {
 
     return sources_str;
 }
+
+pub fn msa(alignments: &Vec<Alignment>){
+
+}
+
+fn alignment(alignment: &Alignment) {
+    
+}
