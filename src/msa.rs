@@ -6,7 +6,6 @@ use std::io::{Write};
 use std::process::{Command, Stdio};
 use errors::*;
 use bio::io;
-use rayon::prelude::*;
 
 fn to_fasta(sequences: &Vec<Sequence>) -> String {
     let mut fasta_string = String::from("");

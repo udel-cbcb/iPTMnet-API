@@ -17,7 +17,7 @@ use std::io::prelude::*;
 pub fn get_status_controller(_req: HttpRequest<super::State>) -> HttpResponse {
     let mut status : HashMap<&str,&str> = HashMap::new();
     status.insert("status","alive");
-    status.insert("version","1.1.9");
+    status.insert("version","2.0.0");
     let status_serialized = serde_json::to_string_pretty(&status).unwrap();
     return HttpResponse::Ok().force_close().body(status_serialized);
 }
