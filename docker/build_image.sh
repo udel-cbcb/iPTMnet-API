@@ -13,5 +13,5 @@ mkdir ./oracle
 cp -r ./../oracle/* ./oracle/
 
 # build the iptmnet api images
-docker build --no-cache . -t udelcbcb/iptmnet_api:1.1.8
+docker build --no-cache . -t udelcbcb/iptmnet_api:1.1.9
 

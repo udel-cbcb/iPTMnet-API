@@ -285,13 +285,13 @@ pub fn search(search_term: &str,
         },
     }
 
-    if term_type == "All" {
+    if term_type.to_lowercase() == "All".to_lowercase() {
         execute_query_callback!(handle_search_row,conn,query_str,&[&search_term_formatted,&search_term_formatted,&search_term_formatted]);
         return Ok((count.clone(),search_results.clone()));
-    }else if term_type == "UniprotID" {
+    }else if term_type.to_lowercase() == "UniprotID".to_lowercase() {
         execute_query_callback!(handle_search_row,conn,query_str,&[&search_term_formatted]);
         return Ok((count.clone(),search_results.clone()));        
-    }else if term_type == "Protein/Gene Name" {
+    }else if term_type.to_lowercase() == "Protein/Gene Name".to_lowercase() {
         execute_query_callback!(handle_search_row,conn,query_str,&[&search_term_formatted,&search_term_formatted]);
         return Ok((count.clone(),search_results.clone()));
     }else{
