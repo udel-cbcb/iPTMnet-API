@@ -1273,3 +1273,90 @@ pub fn get_msa_controller(req: HttpRequest<super::State>) -> HttpResponse {
     }
 
 }
+
+pub fn get_variants(req: HttpRequest<super::State>) -> HttpResponse {
+    //get the value of ID
+    let id: String  = req.match_info().query("id").unwrap();
+
+    //get content header
+    let content_header = misc::get_accept_header_value(&req);
+
+    //get the connection from pool
+    let conn;
+    match database::connect(&req.state().db_params) {
+        Ok(val) => {conn = val},
+        Err(error) => {return HttpResponse::InternalServerError().header(http::header::CONTENT_TYPE, "text/plain").force_close().body(format!("{}",error));},
+    }
+
+    //get the id strings
+    let variant_result = database::get_variants(&id,&conn);
+
+    //check if the operation was successful
+    match variant_result {
+        Ok(variants) => {
+            
+            if content_header == "application/json"{
+                //try deserializing    
+                let variants_serialized_result = serde_json::to_string_pretty(&variants);
+
+                //check if operation was successful
+                match variants_serialized_result {
+
+                    Ok(proteoforms_serialized) => {
+                        HttpResponse::Ok().force_close().header(http::header::CONTENT_TYPE, "text/plain").body(proteoforms_serialized)
+                    },
+
+                    Err(error) => {
+                        HttpResponse::InternalServerError().force_close().header(http::header::CONTENT_TYPE, "text/plain").body(format!("{}",error))
+                    }
+
+                }
+            } else if content_header =="text/plain" {
+                    //convert the values to flat structure
+
+                    let mut wtr = csv::Writer::from_writer(vec![]);
+                    
+                    for variant_flat in variants {
+                        let result = wtr.serialize(&variant_flat);
+                        match result {
+                            Ok(_) => {},
+                            Err(error) => {
+                                error!("{}",error);
+                                return HttpResponse::InternalServerError().force_close().header(http::header::CONTENT_TYPE, "text/plain").body(format!("{}",error));
+                            }
+                        }
+                    }
+
+                    let inner;
+                    let inner_result = wtr.into_inner();
+                    match inner_result {
+                        Ok(value) => {inner=value;},
+                        Err(error) => {
+                            error!("{}",error);
+                            return HttpResponse::InternalServerError().force_close().header(http::header::CONTENT_TYPE, "text/plain").body(format!("{}",error));
+                        }
+                    }
+
+                    let data_result = String::from_utf8(inner);
+                    match data_result {
+                        Ok(data) => {
+                            return HttpResponse::Ok().force_close().header(http::header::CONTENT_TYPE, "text/plain").body(data);
+                        },
+                        Err(error) => {
+                            error!("{}",error);
+                            return HttpResponse::InternalServerError().force_close().header(http::header::CONTENT_TYPE, "text/plain").body(format!("{}",error));
+                        }
+                    }                
+            }else {
+                return HttpResponse::BadRequest().force_close().header(http::header::CONTENT_TYPE, "text/plain").body(format!("Invalid ACCEPT header - {}",content_header));
+            }                 
+
+
+
+        },
+
+        Err(error) => {
+            HttpResponse::InternalServerError().force_close().header(http::header::CONTENT_TYPE, "text/plain").body(format!("{}",error))
+        }
+    }
+}

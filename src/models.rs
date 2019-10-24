@@ -263,4 +263,16 @@ pub struct Sequence {
     pub sequence: String,
 }
 
+#[derive(Serialize, Deserialize, Debug)]
+pub struct Variant {
+    pub ac: Option<String>,
+    pub position: i32,
+    pub residue_sequence: Option<String>,
+    pub residue_mutated: Option<String>,
+    pub disease: Option<String>,
+    pub sample_source: Option<String>,
+    pub pmid: Option<String>,
+}
+
+
 

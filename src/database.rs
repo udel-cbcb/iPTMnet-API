@@ -1306,3 +1306,54 @@ pub fn get_decorations_count(id: &str, position: i64,residue: &str, conn: &Conne
 
     return execute_query!(closure,conn,query_str,&[&id,&position,&residue]);
 }
+
+pub fn get_variants(id: &str,conn: &Connection) -> Result<Vec<Variant>>{
+    let query_str = format!("SELECT * \
+                    FROM BIOMUTA \
+                    where ac like '%{id}%' ",id=id);
+    println!("{}",query_str);
+
+    let mut variants: Vec<Variant> = Vec::new();
+
+        match conn.engine {
+        Engine::Postgres => {
+
+            match conn.pg_conn {
+                Some(ref pg_conn) => {
+                    //execute the query                    
+                    let rows_result = pg_conn.query(&query_str,&[]);
+                    match rows_result {
+                        Ok(rows) => {
+                            for row in rows.iter() {
+                                let variant = Variant {
+                                    ac: row.get("ac"),
+                                    position: row.get("position"),
+                                    residue_sequence: row.get("residue_sequence"),
+                                    residue_mutated: row.get("residue_mutated"),
+                                    disease: row.get("disease"),
+                                    sample_source: row.get("sample_source"),
+                                    pmid: row.get("pmid")
+                                };
+                                variants.push(variant);
+                            }
+                        },
+                        Err(error) => {
+                            return Err(format!("{}",error).into());
+                        }
+                    };
+                },
+                None => {
+                    let message = String::from("Postgres engine is None");
+                    error!("{}",message);
+                    return Err(message.into());
+                }
+            }
+        },
+        Engine::Oracle => {
+            
+        }
+    }
+
+    return Ok(variants);
+
+}
