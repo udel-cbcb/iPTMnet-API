@@ -3,3 +3,4 @@
 \target/*
 iptmnet_api/__pycache__/
 config.ini
+*.tar.gz

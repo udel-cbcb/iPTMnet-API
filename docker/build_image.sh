@@ -1,6 +1,6 @@
 #!/bin/bash
-VERSION=1.1.9
-IMAGE_NAME=udelcbcb/iptmnet_api
+VERSION=2.1.0
+IMAGE_NAME=iptmnet_api
 
 # copy the iptmnet api executable
 cargo build --release
