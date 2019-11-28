@@ -539,3 +539,25 @@ pub fn get_accept_header_value(req: &HttpRequest<super::State>) -> String{
     return String::from(content_header);
 
 }
+
+pub fn filter_empty_enzymes(batch_ptm_enzyme: &BatchPTMEnzyme) -> bool {
+    match batch_ptm_enzyme.enzyme {
+        Some(ref enzyme) => {
+            match enzyme.name {
+                Some(ref name) => {
+                    if name.trim() == "" {
+                        return false;
+                    }else{
+                        return true;
+                    }
+                }
+                None => {
+                    return false;
+                }
+            }
+        }
+        None => {
+            return false;
+        }
+    }
+}

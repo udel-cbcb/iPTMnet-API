@@ -239,6 +239,7 @@ macro_rules! execute_query_bulk {
                                 Ok(rows) => {
                                     for row in rows.iter() {
                                         //bult the item from row
+                                        
                                         let item = $build_item(&row)?;
                                         $list.push(item);
                                     }
@@ -1058,7 +1059,9 @@ pub fn get_ptm_enzymes(query_substrates: &Vec<QuerySubstrate>, conn: &Connection
 
     execute_query_bulk!(build_ptm_enzyme,conn,query_str,ptm_enzymes,&[]);    
 
-    Ok(ptm_enzymes)
+    let ptm_enzymes_filtered = ptm_enzymes.into_iter().filter(|batch_ptm_enzyme| misc::filter_empty_enzymes(batch_ptm_enzyme)).collect::<Vec<BatchPTMEnzyme>>();
+
+    Ok(ptm_enzymes_filtered)
 
 }
 

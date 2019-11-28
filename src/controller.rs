@@ -1020,6 +1020,7 @@ pub fn batch_ptm_enzymes_controller(req: HttpRequest<super::State>) -> Box<Futur
                 Ok(ptm_enzymes) => {
 
                     if content_header == "application/json"{
+                        info!("Serializing");
                         let ptm_enzymes_serialized_result = serde_json::to_string_pretty(&ptm_enzymes);
                         match ptm_enzymes_serialized_result {
                             Ok(ptm_enzymes_serialized) => {
@@ -1027,6 +1028,7 @@ pub fn batch_ptm_enzymes_controller(req: HttpRequest<super::State>) -> Box<Futur
                                 return Ok(HttpResponse::Ok().force_close().header(http::header::CONTENT_TYPE, "application/json").body(ptm_enzymes_serialized));    
                             },
                             Err(error) => {
+                                error!("{}",error);
                                 return Ok(HttpResponse::InternalServerError().force_close().header(http::header::CONTENT_TYPE, "text/plain").body(format!("{}",error)));
                             }
                         }
@@ -1072,6 +1074,7 @@ pub fn batch_ptm_enzymes_controller(req: HttpRequest<super::State>) -> Box<Futur
                     }
                 },
                 Err(error) => {
+                    error!("{}",error);
                     return Ok(HttpResponse::InternalServerError().force_close().header(http::header::CONTENT_TYPE, "text/plain").body(format!("{}",error)));
                 }
             }            

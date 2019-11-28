@@ -49,7 +49,7 @@ pub struct State {
 
 fn main() {
     //Logging is hard coded for now, but soon can be configured through config file    
-    std::env::set_var("RUST_LOG", "actix_web=info,iptmnet_api=info");
+    std::env::set_var("RUST_LOG", "actix_web=trace,iptmnet_api=trace");
     env_logger::Builder::from_default_env()
         .default_format_timestamp(false)
         .default_format_module_path(false)
