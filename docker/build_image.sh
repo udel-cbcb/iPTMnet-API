@@ -1,5 +1,5 @@
 #!/bin/bash
-VERSION=2.1.0
+VERSION=2.1.1
 IMAGE_NAME=iptmnet_api
 
 # copy the iptmnet api executable

@@ -5,3 +5,4 @@ iptmnet_api/__pycache__/
 iptmnet_api_test/__pycache__/
 config.ini
 *.tar.gz
+docker/iptmnet_api
