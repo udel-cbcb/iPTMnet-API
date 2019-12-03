@@ -2,4 +2,6 @@
 \venv/
 \target/*
 iptmnet_api/__pycache__/
+iptmnet_api_test/__pycache__/
 config.ini
+docker/iptmnet_api*
