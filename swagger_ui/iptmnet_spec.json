@@ -2,7 +2,7 @@
   "swagger" : "2.0",
   "info" : {
     "description" : "This is an API for iPTMNet providing information about post-translational modifications (PTMs) combined from multiple sources and tools.",
-    "version" : "1.0.0",
+    "version" : "2.1.1",
     "title" : "iPTMNet API",
     "contact" : {
       "email" : "jcowart@udel.edu"
@@ -16,7 +16,7 @@
   "basePath" : "base_path",
   "schemes" : [ "http_scheme" ],
   "paths" : {
-    "/search" : {
+    "/v1/search" : {
       "get" : {
         "summary" : "Search for proteins in the iPTMnet database",
         "description" : "Search for proteins in the iPTMnet database that are relevant to the given search term.",
@@ -102,7 +102,7 @@
         }
       }
     },
-    "/browse" : {
+    "/v1/browse" : {
       "get" : {
         "summary" : "Browse for proteins in the iPTMnet database",
         "description" : "Browse for proteins in the iPTMnet database that are relevant to the given search term.",
@@ -176,7 +176,7 @@
         }
       }
     },
-    "/{id}/info" : {
+    "/v1/{id}/info" : {
       "get" : {
         "summary" : "Retrieve top level info about a iPTMNet entry.",
         "description" : "By passing a IPTMNet identifier, you can retrieve top level info obout that protein entry in iPTMNet.",
@@ -203,7 +203,7 @@
         }
       }
     },
-    "/{id}/msa" : {
+    "/v1/{id}/msa" : {
       "get" : {
         "summary" : "Retrieve the annotated MSA for the iPTMNet Entry",
         "description" : "By passing a IPTMNet identifier, you can retrieve the default annotated Multiple Sequence Alignment for the entry",
@@ -227,7 +227,7 @@
         }
       }
     },
-    "/{id}/substrate" : {
+    "/v1/{id}/substrate" : {
       "get" : {
         "summary" : "Retrieve the list of PTM sites with the given substrate",
         "description" : "By passing a IPTMNet identifier, you can retrieve the list of PTM sites and annotations with that given substrate",
@@ -288,7 +288,7 @@
         }
       }
     },
-    "/{id}/proteoforms" : {
+    "/v1/{id}/proteoforms" : {
       "get" : {
         "summary" : "Retrieve the list of proteoforms for the iPTMNet Entry",
         "description" : "By passing a IPTMNet identifier, you can retrieve the list of proteoforms for this entry",
@@ -318,7 +318,7 @@
         }
       }
     },
-    "/{id}/ptmppi" : {
+    "/v1/{id}/ptmppi" : {
       "get" : {
         "summary" : "Retrieve the list of PTM dependent ppi for the iPTMNet Entry",
         "description" : "By passing an IPTMNet identifier, you can retrieve the list of PTM dependent ppi for the iPTMNet Entry",
@@ -348,7 +348,7 @@
         }
       }
     },
-    "/{id}/proteoformppi" : {
+    "/v1/{id}/proteoformppi" : {
       "get" : {
         "summary" : "Retrieve the list of PPI among the proteoforms for the iPTMNet Entry",
         "description" : "By passing a IPTMNet identifier, you can retrieve the list of PPI among the proteoforms for the iPTMNet Entry",
@@ -378,7 +378,7 @@
         }
       }
     },
-    "/batch_ptm_enzymes" : {
+    "/v1/batch_ptm_enzymes" : {
       "post" : {
         "summary" : "Retrive PTM enzymes information for a given list items",
         "description" : "Retrive PTM enzymes information for a given list items",
@@ -412,7 +412,7 @@
         }
       }
     },
-    "/batch_ptm_ppi" : {
+    "/v1/batch_ptm_ppi" : {
       "post" : {
         "summary" : "Retrive PTM dependent PPI information for a given list items",
         "description" : "Retrive PTM dependent PPI information for a given list items ",
@@ -437,6 +437,36 @@
               "type" : "array",
               "items" : {
                 "$ref" : "#/definitions/batch_result_ptm_ppi"
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      }
+    },
+    "/v1/{id}/variant" : {
+      "get" : {
+        "summary" : "Retrieve the list of PTM variants for the iPTMnet entry",
+        "description" : "By passing a IPTMNet identifier, you can retrieve the list of PTM variants for the iPTMNet Entry",
+        "operationId" : "variantsById",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "The iPTMNet ID. Usually reuse UniProt Accession numbers.",
+          "required" : true,
+          "type" : "string",
+          "format" : "^[\\w\\s:-]+)$"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "A list of variants",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/variant"
               }
             }
           },
@@ -1479,6 +1509,32 @@
       "example" : {
         "name" : "PRO",
         "url" : "www.example.com"
+      }
+    },
+    "variant" : {
+      "properties" : {
+        "ac" : {
+          "type" : "string",
+          "example" : "Q15796"
+        },
+        "position" : {
+          "type" : "integer"
+        },
+        "residue_sequence": {
+          "type" : "string"
+        },
+        "residue_mutated": {
+          "type" : "string"
+        },
+        "disease": {
+          "type" : "string"
+        },
+        "sample_source": {
+          "type" : "string"
+        },
+        "pmid": {
+          "type" : "string"
+        }
       }
     }
   },
