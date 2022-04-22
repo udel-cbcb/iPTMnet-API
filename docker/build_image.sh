@@ -1,5 +1,5 @@
 #!/bin/bash
-VERSION=2.1.2
+VERSION=2.1.3
 IMAGE_NAME=iptmnet_api
 
 # copy the iptmnet api executable
@@ -12,6 +12,6 @@ mkdir ./oracle
 cp -r ./../oracle/* ./oracle/
 
 # build the iptmnet api images
-docker build --no-cache . -t $IMAGE_NAME:$VERSION
-docker save -o iptmnet_api-$VERSION.tar.gz $IMAGE_NAME:$VERSION 
+docker build --no-cache . -t udelcbcb/$IMAGE_NAME:$VERSION
+docker push udelcbcb/$IMAGE_NAME:$VERSION
 
