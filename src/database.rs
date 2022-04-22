@@ -597,6 +597,109 @@ pub fn get_substrate_events(id: &str, conn: &Connection) -> Result<HashMap<Strin
      return Ok(substrate_events);
 } 
 
+pub fn get_enzyme_events(id: &str, conn: &Connection) -> Result<Vec<EnzymeEvent>> {
+    let mut enzyme_events: Vec<EnzymeEvent> = Vec::new();
+
+    let query_str = format!("SELECT SUB_FORM_CODE,SUB_SYMBOL,RESIDUE,POSITION,SOURCE_LABEL,PMIDS \
+                    FROM MV_EVENT \
+                    where ENZ_CODE = '{id}' AND EVENT_LABEL = 'p' \
+                    ORDER BY RESIDUE,POSITION,EVENT_NAME",id=id);
+
+    match conn.engine {
+        Engine::Postgres => {
+            match conn.pg_conn {
+                Some(ref pg_conn) => {
+                    //execute the query                    
+                    let rows_result = pg_conn.query(&query_str,&[]);
+                    match rows_result {
+                        Ok(rows) => {
+                            for row in rows.iter() {
+
+                                // get substrate
+                                let substrate = row.get_string("SUB_FORM_CODE");
+
+                                // get substrate symbol
+                                let substrate_sym = row.get_string("SUB_SYMBOL");
+
+                                // get residue and site
+                                let mut site: Option<String> = None;
+                                let residue_option = row.get_string("residue");
+                                match residue_option {
+                                    Some(residue) => {
+
+                                        // get position
+                                        let position_option = row.get_i64("position");
+
+                                        match position_option {
+                                            Some (position) => {
+                                                site = Some(format!("{residue}{position}",residue=residue,position=position));
+                                            },
+                                            None => {
+                                                // pass
+                                            }
+                                        }
+                                    },
+                                    None => {
+                                        //pass
+                                    }
+                                }
+
+                                // get sources
+                                let mut sources: Vec<Source> = Vec::new();
+                                let source_label  = row.get_string("source_label");
+                                let source = misc::get_source(source_label);
+                                match source {
+                                    Some(value) => {
+                                        sources.push(value);
+                                    },
+                                    None => {
+
+                                    }
+                                }
+
+                                // get pmids
+                                let pmid_option = row.get_string("pmids");
+                                let pmids = misc::to_pmid_list(pmid_option);
+
+                                // build the enzyme event struct
+                                let enzyme_event = EnzymeEvent {
+                                    substrate: substrate,
+                                    substrate_symbol: substrate_sym,
+                                    site: site.clone(),
+                                    score: Some(0),
+                                    sources: sources,
+                                    pmids: pmids
+                                };
+
+                                if site != None {
+                                    enzyme_events.push(enzyme_event);
+                                }
+
+
+                            }
+                        },
+                        Err(error) => {
+                            return Err(format!("{}",error).into());
+                        }
+                    };
+                },
+                None => {
+                    let message = String::from("Postgres engine is None");
+                    error!("{}",message);
+                    return Err(message.into());
+                }
+            }
+        },
+        Engine::Oracle => {
+            let message = String::from("Unsupported with oracle engine");
+            error!("{}",message);
+            return Err(message.into());
+        }
+    }
+
+    return Ok(enzyme_events);
+} 
+
 pub fn get_sub_forms(id: &str,conn: &Connection) -> Result<Vec<String>>{
     let query_str = query_builder::sub_forms(&conn.engine);
   

@@ -126,6 +126,25 @@ pub fn substrate_events(substrate_events: &HashMap<String,Vec<SubstrateEvent>>) 
 
 }
 
+
+pub fn enzyme_events(enzyme_events: &Vec<EnzymeEvent>) -> Vec<EnzymeEventFlat> {
+    let mut enzyme_events_flat : Vec<EnzymeEventFlat> = Vec::new();
+
+    for enzyme_event in enzyme_events {
+        let event_flat = EnzymeEventFlat {
+            substrate: enzyme_event.substrate.clone(),
+            substrate_symbol: enzyme_event.substrate_symbol.clone(),
+            site: enzyme_event.site.clone(),
+            score: enzyme_event.score.clone(),
+            sources: Some(sources(&enzyme_event.sources)),
+            pmids: Some(misc::str_vec_to_str(&enzyme_event.pmids))
+        };
+        enzyme_events_flat.push(event_flat);
+    }
+
+    return enzyme_events_flat;
+}
+
 pub fn proteoform(proteoforms: &Vec<Proteoform>) -> Vec<ProteoformFlat> {
     let mut proteoforms_flat: Vec<ProteoformFlat> = Vec::new();
     for proteoform in proteoforms {

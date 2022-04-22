@@ -93,6 +93,26 @@ pub struct Enzyme {
     pub name: Option<String>, 
 }
 
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct EnzymeEvent {
+    pub substrate: Option<String>,
+    pub substrate_symbol: Option<String>,
+    pub site: Option<String>,
+    pub score: Option<i64>,
+    pub sources: Vec<Source>,
+    pub pmids: Vec<String>, 
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct EnzymeEventFlat {
+    pub substrate: Option<String>,
+    pub substrate_symbol: Option<String>,
+    pub site: Option<String>,
+    pub score: Option<i64>,
+    pub sources: Option<String>,
+    pub pmids: Option<String>, 
+}
+
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Proteoform {
     pub pro_id: Option<String>,

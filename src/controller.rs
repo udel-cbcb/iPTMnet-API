@@ -709,6 +709,113 @@ pub fn substrate_controller(req: HttpRequest<super::State>) -> HttpResponse {
 }
 
 
+pub fn as_enzyme_controller(req: HttpRequest<super::State>) -> HttpResponse {
+    //get the value of ID
+    let id: String  = req.match_info().query("id").unwrap();
+
+    //get content header
+    let content_header = misc::get_accept_header_value(&req);
+
+    //get the connection from pool
+    let conn;
+    match database::connect(&req.state().db_params) {
+        Ok(val) => {conn = val},
+        Err(error) => {return HttpResponse::InternalServerError()
+                        .force_close()
+                        .header(http::header::CONTENT_TYPE, "text/plain")
+                        .body(format!("{}",error));},
+    }
+
+    //get the id strings
+    let enzyme_events_results = database::get_enzyme_events(&id,&conn);
+
+    //check if operation was successful
+    match enzyme_events_results {
+        Ok(enzyme_events) => {
+
+            if content_header == "application/json" || content_header.is_empty() {
+                //try deserializing    
+                let events_serialized_result = serde_json::to_string_pretty(&enzyme_events);
+
+                //check if operation was successful
+                match events_serialized_result {
+
+                    Ok(events_serialized) => {
+                        HttpResponse::Ok()
+                        .force_close()
+                        .header(http::header::CONTENT_TYPE, "application/json")
+                        .body(events_serialized)
+                    },
+
+                    Err(error) => {
+                        error!("{}",error);
+                        return HttpResponse::InternalServerError()
+                        .force_close()
+                        .header(http::header::CONTENT_TYPE, "text/plain")
+                        .body(format!("{}",error));
+                    }
+
+                }
+            }else if content_header == "text/plain"{
+                //convert the values to flat structure
+                let events_flat = flatten::enzyme_events(&enzyme_events);
+
+                let mut wtr = csv::Writer::from_writer(vec![]);
+                
+                for event in events_flat {
+                    let result = wtr.serialize(&event);
+                    match result {
+                        Ok(_) => {},
+                        Err(error) => {
+                            error!("{}",error);
+                            return HttpResponse::InternalServerError()
+                            .force_close()
+                            .header(http::header::CONTENT_TYPE, "text/plain")
+                            .body(format!("{}",error));
+                        }
+                    }
+                }
+
+                let inner;
+                let inner_result = wtr.into_inner();
+                match inner_result {
+                    Ok(value) => {inner=value;},
+                    Err(error) => {
+                        error!("{}",error);
+                        return HttpResponse::InternalServerError()
+                        .force_close()
+                        .header(http::header::CONTENT_TYPE, "text/plain")
+                        .body(format!("{}",error));
+                    }
+                }
+
+                let data_result = String::from_utf8(inner);
+                match data_result {
+                    Ok(data) => {
+                        return HttpResponse::Ok().force_close().header(http::header::CONTENT_TYPE, "text/csv").body(data);
+                    },
+                    Err(error) => {
+                        error!("{}",error);
+                        return HttpResponse::InternalServerError()
+                        .force_close()
+                        .header(http::header::CONTENT_TYPE, "text/plain")
+                        .body(format!("{}",error));
+                    }
+                }
+            }else {
+                return HttpResponse::BadRequest().force_close().header(http::header::CONTENT_TYPE, "text/plain").body(format!("Invalid ACCEPT header - {}",content_header));
+            }          
+
+        },
+
+        Err(error) => {
+            HttpResponse::InternalServerError().force_close().header(http::header::CONTENT_TYPE, "text/plain").body(format!("{}",error))
+        }
+    }
+
+}
+
+
 pub fn proteoforms_controller(req: HttpRequest<super::State>) -> HttpResponse {
     //get the value of ID
     let id: String  = req.match_info().query("id").unwrap();
